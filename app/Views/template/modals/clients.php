@@ -9,7 +9,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form method="post" id="form_cliente" name="form_cliente" action="<?= site_url('/clientes/adicionar') ?>" enctype="multipart/form-data">
+                <form method="post" id="form_cliente" name="form_cliente" action="<?= site_url('/clients/adicionar') ?>" enctype="multipart/form-data">
                     <input type="hidden" name="id" class="form-control" value="">
 
 
@@ -31,6 +31,11 @@
                         <div class="form-group col">
                             <label>E-mail</label>
                             <input type="email" name="email" class="form-control">
+                        </div>
+
+                        <div class="form-group col">
+                            <label>Data de Aquisição</label> 
+                            <input type="text" name="landed_at" class="form-control">
                         </div>
 
                     </div>

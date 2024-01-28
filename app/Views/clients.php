@@ -60,8 +60,8 @@
                       <td><?php echo $client['name']; ?></td>
                       <td><?php echo $client['email']; ?></td>
                       <td>
-                        <a class="btn btn-primary btn-sm" onclick="clientes.edit(<?= $cliente['id'] ?>)">Editar</a>
-                        <a href="<?php echo base_url('clientes/delete/' . $cliente['id']); ?>" class="btn btn-danger btn-sm">Deletar</a>
+                        <a class="btn btn-primary btn-sm" onclick="clientes.edit(<?= $client['id'] ?>)">Editar</a>
+                        <a href="<?php echo base_url('clients/delete/' . $client['id']); ?>" class="btn btn-danger btn-sm">Deletar</a>
                       </td>
                     </tr>
                   <?php endforeach; ?>

@@ -20,7 +20,7 @@ class Finances extends Migration
             'deleted_at'     => ['type' => 'datetime', 'null' => true],
         ]);
         $this->forge->addPrimaryKey('id');
-        $this->forge->createTable('client');
+        $this->forge->createTable('clients');
 
         // Create expenses table
         $this->forge->addField([
