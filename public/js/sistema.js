@@ -1,12 +1,22 @@
 var siteUrl = "http://localhost/sistema/sistema";
-// import { Clientes } from "./modules/client.mjs";
+
 class Clientes {
+
+    dateFormat(date){
+        var dateArray = date.split("-");
+        var year = dateArray[0];
+        var month = dateArray[1];
+        var day = dateArray[2];
+        const newDate = day+"/"+month+"/"+year;
+        return newDate;
+    }
+
   constructor() {
       console.log("Class Clientes");
 
       //setando as urls e o modal
       this.form = document.getElementById('form_cliente');
-      this.modal = document.getElementById('#modal_cliente');
+      this.modal = document.getElementById('modal_cliente');
       this.urlGetCliente = "clients/get_client";
       this.urlEditar = "clients/atualizar";
       this.urlAdicionar = "clients/adicionar";
@@ -33,7 +43,7 @@ class Clientes {
               this.nameInput.value = data.name;
               this.idInput.value = data.id;
               this.telefoneInput.value = data.celular;
-              this.dataAquisicaoInput.value = data.landed_at;
+              this.dataAquisicaoInput.value = this.dateFormat(data.landed_at);
               this.emailInput.value = data.email;
           } else {
               console.log('Erro ao receber dados do AJAX');
@@ -60,6 +70,9 @@ class Clientes {
     
       // Set the form action
       document.getElementById('form_cliente').action = `${siteUrl}/${this.urlAdicionar}`;
+    }
+    close(){
+      this.modal.style.display = 'none';
     }
     
 }
