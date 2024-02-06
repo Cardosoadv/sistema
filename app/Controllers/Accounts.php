@@ -3,7 +3,7 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
-use App\Models\ClientsModel;
+use App\Models\AccountsModel;
 use DateTime;
 
 class Accounts extends BaseController
@@ -17,58 +17,51 @@ class Accounts extends BaseController
 
     public function index()
     {
-        $ClientsModel = new ClientsModel();
-        $data['clients'] = $ClientsModel
+        $AccountsModel = new AccountsModel();
+        $data['accounts'] = $AccountsModel
             ->get()->getResultArray();
 
-        return  view('clients', $data);
+        return  view('accounts', $data);
     }
 
-    public function get_client($id)
+    public function get_account($id)
     {
-        $ClientsModel = new ClientsModel();
-        $data = $ClientsModel->where('id', $id)->first();
+        $AccountsModel = new AccountsModel();
+        $data = $AccountsModel->where('id', $id)->first();
                return $this->response->setJSON($data);
     }
 
 
     public function adicionar()
     {
-        $ClientsModel = new ClientsModel();
+        $AccountsModel = new AccountsModel();
 
-        $data['name']         =  $this->request->getPost('name');
-        $data['celular']      =  $this->request->getPost('celular');
-        $data['email']      =  $this->request->getPost('email');
-        $data['landed_at']    = $this->novaData($this->request->getPost('landed_at'));
+        $data['account']         =  $this->request->getPost('account');
+        $data['comments']      =  $this->request->getPost('comments');
 
-        $ClientsModel->insert($data);
-        return $this->response->redirect(site_url('clients'));
-
+        $AccountsModel->insert($data);
+        return $this->response->redirect(site_url('accounts'));
     }
 
     public function atualizar($id)
     {
-        $ClientsModel = new ClientsModel();
+        $AccountsModel = new AccountsModel();
         $data = [
-            'name'              =>  $this->request->getPost('name'),
-            'celular'           =>  $this->request->getPost('celular'),
-            'email'             =>  $this->request->getPost('email'),
-            'landed_at'         =>  $this->novaData($this->request->getPost('landed_at'))
+            'account'              =>  $this->request->getPost('account'),
+            'comments'           =>  $this->request->getPost('comments')
         ];
-        $ClientsModel->update($id,$data);
+        $AccountsModel->update($id,$data);
         $msg = "Dados atualizados com sucesso!";
         $session = \Config\Services::session();
         $session->set($msg);
-        return $this->response->redirect(site_url('clients'));
+        return $this->response->redirect(site_url('accounts'));
     }
 
     public function delete($id)
     {
-        $ClientsModel = new ClientsModel();
-        $ClientsModel->delete($id);
- //       return $this->response->redirect(site_url('clients'));
-
+        $AccountsModel = new AccountsModel();
+        $AccountsModel->delete($id);
+        return $this->response->redirect(site_url('accounts'));
     }
-
 
 }

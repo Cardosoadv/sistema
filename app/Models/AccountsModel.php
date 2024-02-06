@@ -13,7 +13,7 @@ class AccountsModel extends Model
     protected $useSoftDeletes   = true;
     protected $protectFields    = true;
     protected $allowedFields    = [
-        'name', 'email', 'celular', 'landed_at',
+        'account', 'comments'
     ];
 
     // Dates
