@@ -51,7 +51,7 @@ class Seed extends BaseCommand
      * @var string
      */
     protected $usage = 'db:seed <seeder_name>';
-
+ 
     /**
      * the Command's Arguments
      *

@@ -39,7 +39,7 @@
                     </div><!-- fim da segunda linha formulário -->
             </div>
                     <div class="modal-footer justify-content-between">
-                        <button type="button" class="btn btn-secondary" onclick="clientes.close()" data-bs-dismiss="modal">Fechar</button>
+                        <button type="button" class="btn btn-secondary" name="close" data-bs-dismiss="modal">Fechar</button>
                         <button type="submit" class="btn btn-primary">Salvar</button>
                 </form>
             </div>

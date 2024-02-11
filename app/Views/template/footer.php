@@ -14,4 +14,5 @@
     <script src="<?= base_url('public/dist/js/adminlte.js')?>"></script><!--end::Required Plugin(AdminLTE)--><!--begin::OverlayScrollbars Configure-->
     <script src="https://cdn.jsdelivr.net/npm/apexcharts@3.37.1/dist/apexcharts.min.js" integrity="sha256-+vh8GkaU7C9/wbSLIcwq82tQ2wTf44aOHA8HlBMwRI8=" crossorigin="anonymous"></script><!-- ChartJS -->
     <script src="<?= base_url('public/js/sistema.js')?>">
+ 
     </script><!--end::Script-->
