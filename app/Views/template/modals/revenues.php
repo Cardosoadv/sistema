@@ -14,29 +14,41 @@
 
                     <!-- Inicio primeira linha formulário --><div class="row">
                         <div class="form-group">
-                            <label>Nome</label>
-                            <input type="text" name="name" class="form-control">
+                            <label>Venda</label>
+                            <input type="text" name="revenues" class="form-control">
                         </div>
-
-                        <div class="form-group">
-                            <label>E-mail</label>
-                            <input type="email" name="email" class="form-control">
-                        </div>
-
+                       
                     </div><!-- fim da primeira linha formulário -->
                     <!-- Inicio segunda linha formulário --><div class="row">
-                      
-                        <div class="form-group col-6">
-                            <label>Telefone</label>
-                            <input type="text" name="celular" class="form-control" data-inputmask='"mask": "(99) 99999-9999"' data-mask>
+                    
+                    <div class="form-group col">
+                            <label>Data de Vencimento</label>
+                            <input type="date" name="due_dt" class="form-control">
                         </div>
 
-                        <div class="form-group col-6">
-                            <label>Data de Aquisição</label> 
-                            <input type="text" name="landed_at" class="form-control">
+                       
+                    <div class="form-group col">
+                            <label>Valor</label>
+                            <input type="currency" name="value" class="form-control">
+                        </div>
+
+                        <div class="form-group col">
+                            <label>Cliente</label> 
+                            <?= $ClientsOption ?>
+                        </div>
+
+                        <div class="form-group col">
+                            <label>Categoria</label> 
+                            <?= $CategoryOption ?>
                         </div>
 
                     </div><!-- fim da segunda linha formulário -->
+                    <div class="form-group form-row">
+                            <label>Comentários</label>
+                            <textarea name="comments"></textarea>
+                            
+                        </div>
+
             </div>
                     <div class="modal-footer justify-content-between">
                         <button type="button" class="btn btn-secondary" name="close" data-bs-dismiss="modal">Fechar</button>

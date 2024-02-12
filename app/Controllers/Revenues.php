@@ -24,6 +24,9 @@ class Revenues extends BaseController
             ->get()
             ->getResultArray()
             ;
+        $elementosPagina = new ElementosPagina();
+        $data['ClientsOption']  = $elementosPagina->comboClientes();
+        $data['CategoryOption'] = $elementosPagina->comboCategory();
 
         return  view('revenues', $data);
     }
@@ -46,7 +49,6 @@ class Revenues extends BaseController
             'value'         =>     $this->request->getPost('value'),
             'category'      =>     $this->request->getPost('category'),
             'client_id'     =>     $this->request->getPost('client_id'),
-            'account_id'    =>     $this->request->getPost('account_id'),
             'share'         =>     $this->request->getPost('share'),
             'reconciled'    =>     $this->request->getPost('reconciled'),
             'comments'      =>     $this->request->getPost('comments'),
