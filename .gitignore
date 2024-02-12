@@ -32,4 +32,3 @@ writable/uploads/*
 writable/debugbar/*
 
 php_errors.log
-.env

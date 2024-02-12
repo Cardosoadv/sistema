@@ -10,9 +10,9 @@ class Img extends BaseController
         return view('dashboard');
     }
 
-        public function exibir($img)
+        public function exibir($user_id, $img)
     {      
-        $file = WRITEPATH . 'uploads/'.$img;
+        $file = WRITEPATH . 'uploads/user'.'/'.$user_id.'/'.$img;
            header('Content-Description: File Transfer');
            header('Content-Type: application/octet-stream');
             header('Content-Disposition: attachment; filename=' . basename($file));
