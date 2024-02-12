@@ -17,6 +17,7 @@ class Accounts extends BaseController
 
     public function index()
     {
+        $data = $this->img();
         $AccountsModel = new AccountsModel();
         $data['accounts'] = $AccountsModel
             ->get()->getResultArray();

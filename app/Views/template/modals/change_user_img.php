@@ -11,6 +11,7 @@
         <form action="<?= base_url('saveuserimg')?>" method="post" enctype="multipart/form-data">
           <div class="mb-3">
             <label for="foto-perfil" class="form-label">Foto de perfil</label>
+            <input type="hidden" name="id" value="<?= user_id() ?>">
             <input type="file" class="form-control" id="foto-perfil" name="foto-perfil" required>
           </div>
           <button type="submit" class="btn btn-primary">Salvar</button>

@@ -17,6 +17,7 @@ class Clients extends BaseController
 
     public function index()
     {
+        $data = $this->img();
         $ClientsModel = new ClientsModel();
         $data['clients'] = $ClientsModel
             ->get()->getResultArray();

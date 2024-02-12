@@ -9,6 +9,9 @@ use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use Psr\Log\LoggerInterface;
 
+
+use App\Models\UserImgModel;
+
 /**
  * Class BaseController
  *
@@ -55,4 +58,16 @@ abstract class BaseController extends Controller
 
         // E.g.: $this->session = \Config\Services::session();
     }
+    public function img()
+    {
+        $userimgmodel = new UserImgModel();
+        $img = $userimgmodel->where('user_id', user_id())->first();
+        if (!$img['img']==NULL){
+        $data['img'] = 'img/exibir/'.$img['img'];
+        }else{
+        $data['img'] = 'public/dist/assets/img/user1-128x128.jpg';
+        }
+       return $data;
+    }
+
 }

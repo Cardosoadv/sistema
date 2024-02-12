@@ -10,7 +10,8 @@
                     <li class="nav-item dropdown"><a class="nav-link" data-bs-toggle="dropdown" href="#"><i class="bi bi-chat-text"></i><span class="navbar-badge badge text-bg-danger">3</span></a>
                         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end"><a href="#" class="dropdown-item"><!--begin::Message-->
                                 <div class="d-flex">
-                                    <div class="flex-shrink-0"><img src="<?= base_url('public/dist/assets/img/user1-128x128.jpg')?>" alt="User Avatar" class="img-size-50 rounded-circle me-3"></div>
+                                <div class="flex-shrink-0">
+                                <img src="<?=  base_url($img)  ?>" alt="User Avatar" class="img-size-50 rounded-circle me-3"></div>
                                     <div class="flex-grow-1">
                                         <h3 class="dropdown-item-title">
                                             Brad Diesel
@@ -67,12 +68,12 @@
                         </div>
                     </li><!--end::Notifications Dropdown Menu--><!--begin::Fullscreen Toggle-->
                     <li class="nav-item"><a class="nav-link" href="#" data-lte-toggle="fullscreen"><i data-lte-icon="maximize" class="bi bi-arrows-fullscreen"></i><i data-lte-icon="minimize" class="bi bi-fullscreen-exit" style="display: none;"></i></a></li><!--end::Fullscreen Toggle--><!--begin::User Menu Dropdown-->
-                    <li class="nav-item dropdown user-menu"><a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><img src="<?= base_url('public/dist/assets/img/user2-160x160.jpg')?>" class="user-image rounded-circle shadow" alt="User Image"><span class="d-none d-md-inline">Alexander Pierce</span></a>
+                    <li class="nav-item dropdown user-menu"><a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><img src="<?= base_url($img) ?>" class="user-image rounded-circle shadow img-size-50" alt="User Image"><span class="d-none d-md-inline">Alexander Pierce</span></a>
                         <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end"><!--begin::User Image-->
                             <li class="user-header text-bg-primary">
                             <a data-bs-toggle="modal" data-bs-target="#modal-alterar-foto-perfil">
                             
-                            <img src="<?= base_url('public/dist/assets/img/user2-160x160.jpg')?>" class="rounded-circle shadow" alt="User Image"></a>
+                            <img src="<?= base_url($img) ?>" class="rounded-circle shadow img-size-50" alt="User Image"></a>
                                 <p>
                                     Alexander Pierce - Web Developer
                                     <small>Member since Nov. 2023</small>

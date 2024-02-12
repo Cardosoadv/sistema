@@ -7,7 +7,8 @@ class Home extends BaseController
 {
     public function index(): string
     {
-        return view('dashboard');
+        $data = $this->img();
+        return view('dashboard', $data);
     }
 
 }

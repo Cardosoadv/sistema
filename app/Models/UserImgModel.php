@@ -15,7 +15,7 @@ class UserImgModel extends Model
 	protected $useSoftDelete        = false;
 	protected $protectFields        = true;
 	protected $allowedFields        = [
-		"id", "img"
+		"user_id", "img"
 	];
         
         

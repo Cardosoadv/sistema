@@ -18,7 +18,7 @@ function inputData(data){
 }
 
 function inputTelefone(fone){
-const regex = /^(\d{2})(\d{4})(\d{4})$/;
+const regex = /^(\d{2})(\d{5})(\d{4})$/;
 const partesTel = regex.exec(fone);
 if (!partesTel){
     return "Telefone inválido!";
