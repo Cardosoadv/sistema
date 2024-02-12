@@ -67,7 +67,7 @@ class Clients extends BaseController
     {
         $ClientsModel = new ClientsModel();
         $ClientsModel->delete($id);
- //       return $this->response->redirect(site_url('clients'));
+        return redirect()->to(previous_url());
 
     }
 
