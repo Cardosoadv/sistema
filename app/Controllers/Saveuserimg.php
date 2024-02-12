@@ -19,8 +19,13 @@ class Saveuserimg extends BaseController
                 'user_id' => $user_id
                 ];
         $userimgModel = new UserImgModel();
-        $userimgModel->insert($data);
+        $verificarImg = $userimgModel->where('user_id',$user_id)->first();   
+         if (isset($verificarImg)){
+            $userimgModel->update($verificarImg['id'], $data);
+         }else{
+            $userimgModel->insert($data);
+         };    
         };
-        return redirect()->to(previous_url());
+       return redirect()->to(previous_url());
     }
 }
