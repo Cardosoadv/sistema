@@ -1,5 +1,5 @@
 const siteUrl = "http://localhost/sistema/sistema";
-
+// Formata Data
 function inputData(data){
     // Expressão regular para extrair partes da data
     const regex = /^(\d{1,2})(\d{1,2})(\d{4})$/;
@@ -17,6 +17,7 @@ function inputData(data){
     return `${dia}/${mes}/${ano}`;
 }
 
+// Formata o número de Telefone (00) 0000-0000
 function inputTelefone(fone){
 const regex = /^(\d{2})(\d{5})(\d{4})$/;
 const partesTel = regex.exec(fone);
@@ -31,7 +32,7 @@ const parte2 = partesTel[3];
 return `(${ddd}) ${parte1}-${parte2}`;
 }
 
-//formata o valor para o padrão brasileiro
+// Formata o valor para o padrão brasileiro
 function formataValor(valor) {
     var valorBr = valor.replace(".", ",");
     const arrvbr = valorBr.split(",");
@@ -49,7 +50,8 @@ function formataValor(valor) {
     return valorFormatado;
 }
 
-function dateFormat(date) { //Formata a data para exibir
+// Formata a data para exibir
+function dateFormat(date) { 
     var dateArray = date.split("-");
     var year = dateArray[0];
     var month = dateArray[1];
@@ -75,8 +77,24 @@ class Clientes {
         this.emailInput = document.querySelector('[name="email"]');
     }
 
+/*     inputMask() {
+       this.dataAquisicaoInput.addEventListener('blur', () => {
+            // Access the current value within the callback using 'this'
+            const data = this.dataAquisicaoInput.value;
+            const newValue = inputData(data);
+            this.dataAquisicaoInput.value = newValue;
+          });
+        this.telefoneInput.addEventListener('blur', () => {
+            // Access the current value within the callback using 'this'
+            const fone = this.telefoneInput.value;
+            const newValue = inputTelefone(fone);
+            this.telefoneInput.value = newValue;  
+        });
+    }*/
+
     edit(id) {
         this.form.reset(); //limpando os dados do formulário
+//        clientes.inputMask(); //criando a escuta do formulário
 
         // fetch client data
         const xhr = new XMLHttpRequest();
@@ -89,7 +107,7 @@ class Clientes {
                 this.nameInput.value = data.name;
                 this.idInput.value = data.id;
                 this.telefoneInput.value = data.celular;
-                this.dataAquisicaoInput.value = dateFormat(data.landed_at);
+                this.dataAquisicaoInput.value = data.landed_at;
                 this.emailInput.value = data.email;
             } else {
                 console.log('Erro ao receber dados do AJAX');
@@ -109,6 +127,7 @@ class Clientes {
     novoCliente() {
         // Reset the form
         document.getElementById('form_cliente').reset();
+//        clientes.inputMask(); // Criando a escuta do formulário
 
         // Set the modal title
         const modalTitle = document.querySelector('.modal-title');
@@ -120,23 +139,11 @@ class Clientes {
     close() {
         this.modal.style.display = 'none';
     }
-    inputMask() {
-        this.dataAquisicaoInput.addEventListener('blur', () => {
-            // Access the current value within the callback using 'this'
-            const data = this.dataAquisicaoInput.value;
-            const newValue = inputData(data);
-            this.dataAquisicaoInput.value = newValue;
-          });
-        this.telefoneInput.addEventListener('blur', () => {
-            // Access the current value within the callback using 'this'
-            const fone = this.telefoneInput.value;
-            const newValue = inputTelefone(fone);
-            this.telefoneInput.value = newValue;  
-        });
-    }
+    
+    
 }
 const clientes = new Clientes();
-clientes.inputMask();
+
 
 class Contas {
 
@@ -202,7 +209,7 @@ class Contas {
 }
 const contas = new Contas();
 
-class revenue{
+class Revenues{
     constructor() {
         //setando as urls e o modal
         this.form = document.getElementById('form_cliente');
@@ -317,6 +324,10 @@ class revenue{
         // Adiciona o "div" ao container
         containerOutrosNomes.appendChild(divNomePorcentagem);
       }
-
-
+    escuta(){
+        this.adicionaBtn = document.querySelector(['name="adicionaAdvogado"']);
+        this.adicionaBtn.addEventListener('click',adicionarNome());
+    }  
 }
+const revenues = new Revenues();
+revenues.escuta();

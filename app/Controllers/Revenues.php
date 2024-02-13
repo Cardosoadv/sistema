@@ -27,6 +27,12 @@ class Revenues extends BaseController
         $elementosPagina = new ElementosPagina();
         $data['ClientsOption']  = $elementosPagina->comboClientes();
         $data['CategoryOption'] = $elementosPagina->comboCategory();
+        $data['UserOption1'] = $elementosPagina->comboUsuarios('advogado[0]');
+        $data['UserOption2'] = $elementosPagina->comboUsuarios('advogado[1]');
+        $data['UserOption3'] = $elementosPagina->comboUsuarios('advogado[2]');
+        $data['UserOption4'] = $elementosPagina->comboUsuarios('advogado[3]');
+        $data['UserOption5'] = $elementosPagina->comboUsuarios('advogado[4]');
+        $data['UserOption6'] = $elementosPagina->comboUsuarios('advogado[5]');
 
         return  view('revenues', $data);
     }

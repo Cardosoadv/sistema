@@ -33,7 +33,7 @@
 
                         <div class="form-group col-6">
                             <label>Data de Aquisição</label> 
-                            <input type="text" name="landed_at" class="form-control">
+                            <input type="date" name="landed_at" class="form-control">
                         </div>
 
                     </div><!-- fim da segunda linha formulário -->
