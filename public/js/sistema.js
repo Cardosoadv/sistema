@@ -60,6 +60,7 @@ function dateFormat(date) {
     return newDate;
 }
 
+// Objeto Clientes
 class Clientes {
     constructor() {
         //setando as urls e o modal
@@ -77,24 +78,8 @@ class Clientes {
         this.emailInput = document.querySelector('[name="email"]');
     }
 
-/*     inputMask() {
-       this.dataAquisicaoInput.addEventListener('blur', () => {
-            // Access the current value within the callback using 'this'
-            const data = this.dataAquisicaoInput.value;
-            const newValue = inputData(data);
-            this.dataAquisicaoInput.value = newValue;
-          });
-        this.telefoneInput.addEventListener('blur', () => {
-            // Access the current value within the callback using 'this'
-            const fone = this.telefoneInput.value;
-            const newValue = inputTelefone(fone);
-            this.telefoneInput.value = newValue;  
-        });
-    }*/
-
     edit(id) {
         this.form.reset(); //limpando os dados do formulário
-//        clientes.inputMask(); //criando a escuta do formulário
 
         // fetch client data
         const xhr = new XMLHttpRequest();
@@ -127,7 +112,6 @@ class Clientes {
     novoCliente() {
         // Reset the form
         document.getElementById('form_cliente').reset();
-//        clientes.inputMask(); // Criando a escuta do formulário
 
         // Set the modal title
         const modalTitle = document.querySelector('.modal-title');
@@ -138,13 +122,11 @@ class Clientes {
     }
     close() {
         this.modal.style.display = 'none';
-    }
-    
-    
+    }    
 }
 const clientes = new Clientes();
 
-
+// Objeto Contas
 class Contas {
 
     constructor() {
@@ -209,21 +191,25 @@ class Contas {
 }
 const contas = new Contas();
 
+//Objeto Vendas
 class Revenues{
     constructor() {
         //setando as urls e o modal
-        this.form = document.getElementById('form_cliente');
-        this.modal = document.getElementById('modal_cliente');
-        this.urlGetCliente = "clients/get_client";
-        this.urlEditar = "clients/atualizar";
-        this.urlAdicionar = "clients/adicionar";
+        this.form = document.getElementById('form_revenue');
+        this.modal = document.getElementById('modal_revenue');
+        this.urlGetRevenue = "revenues/get_revenue";
+        this.urlEditar = "revenues/atualizar";
+        this.urlAdicionar = "revenues/adicionar";
 
         //pegar as variáveis do formulário
-        this.nameInput = document.querySelector('[name="name"]');
-        this.idInput = document.querySelector('[name="id"]');
-        this.telefoneInput = document.querySelector('[name="celular"]');
-        this.dataAquisicaoInput = document.querySelector('[name="landed_at"]');
-        this.emailInput = document.querySelector('[name="email"]');
+        this.revenuesInput = document.querySelector('[name="revenues"]');
+        this.dueDateInput = document.querySelector('[name="due_dt"]');
+        this.valueInput = document.querySelector('[name="value"]');
+        this.categoryInput = document.querySelector('[name="category"]');
+        this.clientIdInput = document.querySelector('[name="client_id"]');
+        this.ShareInput = document.querySelector('[name="share"]');
+        this.reconciledInput = document.querySelector('[name="reconciled"]');
+        this.commentsInput = document.querySelector('[name="comments"]');        
     }
 
     edit(id) {
@@ -231,17 +217,21 @@ class Revenues{
 
         // fetch client data
         const xhr = new XMLHttpRequest();
-        xhr.open('GET', `${siteUrl}/${this.urlGetCliente}/${id}`);
+        xhr.open('GET', `${siteUrl}/${this.urlGetRevenue}/${id}`);
         xhr.onload = () => {
             if (xhr.status === 200) {
                 const data = JSON.parse(xhr.responseText);
 
                 // fill form with fetched data
-                this.nameInput.value = data.name;
-                this.idInput.value = data.id;
-                this.telefoneInput.value = data.celular;
-                this.dataAquisicaoInput.value = dateFormat(data.landed_at);
-                this.emailInput.value = data.email;
+                this.revenuesInput.value = data.revenues;
+                this.dueDateInput.value = data.due_dt;
+                this.valueInput.value = data.value;
+                this.categoryInput.value = data.category;
+                this.clientIdInput.value = data.client_id;
+                this.ShareInput.value = data.share;
+                this.reconciledInput.value = data.reconciled;
+                this.commentsInput.value = data.comments;
+
             } else {
                 console.log('Erro ao receber dados do AJAX');
             }
@@ -257,77 +247,19 @@ class Revenues{
         this.form.action = `${siteUrl}/${this.urlEditar}/${id}`;
     }
 
-    novoCliente() {
+    novaVenda() {
         // Reset the form
-        document.getElementById('form_cliente').reset();
+        this.form.reset();
 
         // Set the modal title
         const modalTitle = document.querySelector('.modal-title');
-        modalTitle.textContent = 'Novo Cliente';
+        modalTitle.textContent = 'Nova Venda';
 
         // Set the form action
-        document.getElementById('form_cliente').action = `${siteUrl}/${this.urlAdicionar}`;
+        this.form.action = `${siteUrl}/${this.urlAdicionar}`;
     }
     close() {
         this.modal.style.display = 'none';
     }
-    inputMask() {
-        this.dataAquisicaoInput.addEventListener('blur', () => {
-            // Access the current value within the callback using 'this'
-            const data = this.dataAquisicaoInput.value;
-            const newValue = inputData(data);
-            this.dataAquisicaoInput.value = newValue;
-          });
-        this.telefoneInput.addEventListener('blur', () => {
-            // Access the current value within the callback using 'this'
-            const fone = this.telefoneInput.value;
-            const newValue = inputTelefone(fone);
-            this.telefoneInput.value = newValue;  
-        });
-    }
-    
-    adicionarNome() {
-        const containerOutrosNomes = document.getElementById("container-outros-nomes");
-      
-        // Cria um novo elemento "div" para o nome e porcentagem
-        const divNomePorcentagem = document.createElement("div");
-        divNomePorcentagem.classList.add("nome-porcentagem");
-      
-        // Cria um novo elemento "label" para o nome
-        const labelNome = document.createElement("label");
-        labelNome.textContent = "Nome:";
-      
-        // Cria um novo elemento "input" para o nome
-        const inputNome = document.createElement("input");
-        inputNome.type = "text";
-        inputNome.name = "nome";
-        inputNome.required = true;
-      
-        // Cria um novo elemento "label" para a porcentagem
-        const labelPorcentagem = document.createElement("label");
-        labelPorcentagem.textContent = "Porcentagem:";
-      
-        // Cria um novo elemento "input" para a porcentagem
-        const inputPorcentagem = document.createElement("input");
-        inputPorcentagem.type = "number";
-        inputPorcentagem.name = "porcentagem";
-        inputPorcentagem.required = true;
-        inputPorcentagem.min = 0;
-        inputPorcentagem.max = 100;
-      
-        // Adiciona os elementos "label" e "input" ao "div"
-        divNomePorcentagem.appendChild(labelNome);
-        divNomePorcentagem.appendChild(inputNome);
-        divNomePorcentagem.appendChild(labelPorcentagem);
-        divNomePorcentagem.appendChild(inputPorcentagem);
-      
-        // Adiciona o "div" ao container
-        containerOutrosNomes.appendChild(divNomePorcentagem);
-      }
-    escuta(){
-        this.adicionaBtn = document.querySelector(['name="adicionaAdvogado"']);
-        this.adicionaBtn.addEventListener('click',adicionarNome());
-    }  
 }
 const revenues = new Revenues();
-revenues.escuta();

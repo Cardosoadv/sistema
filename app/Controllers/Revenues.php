@@ -37,7 +37,7 @@ class Revenues extends BaseController
         return  view('revenues', $data);
     }
 
-    public function get_client($id)
+    public function get_revenue($id)
     {
         $RevenuesModel = new RevenuesModel();
         $data = $RevenuesModel->where('id', $id)->first();

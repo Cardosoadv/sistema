@@ -84,8 +84,7 @@
                     </div>
                     <!-- Fim rateio -->
 
-
-                    <div class="form-group row"><br>
+                    <div class="form-group row mt-2"><br>
                         <div class="form-group">
                             <label>Comentários</label>
                             <textarea name="comments" rows="3" style="width: 100%;"></textarea>
