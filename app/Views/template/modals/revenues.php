@@ -57,9 +57,9 @@
                             </div>
                             <div class="form-group col-6">
                                 <label>Rateio</label>
-                                <input type="number" min=0 max=100 name="rateio[0]" class="form-control mt-1">
-                                <input type="number" min=0 max=100 name="rateio[1]" class="form-control mt-1">
-                                <input type="number" min=0 max=100 name="rateio[2]" class="form-control mt-1">
+                                <input type="number" min=0 max=100 name="share_user1" class="form-control mt-1">
+                                <input type="number" min=0 max=100 name="share_user2" class="form-control mt-1">
+                                <input type="number" min=0 max=100 name="share_user3" class="form-control mt-1">
                             </div>
 
                         </div>
@@ -74,9 +74,9 @@
                             </div>
                             <div class="form-group col-6">
                                 <label>Rateio</label>
-                                <input type="number" min=0 max=100 name="rateio[3]" class="form-control mt-1">
-                                <input type="number" min=0 max=100 name="rateio[4]" class="form-control mt-1">
-                                <input type="number" min=0 max=100 name="rateio[5]" class="form-control mt-1">
+                                <input type="number" min=0 max=100 name="share_user4" class="form-control mt-1">
+                                <input type="number" min=0 max=100 name="share_user5" class="form-control mt-1">
+                                <input type="number" min=0 max=100 name="share_user6" class="form-control mt-1">
                             </div>
 
                         </div>

@@ -27,12 +27,12 @@ class Revenues extends BaseController
         $elementosPagina = new ElementosPagina();
         $data['ClientsOption']  = $elementosPagina->comboClientes();
         $data['CategoryOption'] = $elementosPagina->comboCategory();
-        $data['UserOption1'] = $elementosPagina->comboUsuarios('advogado[0]');
-        $data['UserOption2'] = $elementosPagina->comboUsuarios('advogado[1]');
-        $data['UserOption3'] = $elementosPagina->comboUsuarios('advogado[2]');
-        $data['UserOption4'] = $elementosPagina->comboUsuarios('advogado[3]');
-        $data['UserOption5'] = $elementosPagina->comboUsuarios('advogado[4]');
-        $data['UserOption6'] = $elementosPagina->comboUsuarios('advogado[5]');
+        $data['UserOption1'] = $elementosPagina->comboUsuarios('user1');
+        $data['UserOption2'] = $elementosPagina->comboUsuarios('user2');
+        $data['UserOption3'] = $elementosPagina->comboUsuarios('user3');
+        $data['UserOption4'] = $elementosPagina->comboUsuarios('user4');
+        $data['UserOption5'] = $elementosPagina->comboUsuarios('user5');
+        $data['UserOption6'] = $elementosPagina->comboUsuarios('user6');
 
         return  view('revenues', $data);
     }
@@ -59,8 +59,11 @@ class Revenues extends BaseController
             'reconciled'    =>     $this->request->getPost('reconciled'),
             'comments'      =>     $this->request->getPost('comments'),
         ];           
-        $RevenuesModel->insert($data);
-        return $this->response->redirect(site_url('Revenues'));
+//        $RevenuesModel->insert($data);
+//        return $this->response->redirect(site_url('Revenues'));
+echo '<pre>';
+print_r($data);
+
 
     }
 

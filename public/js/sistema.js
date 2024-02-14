@@ -207,9 +207,23 @@ class Revenues{
         this.valueInput = document.querySelector('[name="value"]');
         this.categoryInput = document.querySelector('[name="category"]');
         this.clientIdInput = document.querySelector('[name="client_id"]');
-        this.ShareInput = document.querySelector('[name="share"]');
         this.reconciledInput = document.querySelector('[name="reconciled"]');
-        this.commentsInput = document.querySelector('[name="comments"]');        
+        this.commentsInput = document.querySelector('[name="comments"]');
+        
+        //pegar as variáveis do formulário share:
+        this.sharesInput[0][0] = document.querySelector('[name="advogado[0]"');
+        this.sharesInput[0][1] = document.querySelector('[name="rateio[0]"');
+        this.sharesInput[1][0] = document.querySelector('[name="advogado[1]"');
+        this.sharesInput[1][1] = document.querySelector('[name="rateio[1]"');
+        this.sharesInput[2][0] =  document.querySelector('[name="advogado[2]"');
+        this.sharesInput[2][1] = document.querySelector('[name="rateio[2]"');
+        this.sharesInput[3][0] =  document.querySelector('[name="advogado[3]"');
+        this.sharesInput[3][1] = document.querySelector('[name="rateio[3]"');
+        this.sharesInput[4][0] = document.querySelector('[name="advogado[4]"');
+        this.sharesInput[4][1] = document.querySelector('[name="rateio[4]"');
+        this.sharesInput[5][0] =  document.querySelector('[name="advogado[5]"');
+        this.sharesInput[5][1] = document.querySelector('[name="rateio[5]"');
+        console.log(this.sharesInput.value);
     }
 
     edit(id) {
@@ -228,7 +242,7 @@ class Revenues{
                 this.valueInput.value = data.value;
                 this.categoryInput.value = data.category;
                 this.clientIdInput.value = data.client_id;
-                this.ShareInput.value = data.share;
+                this.sharesInput.value = data.share;
                 this.reconciledInput.value = data.reconciled;
                 this.commentsInput.value = data.comments;
 

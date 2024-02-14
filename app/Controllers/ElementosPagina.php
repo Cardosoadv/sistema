@@ -10,7 +10,7 @@ use App\Models\UserModel;
 class ElementosPagina extends BaseController
 {
 
-public function comboClientes($nome = 'cliente_id')
+public function comboClientes($nome = 'client_id')
     {
         $ClientsModel = new ClientsModel();
         $clientes = $ClientsModel->findAll();
