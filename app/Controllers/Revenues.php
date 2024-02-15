@@ -48,38 +48,56 @@ class Revenues extends BaseController
     public function adicionar()
     {
         $RevenuesModel = new RevenuesModel();
-
+        $reconciled = ((($this->request->getPost('reconciled'))=="on")?1:0);
         $data = [
             'revenues'      =>     $this->request->getPost('revenues'),
             'due_dt'        =>     $this->novaData($this->request->getPost('due_dt')) ,
-            'value'         =>     $this->request->getPost('value'),
-            'category'      =>     $this->request->getPost('category'),
-            'client_id'     =>     $this->request->getPost('client_id'),
-            'share'         =>     $this->request->getPost('share'),
-            'reconciled'    =>     $this->request->getPost('reconciled'),
-            'comments'      =>     $this->request->getPost('comments'),
+            'value'               =>     $this->request->getPost('value'),
+            'category'            =>     $this->request->getPost('category'),
+            'client_id'           =>     $this->request->getPost('client_id'),
+            'reconciled'          =>     $reconciled,
+            'comments'            =>     $this->request->getPost('comments'),
+            'user1'               =>     $this->request->getPost('user1'),
+            'user2'               =>     $this->request->getPost('user2'),
+            'user3'               =>     $this->request->getPost('user3'),
+            'user4'               =>     $this->request->getPost('user4'),
+            'user5'               =>     $this->request->getPost('user5'),
+            'user6'               =>     $this->request->getPost('user6'),
+            'share_user1'         =>     $this->request->getPost('share_user1'),
+            'share_user2'         =>     $this->request->getPost('share_user2'),
+            'share_user3'         =>     $this->request->getPost('share_user3'),
+            'share_user4'         =>     $this->request->getPost('share_user4'),
+            'share_user5'         =>     $this->request->getPost('share_user5'),
+            'share_user6'         =>     $this->request->getPost('share_user6'),
         ];           
-//        $RevenuesModel->insert($data);
-//        return $this->response->redirect(site_url('Revenues'));
-echo '<pre>';
-print_r($data);
-
-
+        $RevenuesModel->insert($data);
+        return $this->response->redirect(site_url('Revenues'));
     }
 
     public function atualizar($id)
     {
         $RevenuesModel = new RevenuesModel();
+        $reconciled = ((($this->request->getPost('reconciled'))=="on")?1:0);        
         $data = [
             'revenues'      =>     $this->request->getPost('revenues'),
             'due_dt'        =>     $this->novaData($this->request->getPost('due_dt')) ,
-            'value'         =>     $this->request->getPost('value'),
-            'category'      =>     $this->request->getPost('category'),
-            'client_id'     =>     $this->request->getPost('client_id'),
-            'account_id'    =>     $this->request->getPost('account_id'),
-            'share'         =>     $this->request->getPost('share'),
-            'reconciled'    =>     $this->request->getPost('reconciled'),
-            'comments'      =>     $this->request->getPost('comments'),
+            'value'               =>     $this->request->getPost('value'),
+            'category'            =>     $this->request->getPost('category'),
+            'client_id'           =>     $this->request->getPost('client_id'),
+            'reconciled'          =>     $reconciled,
+            'comments'            =>     $this->request->getPost('comments'),
+            'user1'               =>     $this->request->getPost('user1'),
+            'user2'               =>     $this->request->getPost('user2'),
+            'user3'               =>     $this->request->getPost('user3'),
+            'user4'               =>     $this->request->getPost('user4'),
+            'user5'               =>     $this->request->getPost('user5'),
+            'user6'               =>     $this->request->getPost('user6'),
+            'share_user1'         =>     $this->request->getPost('share_user1'),
+            'share_user2'         =>     $this->request->getPost('share_user2'),
+            'share_user3'         =>     $this->request->getPost('share_user3'),
+            'share_user4'         =>     $this->request->getPost('share_user4'),
+            'share_user5'         =>     $this->request->getPost('share_user5'),
+            'share_user6'         =>     $this->request->getPost('share_user6'),
         ];
         $RevenuesModel->update($id,$data);
         $msg = "Dados atualizados com sucesso!";

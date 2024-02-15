@@ -57,7 +57,7 @@
                 <?php if ($revenues) : ?>
                   <?php foreach ($revenues as $revenue) : ?>
                     <tr>
-                      <td><?php echo $revenue['revenue']; ?></td>
+                      <td><?php echo $revenue['revenues']; ?></td>
                       <td><?php echo $revenue['due_dt']; ?></td>
                       <td>
                         <a class="btn btn-primary btn-sm" onclick="revenues.edit(<?= $revenue['id'] ?>)">Editar</a>

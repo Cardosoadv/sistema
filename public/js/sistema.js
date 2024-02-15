@@ -211,19 +211,18 @@ class Revenues{
         this.commentsInput = document.querySelector('[name="comments"]');
         
         //pegar as variáveis do formulário share:
-        this.sharesInput[0][0] = document.querySelector('[name="advogado[0]"');
-        this.sharesInput[0][1] = document.querySelector('[name="rateio[0]"');
-        this.sharesInput[1][0] = document.querySelector('[name="advogado[1]"');
-        this.sharesInput[1][1] = document.querySelector('[name="rateio[1]"');
-        this.sharesInput[2][0] =  document.querySelector('[name="advogado[2]"');
-        this.sharesInput[2][1] = document.querySelector('[name="rateio[2]"');
-        this.sharesInput[3][0] =  document.querySelector('[name="advogado[3]"');
-        this.sharesInput[3][1] = document.querySelector('[name="rateio[3]"');
-        this.sharesInput[4][0] = document.querySelector('[name="advogado[4]"');
-        this.sharesInput[4][1] = document.querySelector('[name="rateio[4]"');
-        this.sharesInput[5][0] =  document.querySelector('[name="advogado[5]"');
-        this.sharesInput[5][1] = document.querySelector('[name="rateio[5]"');
-        console.log(this.sharesInput.value);
+        this.user1Input = document.querySelector('[name="user1"');
+        this.user2Input = document.querySelector('[name="user2"');
+        this.user3Input = document.querySelector('[name="user3"');
+        this.user4Input = document.querySelector('[name="user4"');
+        this.user5Input = document.querySelector('[name="user5"');
+        this.user6Input = document.querySelector('[name="user6"');
+        this.shareUser1Input = document.querySelector('[name="share_user1"');
+        this.shareUser2Input = document.querySelector('[name="share_user2"');
+        this.shareUser3Input = document.querySelector('[name="share_user3"');
+        this.shareUser4Input = document.querySelector('[name="share_user4"');
+        this.shareUser5Input = document.querySelector('[name="share_user5"');
+        this.shareUser6Input = document.querySelector('[name="share_user6"');
     }
 
     edit(id) {
@@ -242,9 +241,20 @@ class Revenues{
                 this.valueInput.value = data.value;
                 this.categoryInput.value = data.category;
                 this.clientIdInput.value = data.client_id;
-                this.sharesInput.value = data.share;
                 this.reconciledInput.value = data.reconciled;
                 this.commentsInput.value = data.comments;
+                this.user1Input.value = data.user1;
+                this.user2Input.value = data.user2;
+                this.user3Input.value = data.user3;
+                this.user4Input.value = data.user4;
+                this.user5Input.value = data.user5;
+                this.user6Input.value = data.user6;
+                this.shareUser1Input.value = data.share_user1;
+                this.shareUser2Input.value = data.share_user2;
+                this.shareUser3Input.value = data.share_user3;
+                this.shareUser4Input.value = data.share_user4;
+                this.shareUser5Input.value = data.share_user5;
+                this.shareUser6Input.value = data.share_user6;
 
             } else {
                 console.log('Erro ao receber dados do AJAX');
