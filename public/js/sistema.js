@@ -205,7 +205,7 @@ class Revenues{
         this.revenuesInput = document.querySelector('[name="revenues"]');
         this.dueDateInput = document.querySelector('[name="due_dt"]');
         this.valueInput = document.querySelector('[name="value"]');
-        this.categoryInput = document.querySelector('[name="category"]');
+        this.categoryInput = document.querySelector('[name="category_id"]');
         this.clientIdInput = document.querySelector('[name="client_id"]');
         this.reconciledInput = document.querySelector('[name="reconciled"]');
         this.commentsInput = document.querySelector('[name="comments"]');
@@ -234,15 +234,15 @@ class Revenues{
         xhr.onload = () => {
             if (xhr.status === 200) {
                 const data = JSON.parse(xhr.responseText);
-
+                const verifiedChecked = ((data.reconciled==="1") ? true : false)
                 // fill form with fetched data
                 this.revenuesInput.value = data.revenues;
                 this.dueDateInput.value = data.due_dt;
                 this.valueInput.value = data.value;
                 this.categoryInput.value = data.category;
                 this.clientIdInput.value = data.client_id;
-                this.reconciledInput.value = data.reconciled;
-                this.commentsInput.value = data.comments;
+                this.reconciledInput.checked = verifiedChecked;
+                this.commentsInput.textContent = data.comments;
                 this.user1Input.value = data.user1;
                 this.user2Input.value = data.user2;
                 this.user3Input.value = data.user3;
@@ -255,7 +255,7 @@ class Revenues{
                 this.shareUser4Input.value = data.share_user4;
                 this.shareUser5Input.value = data.share_user5;
                 this.shareUser6Input.value = data.share_user6;
-
+                console.log(verifiedChecked);
             } else {
                 console.log('Erro ao receber dados do AJAX');
             }

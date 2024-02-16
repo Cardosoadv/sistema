@@ -27,9 +27,9 @@ public function comboClientes($nome = 'client_id')
         $CategoryModel = new CategoryModel();
         $categories = $CategoryModel->findAll();
         helper('form');
-        $arrayCategorias = ["Selecione a Categoria"];
+        $arrayCategorias = ["Selecione a Categoria"]; 
         foreach ($categories as $category) {
-            $arrayCategorias[$category['id']] = $category['name'];
+            $arrayCategorias[$category['id']] = $category['category'];
         }
         return $data['comboCategories'] = form_dropdown($nome, $arrayCategorias, '', 'class="form-control" style="width: 100%;"');
     }

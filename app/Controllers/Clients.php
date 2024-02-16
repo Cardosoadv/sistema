@@ -19,9 +19,18 @@ class Clients extends BaseController
     {
         $data = $this->img();
         $ClientsModel = new ClientsModel();
-        $data['clients'] = $ClientsModel
-            ->get()->getResultArray();
-
+        $s = $this->request->getVar('s');
+        if($s==null)
+        {
+            $data['clients'] = $ClientsModel
+            ->get()
+            ->getResultArray();
+        } else {
+            $data['clients'] = $ClientsModel
+            ->like('name',$s)
+            ->get()
+            ->getResultArray();
+        }
         return  view('clients', $data);
     }
 

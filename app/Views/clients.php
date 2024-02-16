@@ -35,10 +35,17 @@
 
         <!-- Início -->
 
+        <form action="" method="get">    <div class="input-group mb-3">
+        <input type="text" name="s" class="form-control" placeholder="Pesquisar..." aria-label="Pequisar" aria-describedby="button-addon2">
+        <button class="btn btn-outline-secondary" type="submit" id="search">Pesquisar</button>
+        </div></form> 
+
         <div class="container mt-4">
           <div class="d-flex justify-content-end">
             <a data-bs-toggle="modal" data-bs-target="#modal_cliente" class="btn btn-success mb-2" onclick="clientes.novoCliente()">Novo Cliente</a>
           </div>
+
+
           <?php
           if (isset($_SESSION['msg'])) {
             echo $_SESSION['msg'];

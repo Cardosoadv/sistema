@@ -93,7 +93,7 @@
 
             </div>
             <div class="modal-footer justify-content-between">
-                <button type="button" class="btn btn-secondary" name="close" data-bs-dismiss="modal">Fechar</button>
+                <button type="button" class="btn btn-secondary" name="close" onclick="revenues.close()" data-bs-dismiss="modal">Fechar</button>
                 <div class="form-check form-switch">
                 <input class="form-check-input" type="checkbox" id="reconciled" name="reconciled">
                 <label class="form-check-label" for="reconciled">Conciliado?</label>
