@@ -19,11 +19,20 @@ class Revenues extends BaseController
     {
         $data = $this->img();
         $RevenuesModel = new RevenuesModel();
+        $s = $this->request->getVar('s');
+        if($s==null)
+        {
+
         $data['revenues'] = $RevenuesModel
             ->orderBy('due_dt', 'asc')
             ->get()
-            ->getResultArray()
-            ;
+            ->getResultArray();
+        }else{
+            $data['revenues'] = $RevenuesModel
+            ->like('revenues',$s)
+            ->get()
+            ->getResultArray();
+        }
         $elementosPagina = new ElementosPagina();
         $data['ClientsOption']  = $elementosPagina->comboClientes();
         $data['CategoryOption'] = $elementosPagina->comboCategory();

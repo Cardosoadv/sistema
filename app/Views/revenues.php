@@ -35,6 +35,12 @@
 
         <!-- Início -->
 
+        <form action="" method="get">    <div class="input-group mb-3">
+        <input type="text" name="s" class="form-control" placeholder="Pesquisar..." aria-label="Pequisar" aria-describedby="button-addon2">
+        <button class="btn btn-outline-secondary" type="submit" id="search">Pesquisar</button>
+        </div></form> 
+
+
         <div class="container mt-4">
           <div class="d-flex justify-content-end">
             <a data-bs-toggle="modal" data-bs-target="#modal_revenue" class="btn btn-success mb-2" onclick="reveneus.novaVenda()">Nova Venda</a>
@@ -54,7 +60,7 @@
                 </tr>
               </thead>
               <tbody>
-                <?php if ($revenues) : ?>
+                <?php if ($revenues) : ?> 
                   <?php foreach ($revenues as $revenue) : ?>
                     <tr>
                       <td><?php echo $revenue['revenues']; ?></td>

@@ -14,7 +14,7 @@ class Clients extends BaseController
     $novaData = date_format(new DateTime($data), 'Y-m-d');
     return $novaData;
     }
-
+ 
     public function index()
     {
         $data = $this->img();
