@@ -67,7 +67,7 @@
                       <td><?php echo $revenue['due_dt']; ?></td>
                       <td>
                         <a class="btn btn-primary btn-sm" onclick="revenues.edit(<?= $revenue['id'] ?>)">Editar</a>
-                        <a class="btn btn-success btn-sm" onclick="revenues.receipt(<?= $revenue['id'] ?>)">Pagar</a>
+                        <a class="btn btn-success btn-sm" onclick="revenues.receipt(<?= $revenue['id'] ?>)">Receber</a>
  
                         <a href="<?php echo base_url('revenues/delete/' . $revenue['id']); ?>" class="btn btn-danger btn-sm">Deletar</a>
                       </td>
