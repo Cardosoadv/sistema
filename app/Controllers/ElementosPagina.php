@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use App\Models\AccountsModel;
 use App\Models\CategoryModel;
 use App\Models\ClientsModel;
 use App\Models\UserModel;
@@ -32,6 +33,18 @@ public function comboClientes($nome = 'client_id')
             $arrayCategorias[$category['id']] = $category['category'];
         }
         return $data['comboCategories'] = form_dropdown($nome, $arrayCategorias, '', 'class="form-control" style="width: 100%;"');
+    }
+
+    public function comboAccount($nome = 'account_id')
+    {
+        $AccountsModel = new AccountsModel();
+        $accounts = $AccountsModel->findAll();
+        helper('form');
+        $Newarray = ["Selecione a Conta"]; 
+        foreach ($accounts as $account) {
+            $arrayCategorias[$account['id']] = $account['account'];
+        }
+        return $data['comboAccount'] = form_dropdown($nome, $Newarray, '', 'class="form-control" style="width: 100%;"');
     }
 
     public function comboUsuarios($nome = 'user_id')

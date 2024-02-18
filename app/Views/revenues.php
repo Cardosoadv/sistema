@@ -88,6 +88,7 @@
 
     <?= $this->include('template/modals/change_user_img.php') ?>
     <?= $this->include('template/modals/revenues.php') ?>
+    <?= $this->include('template/modals/receipts.php') ?>
     <?= $this->include('template/footer') ?>
     </body><!--end::Body-->
 

@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\RevenuesModel;
+use App\Models\ReceiptsRevenuesModel;
 use DateTime;
 
 class Revenues extends BaseController
@@ -22,7 +23,6 @@ class Revenues extends BaseController
         $s = $this->request->getVar('s');
         if($s==null)
         {
-
         $data['revenues'] = $RevenuesModel
             ->orderBy('due_dt', 'asc')
             ->get()
@@ -51,6 +51,19 @@ class Revenues extends BaseController
         $RevenuesModel = new RevenuesModel();
         $data = $RevenuesModel->where('id', $id)->first();
                return $this->response->setJSON($data);
+    }
+
+    public function get_receipts($id)
+    {
+        $ReceiptsRevenuesModel = new ReceiptsRevenuesModel();
+        $data = $ReceiptsRevenuesModel->where('id', $id)->first();
+               return $this->response->setJSON($data);
+    }
+
+    public function receber($id)
+    {
+        //TODO função par receber a venda
+        return $id; 
     }
 
 
