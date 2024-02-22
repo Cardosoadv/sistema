@@ -23,15 +23,16 @@
                     <!-- Inicio segunda linha formulário -->
                     <div class="row mt-3">
 
-                        <div class="form-group col">
-                            <label>Valor</label>
-                            <input type="text" name="value" class="form-control">
-                        </div>
-
-                        <div class="form-group col">
+                    <div class="form-group col">
                             <label>Data de Vencimento</label>
                             <input type="date" name="due_dt" class="form-control">
+                    </div>    
+                    
+                    <div class="form-group col">
+                            <label>Valor</label>
+                            <input type="number" step="0.01" name="value" class="form-control">
                         </div>
+
 
                         <div class="form-group col">
                             <label>Cliente</label>

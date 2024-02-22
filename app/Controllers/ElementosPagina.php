@@ -52,11 +52,27 @@ public function comboClientes($nome = 'client_id')
         $UserModel = new UserModel();
         $usuarios = $UserModel->findAll();
         helper('form');
-        $arrayUsuarios = ["Selecione o usuario"];
+        $newArray = ["Selecione o usuario"];
         foreach ($usuarios as $usuario) {
-            $arrayUsuarios[$usuario['id']] = $usuario['username'];
+            $newArray[$usuario['id']] = $usuario['username'];
         }
-        return $data['comboUsuarios'] = form_dropdown($nome, $arrayUsuarios, '', 'class="form-control mt-1" style="width: 100%;"');
+        return $data['comboUsuarios'] = form_dropdown($nome, $newArray, '', 'class="form-control mt-1" style="width: 100%;"');
+    }
+
+    public function ArrayComboUsuarios($nomes = ['user_id'])
+    {
+        $UserModel = new UserModel();
+        $usuarios = $UserModel->findAll();
+        helper('form');
+        $newArray = ["Selecione o usuario"];
+        foreach ($usuarios as $usuario) {
+            $newArray[$usuario['id']] = $usuario['username'];
+        }
+        $data = [];
+        foreach ($nomes as $nome){
+            array_push($data, form_dropdown($nome, $newArray, '', 'class="form-control mt-1" style="width: 100%;"'));
+        };
+        return $data;
     }
 
 

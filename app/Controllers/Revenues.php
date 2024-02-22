@@ -36,14 +36,22 @@ class Revenues extends BaseController
         $elementosPagina = new ElementosPagina();
         $data['ClientsOption']  = $elementosPagina->comboClientes();
         $data['CategoryOption'] = $elementosPagina->comboCategory();
-        $data['UserOption1'] = $elementosPagina->comboUsuarios('user1');
-        $data['UserOption2'] = $elementosPagina->comboUsuarios('user2');
-        $data['UserOption3'] = $elementosPagina->comboUsuarios('user3');
-        $data['UserOption4'] = $elementosPagina->comboUsuarios('user4');
-        $data['UserOption5'] = $elementosPagina->comboUsuarios('user5');
-        $data['UserOption6'] = $elementosPagina->comboUsuarios('user6');
+        $comboUsuarios = $elementosPagina->ArrayComboUsuarios(['user1','user2','user3','user4','user5','user6','receipt_user1','receipt_user2','receipt_user3','receipt_user4','receipt_user5','receipt_user6']);
+        $data['UserOption1'] = $comboUsuarios[0];
+        $data['UserOption2'] = $comboUsuarios[1];
+        $data['UserOption3'] = $comboUsuarios[2];
+        $data['UserOption4'] = $comboUsuarios[3];
+        $data['UserOption5'] = $comboUsuarios[4];
+        $data['UserOption6'] = $comboUsuarios[5];
+        $data['ReceiptUserOption1'] = $comboUsuarios[6];
+        $data['ReceiptUserOption2'] = $comboUsuarios[7];
+        $data['ReceiptUserOption3'] = $comboUsuarios[8];
+        $data['ReceiptUserOption4'] = $comboUsuarios[9];
+        $data['ReceiptUserOption5'] = $comboUsuarios[10];
+        $data['ReceiptUserOption6'] = $comboUsuarios[11];
+        $data['AccountOption'] = $elementosPagina->comboAccount('account_id');
 
-        return  view('revenues', $data);
+    return  view('revenues', $data);
     }
 
     public function get_revenue($id)

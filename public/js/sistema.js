@@ -195,47 +195,61 @@ const contas = new Contas();
 class Revenues{
     constructor() {
         //setando as urls e o modal
-        this.form = document.getElementById('form_revenue');
-        this.modal = document.getElementById('modal_revenue');
-        this.receiptForm = document.getElementById('form_receipts');
-        this.receiptModal = document.getElementById('modal_receipts');
-        this.urlGetRevenue = "revenues/get_revenue";
-        this.urlEditar = "revenues/atualizar";
-        this.urlAdicionar = "revenues/adicionar";
-        this.urlReceber = "revenues/receber";
-        this.urlGetReceipts = "revenues/get_receipts";       
+        this.form               = document.getElementById('form_revenue');
+        this.modal              = document.getElementById('modal_revenue');
+        this.receiptForm        = document.getElementById('form_receipts');
+        this.receiptModal       = document.getElementById('modal_receipts');
+        this.urlGetRevenue      = "revenues/get_revenue";
+        this.urlEditar          = "revenues/atualizar";
+        this.urlAdicionar       = "revenues/adicionar";
+        this.urlReceber         = "revenues/receber";
+        this.urlGetReceipts     = "revenues/get_receipts";       
 
         //pegar as variáveis do formulário de Vendas
-        this.revenuesInput = document.querySelector('[name="revenues"]');
-        this.dueDateInput = document.querySelector('[name="due_dt"]');
-        this.valueInput = document.querySelector('[name="value"]');
-        this.categoryInput = document.querySelector('[name="category_id"]');
-        this.clientIdInput = document.querySelector('[name="client_id"]');
-        this.reconciledInput = document.querySelector('[name="reconciled"]');
-        this.commentsInput = document.querySelector('[name="comments"]');
+        this.revenuesInput      = document.querySelector('[name="revenues"]');
+        this.dueDateInput       = document.querySelector('[name="due_dt"]');
+        this.valueInput         = document.querySelector('[name="value"]');
+        this.categoryInput      = document.querySelector('[name="category_id"]');
+        this.clientIdInput      = document.querySelector('[name="client_id"]');
+        this.reconciledInput    = document.querySelector('[name="reconciled"]');
+        this.commentsInput      = document.querySelector('[name="comments"]');
+        //pegar as variáveis do formulário share:
+        this.user1Input         = document.querySelector('[name="user1"');
+        this.user2Input         = document.querySelector('[name="user2"');
+        this.user3Input         = document.querySelector('[name="user3"');
+        this.user4Input         = document.querySelector('[name="user4"');
+        this.user5Input         = document.querySelector('[name="user5"');
+        this.user6Input         = document.querySelector('[name="user6"');
+        this.shareUser1Input    = document.querySelector('[name="share_user1"');
+        this.shareUser2Input    = document.querySelector('[name="share_user2"');
+        this.shareUser3Input    = document.querySelector('[name="share_user3"');
+        this.shareUser4Input    = document.querySelector('[name="share_user4"');
+        this.shareUser5Input    = document.querySelector('[name="share_user5"');
+        this.shareUser6Input    = document.querySelector('[name="share_user6"');
 
          //pegar as variáveis do formulário de Recebimento
-         this.receiptRevenuesInput = document.querySelector('[name="receipt_revenue"]');
-         this.dueDateInput = document.querySelector('[name="due_dt"]');
-         this.valueInput = document.querySelector('[name="value"]');
-         this.categoryInput = document.querySelector('[name="category_id"]');
-         this.clientIdInput = document.querySelector('[name="client_id"]');
-         this.reconciledInput = document.querySelector('[name="reconciled"]');
-         this.commentsInput = document.querySelector('[name="comments"]');
+         this.receiptRevenuesInput      = document.querySelector('[name="receipt_revenue"]');
+         this.receiptDateInput          = document.querySelector('[name="receipt_dt"]');
+         this.receiptValueInput         = document.querySelector('[name="receipt_value"]');
+         this.receiptLatefeeInput       = document.querySelector('[name="receipt_late_fee"]');
+         this.receiptInterestInput      = document.querySelector('[name="receipt_interest"]');
+         this.receiptChargesInput       = document.querySelector('[name="receipt_charges"]');
+         this.receiptReconciledInput    = document.querySelector('[name="receipt_reconciled"]');
+         this.receiptCommentsInput      = document.querySelector('[name="receipt_comments"]');
         
         //pegar as variáveis do formulário share:
-        this.user1Input = document.querySelector('[name="user1"');
-        this.user2Input = document.querySelector('[name="user2"');
-        this.user3Input = document.querySelector('[name="user3"');
-        this.user4Input = document.querySelector('[name="user4"');
-        this.user5Input = document.querySelector('[name="user5"');
-        this.user6Input = document.querySelector('[name="user6"');
-        this.shareUser1Input = document.querySelector('[name="share_user1"');
-        this.shareUser2Input = document.querySelector('[name="share_user2"');
-        this.shareUser3Input = document.querySelector('[name="share_user3"');
-        this.shareUser4Input = document.querySelector('[name="share_user4"');
-        this.shareUser5Input = document.querySelector('[name="share_user5"');
-        this.shareUser6Input = document.querySelector('[name="share_user6"');
+        this.receiptUser1Input          = document.querySelector('[name="receipt_user1"');
+        this.receiptUser2Input          = document.querySelector('[name="receipt_user2"');
+        this.receiptUser3Input          = document.querySelector('[name="receipt_user3"');
+        this.receiptUser4Input          = document.querySelector('[name="receipt_user4"');
+        this.receiptUser5Input          = document.querySelector('[name="receipt_user5"');
+        this.receiptUser6Input          = document.querySelector('[name="receipt_user6"');
+        this.receiptShareUser1Input     = document.querySelector('[name="receipt_share_user1"');
+        this.receiptShareUser2Input     = document.querySelector('[name="receipt_share_user2"');
+        this.receiptShareUser3Input     = document.querySelector('[name="receipt_share_user3"');
+        this.receiptShareUser4Input     = document.querySelector('[name="receipt_share_user4"');
+        this.receiptShareUser5Input     = document.querySelector('[name="receipt_share_user5"');
+        this.receiptShareUser6Input     = document.querySelector('[name="receipt_share_user6"');
     }
 
     edit(id) {
@@ -296,26 +310,19 @@ class Revenues{
                 const verifiedChecked = ((data.reconciled==="1") ? true : false)
                 // fill form with fetched data
                 console.log(data);
-                this.receiptRevenuesInput.value = data.revenues;
-                this.dueDateInput.value = data.due_dt;
-                this.valueInput.value = data.value;
-                this.categoryInput.value = data.category;
-                this.clientIdInput.value = data.client_id;
-                this.reconciledInput.checked = verifiedChecked;
-                this.commentsInput.textContent = data.comments;
-                this.user1Input.value = data.user1;
-                this.user2Input.value = data.user2;
-                this.user3Input.value = data.user3;
-                this.user4Input.value = data.user4;
-                this.user5Input.value = data.user5;
-                this.user6Input.value = data.user6;
-                this.shareUser1Input.value = data.share_user1;
-                this.shareUser2Input.value = data.share_user2;
-                this.shareUser3Input.value = data.share_user3;
-                this.shareUser4Input.value = data.share_user4;
-                this.shareUser5Input.value = data.share_user5;
-                this.shareUser6Input.value = data.share_user6;
-                console.log(verifiedChecked);
+                this.receiptValueInput.value = data.value;
+                this.receiptUser1Input.value = data.user1; 
+                this.receiptUser2Input.value = data.user2; 
+                this.receiptUser3Input.value = data.user3; 
+                this.receiptUser4Input.value = data.user4; 
+                this.receiptUser5Input.value = data.user5; 
+                this.receiptUser6Input.value = data.user6;
+                this.receiptShareUser1Input.value = ((data.share_user1/100) * data.value);
+                this.receiptShareUser2Input.value = ((data.share_user2/100) * data.value);
+                this.receiptShareUser3Input.value = ((data.share_user3/100) * data.value);
+                this.receiptShareUser4Input.value = ((data.share_user4/100) * data.value);
+                this.receiptShareUser5Input.value = ((data.share_user5/100) * data.value);
+                this.receiptShareUser6Input.value = ((data.share_user6/100) * data.value);
             } else {
                 console.log('Erro ao receber dados do AJAX');
             }
