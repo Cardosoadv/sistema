@@ -15,8 +15,8 @@
                     <!-- Inicio primeira linha formulário -->
                     <div class="row">
                         <div class="form-group">
-                            <label>Pagar</label>
-                            <input type="text" name="revenues" class="form-control" disabled>
+                            <label>Receber</label>
+                            <input type="text" name="receipt_revenue" class="form-control" disabled>
                         </div>
 
                     </div><!-- fim da primeira linha formulário -->

@@ -197,13 +197,15 @@ class Revenues{
         //setando as urls e o modal
         this.form = document.getElementById('form_revenue');
         this.modal = document.getElementById('modal_revenue');
+        this.receiptForm = document.getElementById('form_receipts');
+        this.receiptModal = document.getElementById('modal_receipts');
         this.urlGetRevenue = "revenues/get_revenue";
         this.urlEditar = "revenues/atualizar";
         this.urlAdicionar = "revenues/adicionar";
         this.urlReceber = "revenues/receber";
         this.urlGetReceipts = "revenues/get_receipts";       
 
-        //pegar as variáveis do formulário
+        //pegar as variáveis do formulário de Vendas
         this.revenuesInput = document.querySelector('[name="revenues"]');
         this.dueDateInput = document.querySelector('[name="due_dt"]');
         this.valueInput = document.querySelector('[name="value"]');
@@ -211,6 +213,15 @@ class Revenues{
         this.clientIdInput = document.querySelector('[name="client_id"]');
         this.reconciledInput = document.querySelector('[name="reconciled"]');
         this.commentsInput = document.querySelector('[name="comments"]');
+
+         //pegar as variáveis do formulário de Recebimento
+         this.receiptRevenuesInput = document.querySelector('[name="receipt_revenue"]');
+         this.dueDateInput = document.querySelector('[name="due_dt"]');
+         this.valueInput = document.querySelector('[name="value"]');
+         this.categoryInput = document.querySelector('[name="category_id"]');
+         this.clientIdInput = document.querySelector('[name="client_id"]');
+         this.reconciledInput = document.querySelector('[name="reconciled"]');
+         this.commentsInput = document.querySelector('[name="comments"]');
         
         //pegar as variáveis do formulário share:
         this.user1Input = document.querySelector('[name="user1"');
@@ -274,9 +285,9 @@ class Revenues{
     }
 
     receipt(id) {
-        this.form.reset(); //limpando os dados do formulário
+        this.receiptForm.reset(); //limpando os dados do formulário
 
-        // fetch client data
+        // fetch revenues data
         const xhr = new XMLHttpRequest();
         xhr.open('GET', `${siteUrl}/${this.urlGetRevenue}/${id}`);
         xhr.onload = () => {
@@ -284,7 +295,8 @@ class Revenues{
                 const data = JSON.parse(xhr.responseText);
                 const verifiedChecked = ((data.reconciled==="1") ? true : false)
                 // fill form with fetched data
-                this.revenuesInput.value = data.revenues;
+                console.log(data);
+                this.receiptRevenuesInput.value = data.revenues;
                 this.dueDateInput.value = data.due_dt;
                 this.valueInput.value = data.value;
                 this.categoryInput.value = data.category;
@@ -311,12 +323,12 @@ class Revenues{
         xhr.send();
 
         // show modal
-        this.modal.classList.add('show');
-        this.modal.style.display = 'block';
-        this.modal.querySelector('.modal-title').textContent = 'Editar';
+        this.receiptModal.classList.add('show');
+        this.receiptModal.style.display = 'block';
+        this.receiptModal.querySelector('.modal-title').textContent = 'Receber';
 
         // set form action
-        this.form.action = `${siteUrl}/${this.urlEditar}/${id}`;
+        this.form.action = `${siteUrl}/${this.urlReceber}/${id}`;
     }
 
     novaVenda() {
@@ -332,6 +344,7 @@ class Revenues{
     }
     close() {
         this.modal.style.display = 'none';
+        this.receiptModal.style.display = 'none';
     }
 }
 const revenues = new Revenues();
