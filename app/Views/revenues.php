@@ -64,7 +64,7 @@
                   <?php foreach ($revenues as $revenue) : ?>
                     <tr>
                       <td><?php echo $revenue['revenues']; ?></td>
-                      <td><?php echo $revenue['due_dt']; ?></td>
+                      <td><?php echo date_format(new DateTime($revenue['due_dt']),"d/m/Y"); ?></td>
                       <td>
                         <a class="btn btn-primary btn-sm" onclick="revenues.edit(<?= $revenue['id'] ?>)">Editar</a>
                         <a class="btn btn-success btn-sm" onclick="revenues.receipt(<?= $revenue['id'] ?>)">Receber</a>

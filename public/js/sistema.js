@@ -263,25 +263,25 @@ class Revenues{
                 const data = JSON.parse(xhr.responseText);
                 const verifiedChecked = ((data.reconciled==="1") ? true : false)
                 // fill form with fetched data
-                this.revenuesInput.value = data.revenues;
-                this.dueDateInput.value = data.due_dt;
-                this.valueInput.value = data.value;
-                this.categoryInput.value = data.category;
-                this.clientIdInput.value = data.client_id;
-                this.reconciledInput.checked = verifiedChecked;
-                this.commentsInput.textContent = data.comments;
-                this.user1Input.value = data.user1;
-                this.user2Input.value = data.user2;
-                this.user3Input.value = data.user3;
-                this.user4Input.value = data.user4;
-                this.user5Input.value = data.user5;
-                this.user6Input.value = data.user6;
-                this.shareUser1Input.value = data.share_user1;
-                this.shareUser2Input.value = data.share_user2;
-                this.shareUser3Input.value = data.share_user3;
-                this.shareUser4Input.value = data.share_user4;
-                this.shareUser5Input.value = data.share_user5;
-                this.shareUser6Input.value = data.share_user6;
+                this.revenuesInput.value        = data.revenues;
+                this.dueDateInput.value         = data.due_dt;
+                this.valueInput.value           = data.value;
+                this.categoryInput.value        = data.category;
+                this.clientIdInput.value        = data.client_id;
+                this.reconciledInput.checked    = verifiedChecked;
+                this.commentsInput.textContent  = data.comments;
+                this.user1Input.value           = data.user1;
+                this.user2Input.value           = data.user2;
+                this.user3Input.value           = data.user3;
+                this.user4Input.value           = data.user4;
+                this.user5Input.value           = data.user5;
+                this.user6Input.value           = data.user6;
+                this.shareUser1Input.value      = data.share_user1;
+                this.shareUser2Input.value      = data.share_user2;
+                this.shareUser3Input.value      = data.share_user3;
+                this.shareUser4Input.value      = data.share_user4;
+                this.shareUser5Input.value      = data.share_user5;
+                this.shareUser6Input.value      = data.share_user6;
                 console.log(verifiedChecked);
             } else {
                 console.log('Erro ao receber dados do AJAX');
@@ -310,19 +310,21 @@ class Revenues{
                 const verifiedChecked = ((data.reconciled==="1") ? true : false)
                 // fill form with fetched data
                 console.log(data);
-                this.receiptValueInput.value = data.value;
-                this.receiptUser1Input.value = data.user1; 
-                this.receiptUser2Input.value = data.user2; 
-                this.receiptUser3Input.value = data.user3; 
-                this.receiptUser4Input.value = data.user4; 
-                this.receiptUser5Input.value = data.user5; 
-                this.receiptUser6Input.value = data.user6;
-                this.receiptShareUser1Input.value = ((data.share_user1/100) * data.value);
-                this.receiptShareUser2Input.value = ((data.share_user2/100) * data.value);
-                this.receiptShareUser3Input.value = ((data.share_user3/100) * data.value);
-                this.receiptShareUser4Input.value = ((data.share_user4/100) * data.value);
-                this.receiptShareUser5Input.value = ((data.share_user5/100) * data.value);
-                this.receiptShareUser6Input.value = ((data.share_user6/100) * data.value);
+                this.receiptValueInput.value            = data.value;
+                this.receiptUser1Input.value            = data.user1; 
+                this.receiptUser2Input.value            = data.user2; 
+                this.receiptUser3Input.value            = data.user3; 
+                this.receiptUser4Input.value            = data.user4; 
+                this.receiptUser5Input.value            = data.user5; 
+                this.receiptUser6Input.value            = data.user6;
+                this.receiptShareUser1Input.value       = ((data.share_user1/100) * data.value);
+                this.receiptShareUser2Input.value       = ((data.share_user2/100) * data.value);
+                this.receiptShareUser3Input.value       = ((data.share_user3/100) * data.value);
+                this.receiptShareUser4Input.value       = ((data.share_user4/100) * data.value);
+                this.receiptShareUser5Input.value       = ((data.share_user5/100) * data.value);
+                this.receiptShareUser6Input.value       = ((data.share_user6/100) * data.value);
+                this.receiptCommentsInput.textContent   = data.comments;
+                this.receiptReconciledInput.checked     = verifiedChecked;
             } else {
                 console.log('Erro ao receber dados do AJAX');
             }
