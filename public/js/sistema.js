@@ -213,6 +213,10 @@ class Revenues{
         this.clientIdInput      = document.querySelector('[name="client_id"]');
         this.reconciledInput    = document.querySelector('[name="reconciled"]');
         this.commentsInput      = document.querySelector('[name="comments"]');
+        this.latefeeInput       = document.querySelector('[name="late_fee"]');
+        this.interestInput      = document.querySelector('[name="interest"]');
+        this.chargesInput       = document.querySelector('[name="charges"]');
+
         //pegar as variáveis do formulário share:
         this.user1Input         = document.querySelector('[name="user1"');
         this.user2Input         = document.querySelector('[name="user2"');
@@ -270,6 +274,9 @@ class Revenues{
                 this.clientIdInput.value        = data.client_id;
                 this.reconciledInput.checked    = verifiedChecked;
                 this.commentsInput.textContent  = data.comments;
+                this.latefeeInput.value         = data.late_fee;
+                this.interestInput.value        = data.interest;
+                this.chargesInput.value         = data.charges;
                 this.user1Input.value           = data.user1;
                 this.user2Input.value           = data.user2;
                 this.user3Input.value           = data.user3;

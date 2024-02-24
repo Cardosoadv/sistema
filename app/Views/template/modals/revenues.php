@@ -33,6 +33,20 @@
                             <input type="number" step="0.01" name="value" class="form-control">
                         </div>
 
+                        <div class="form-group col">
+                            <label>Multa</label>
+                            <input type="number" step="0.01" name="late_fee" class="form-control">
+                        </div>
+
+                        <div class="form-group col">
+                            <label>Juros</label>
+                            <input type="number" step="0.01" name="interest" class="form-control">
+                        </div>
+
+                        <div class="form-group col">
+                            <label>Encargos</label>
+                            <input type="number" step="0.01" name="charges" class="form-control">
+                        </div>
 
                         <div class="form-group col">
                             <label>Cliente</label>
@@ -43,6 +57,7 @@
                             <label>Categoria</label>
                             <?= $CategoryOption ?>
                         </div>
+
                     </div><!-- fim da segunda linha formulário -->
 
                     <!-- inicio teste rateio --->

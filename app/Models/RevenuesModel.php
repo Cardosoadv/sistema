@@ -13,7 +13,9 @@ class RevenuesModel extends Model
     protected $useSoftDeletes   = true;
     protected $protectFields    = true;
     protected $allowedFields    = [
-        'revenues', 'due_dt', 'value', 'category', 'client_id', 'user1', 'user2', 'user3', 'user4', 'user5', 'user6', 'share_user1', 'share_user2', 'share_user3', 'share_user4', 'share_user5', 'share_user6', 'reconciled', 'comments'
+        'revenues', 'due_dt', 'value', 'category', 'client_id',
+        'late_fee', 'interest', 'charges',
+        'user1', 'user2', 'user3', 'user4', 'user5', 'user6', 'share_user1', 'share_user2', 'share_user3', 'share_user4', 'share_user5', 'share_user6', 'reconciled', 'comments'
     ];
 
     // Dates
@@ -39,4 +41,15 @@ class RevenuesModel extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
+
+    public function getOpenRevenues(){
+        $db = db_connect();
+		$builder = $db->table('revenues v');
+		$builder->join('receipts_revenues r', 'v.id=r.revenues_id', 'left');
+		$query = $builder;
+		return $query->get();
+    }
+
+
+
 }
