@@ -1,10 +1,7 @@
-import { dateFormat } from "./util.js";
 import { siteUrl } from "./url.js";
 
-export default class Clientes {
+export class Clientes {
     constructor() {
-        console.log("Class Clientes");
-
         //setando as urls e o modal
         this.form = document.getElementById('form_cliente');
         this.modal = document.getElementById('modal_cliente');
@@ -34,7 +31,7 @@ export default class Clientes {
                 this.nameInput.value = data.name;
                 this.idInput.value = data.id;
                 this.telefoneInput.value = data.celular;
-                this.dataAquisicaoInput.value = dateFormat(data.landed_at);
+                this.dataAquisicaoInput.value = data.landed_at;
                 this.emailInput.value = data.email;
             } else {
                 console.log('Erro ao receber dados do AJAX');
@@ -64,12 +61,5 @@ export default class Clientes {
     }
     close() {
         this.modal.style.display = 'none';
-    }
-
-
-
+    }    
 }
-
-
-
-

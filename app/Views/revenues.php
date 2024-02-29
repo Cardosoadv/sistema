@@ -43,7 +43,7 @@
 
         <div class="container mt-4">
           <div class="d-flex justify-content-end">
-            <a data-bs-toggle="modal" data-bs-target="#modal_revenue" class="btn btn-success mb-2" onclick="reveneus.novaVenda()">Nova Venda</a>
+            <a data-bs-toggle="modal" data-bs-target="#modal_revenue" class="btn btn-success mb-2" onclick="window._sistema.vendas.novaVenda()">Nova Venda</a>
           </div>
           <?php
           if (isset($_SESSION['msg'])) {
@@ -66,8 +66,8 @@
                       <td><?php echo $revenue['revenues']; ?></td>
                       <td><?php echo date_format(new DateTime($revenue['due_dt']),"d/m/Y"); ?></td>
                       <td>
-                        <a class="btn btn-primary btn-sm" onclick="revenues.edit(<?= $revenue['id'] ?>)">Editar</a>
-                        <a class="btn btn-success btn-sm" onclick="revenues.receipt(<?= $revenue['id'] ?>)">Receber</a>
+                        <a class="btn btn-primary btn-sm" onclick="window._sistema.vendas.edit(<?= $revenue['id'] ?>)">Editar</a>
+                        <a class="btn btn-success btn-sm" onclick="window._sistema.vendas.receipt(<?= $revenue['id'] ?>)">Receber</a>
  
                         <a href="<?php echo base_url('revenues/delete/' . $revenue['id']); ?>" class="btn btn-danger btn-sm">Deletar</a>
                       </td>
@@ -75,7 +75,7 @@
                   <?php endforeach; ?>
                 <?php endif; ?>
               </tbody>
-            </table>
+            </table> 
           </div>
         </div>
 

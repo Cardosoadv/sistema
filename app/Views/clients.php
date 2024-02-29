@@ -45,7 +45,7 @@
             <a data-bs-toggle="modal" data-bs-target="#modal_cliente" class="btn btn-success mb-2" onclick="clientes.novoCliente()">Novo Cliente</a>
           </div>
 
-
+ 
           <?php
           if (isset($_SESSION['msg'])) {
             echo $_SESSION['msg'];
@@ -67,7 +67,7 @@
                       <td><?php echo $client['name']; ?></td>
                       <td><?php echo $client['email']; ?></td>
                       <td>
-                        <a class="btn btn-primary btn-sm" onclick="clientes.edit(<?= $client['id'] ?>)">Editar</a>
+                        <a class="btn btn-primary btn-sm" onclick="window._sistema.clientes.edit(<?= $client['id'] ?>)">Editar</a>
                         <a href="<?php echo base_url('clients/delete/' . $client['id']); ?>" class="btn btn-danger btn-sm">Deletar</a>
                       </td>
                     </tr>

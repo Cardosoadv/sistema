@@ -4,7 +4,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Cadastrar Contas</h4>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" onclick="contas.close()" aria-label="Close">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" onclick="window._sistema.contas.close()" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div> 
@@ -26,7 +26,7 @@
                     </div><!-- fim da primeira linha formulário -->
                     </div>
                     <div class="modal-footer justify-content-between">
-                        <button type="button" class="btn btn-secondary" onclick="contas.close()" data-bs-dismiss="modal">Fechar</button>
+                        <button type="button" class="btn btn-secondary" onclick="window._sistema.contas.close()" data-bs-dismiss="modal">Fechar</button>
                         <button type="submit" class="btn btn-primary">Salvar</button>
                 </form>
             </div>

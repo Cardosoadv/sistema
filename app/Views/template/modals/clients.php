@@ -4,7 +4,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Cadastrar Clientes</h4>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" onclick="clientes.close()" aria-label="Close">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" onclick="window._sistema.clientes.close()" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div> 
@@ -39,7 +39,7 @@
                     </div><!-- fim da segunda linha formulário -->
             </div>
                     <div class="modal-footer justify-content-between">
-                        <button type="button" class="btn btn-secondary" name="close" data-bs-dismiss="modal">Fechar</button>
+                        <button type="button" class="btn btn-secondary" name="close" onclick="window._sistema.clientes.close()" data-bs-dismiss="modal">Fechar</button>
                         <button type="submit" class="btn btn-primary">Salvar</button>
                 </form>
             </div>

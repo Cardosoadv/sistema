@@ -4,7 +4,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Cadastrar Recebimento</h4>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" onclick="revenues.close()" aria-label="Close">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" onclick="window._sistema.vendas.close()" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -104,7 +104,7 @@
                     </div>
             </div>
             <div class="modal-footer justify-content-between">
-                <button type="button" class="btn btn-secondary" name="close" onclick="revenues.close()" data-bs-dismiss="modal">Fechar</button>
+                <button type="button" class="btn btn-secondary" name="close" onclick="window._sistema.vendas.close()" data-bs-dismiss="modal">Fechar</button>
                 <div class="form-check form-switch">
                     <input class="form-check-input" type="checkbox" id="receipt_reconciled" name="receipt_reconciled">
                     <label class="form-check-label" for="receipt_reconciled">Conciliado?</label>

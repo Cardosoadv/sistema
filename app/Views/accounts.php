@@ -58,7 +58,7 @@
                     <tr>
                       <td><?php echo $account['account']; ?></td>
                       <td>
-                        <a class="btn btn-primary btn-sm" onclick="contas.edit(<?= $account['id'] ?>)">Editar</a>
+                        <a class="btn btn-primary btn-sm" onclick="window._sistema.contas.edit(<?= $account['id'] ?>)">Editar</a>
                         <a href="<?php echo base_url('accounts/delete/' . $account['id']); ?>" class="btn btn-danger btn-sm">Deletar</a>
                       </td>
                     </tr>
@@ -68,7 +68,7 @@
             </table>
           </div>
         </div>
-
+ 
         <!-- Fim -->
             
         </div><!--end::Container-->
