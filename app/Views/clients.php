@@ -42,7 +42,7 @@
 
         <div class="container mt-4">
           <div class="d-flex justify-content-end">
-            <a data-bs-toggle="modal" data-bs-target="#modal_cliente" class="btn btn-success mb-2" onclick="clientes.novoCliente()">Novo Cliente</a>
+            <a data-bs-toggle="modal" data-bs-target="#modal_cliente" class="btn btn-success mb-2" onclick="window._sistema.clientes.novoCliente()">Novo Cliente</a>
           </div>
 
  
