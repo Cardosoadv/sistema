@@ -16,6 +16,12 @@ class Revenues extends BaseController
     return $novaData;
     }
 
+    protected function isExpired($due_dt){
+        $hoje = new DateTime();
+        $dueDate = new DateTime($due_dt);
+        return ($dueDate > $hoje);
+    }
+
     public function index()
     {
         $data = $this->img();
@@ -80,13 +86,16 @@ class Revenues extends BaseController
         $RevenuesModel = new RevenuesModel();
         $reconciled = ((($this->request->getPost('reconciled'))=="on")?1:0);
         $data = [
-            'revenues'      =>     $this->request->getPost('revenues'),
-            'due_dt'        =>     $this->novaData($this->request->getPost('due_dt')) ,
+            'revenues'            =>     $this->request->getPost('revenues'),
+            'due_dt'              =>     $this->novaData($this->request->getPost('due_dt')) ,
             'value'               =>     $this->request->getPost('value'),
             'category'            =>     $this->request->getPost('category_id'),
             'client_id'           =>     $this->request->getPost('client_id'),
             'reconciled'          =>     $reconciled,
             'comments'            =>     $this->request->getPost('comments'),
+            'late_fee'            =>     $this->request->getPost('late_fee'),
+            'interest'            =>     $this->request->getPost('interest'),
+            'charges'             =>     $this->request->getPost('charges'),
             'user1'               =>     $this->request->getPost('user1'),
             'user2'               =>     $this->request->getPost('user2'),
             'user3'               =>     $this->request->getPost('user3'),
@@ -116,6 +125,9 @@ class Revenues extends BaseController
             'client_id'           =>     $this->request->getPost('client_id'),
             'reconciled'          =>     $reconciled,
             'comments'            =>     $this->request->getPost('comments'),
+            'late_fee'            =>     $this->request->getPost('late_fee'),
+            'interest'            =>     $this->request->getPost('interest'),
+            'charges'             =>     $this->request->getPost('charges'),
             'user1'               =>     $this->request->getPost('user1'),
             'user2'               =>     $this->request->getPost('user2'),
             'user3'               =>     $this->request->getPost('user3'),
