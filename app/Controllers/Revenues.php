@@ -118,8 +118,8 @@ class Revenues extends BaseController
         $RevenuesModel = new RevenuesModel();
         $reconciled = ((($this->request->getPost('reconciled'))=="on")?1:0);        
         $data = [
-            'revenues'      =>     $this->request->getPost('revenues'),
-            'due_dt'        =>     $this->novaData($this->request->getPost('due_dt')) ,
+            'revenues'            =>     $this->request->getPost('revenues'),
+            'due_dt'              =>     $this->novaData($this->request->getPost('due_dt')) ,
             'value'               =>     $this->request->getPost('value'),
             'category'            =>     $this->request->getPost('category_id'),
             'client_id'           =>     $this->request->getPost('client_id'),

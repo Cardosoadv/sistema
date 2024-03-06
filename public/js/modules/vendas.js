@@ -1,7 +1,9 @@
 import { siteUrl } from "./url.js";
+import { calcularJuros } from "./util.js";
 
 export class Vendas{
     constructor() {
+
         //setando as urls e o modal
         this.form               = document.getElementById('form_revenue');
         this.modal              = document.getElementById('modal_revenue');
@@ -17,10 +19,14 @@ export class Vendas{
         this.revenuesInput      = document.querySelector('[name="revenues"]');
         this.dueDateInput       = document.querySelector('[name="due_dt"]');
         this.valueInput         = document.querySelector('[name="value"]');
+        this.latefeeInput       = document.querySelector('[name="late_fee"]');
+        this.interestInput      = document.querySelector('[name="interest"]');
+        this.chargesInput       = document.querySelector('[name="charges"]');
         this.categoryInput      = document.querySelector('[name="category_id"]');
         this.clientIdInput      = document.querySelector('[name="client_id"]');
         this.reconciledInput    = document.querySelector('[name="reconciled"]');
         this.commentsInput      = document.querySelector('[name="comments"]');
+
         //pegar as variáveis do formulário share:
         this.user1Input         = document.querySelector('[name="user1"');
         this.user2Input         = document.querySelector('[name="user2"');
@@ -74,6 +80,9 @@ export class Vendas{
                 this.revenuesInput.value        = data.revenues;
                 this.dueDateInput.value         = data.due_dt;
                 this.valueInput.value           = data.value;
+                this.chargesInput.value         = data.charges;
+                this.interestInput.value        = data.interest;
+                this.latefeeInput.value         = data.late_fee;
                 this.categoryInput.value        = data.category;
                 this.clientIdInput.value        = data.client_id;
                 this.reconciledInput.checked    = verifiedChecked;
@@ -115,9 +124,18 @@ export class Vendas{
         xhr.onload = () => {
             if (xhr.status === 200) {
                 const data = JSON.parse(xhr.responseText);
-                const verifiedChecked = ((data.reconciled==="1") ? true : false)
+                const verifiedChecked = ((data.reconciled==="1") ? true : false);
+
+                // Dispara a função quando a data de pagamento for preenchida
+                this.receiptDateInput.addEventListener('change', () => {
+                const valorJuros = calcularJuros(this.receiptDateInput.value, data.due_dt, data.interest);
+                const valorMulta = 0;
+                this.valorDebito = data.value + valorJuros + valorMulta;
+                });
+
                 // fill form with fetched data
                 console.log(data);
+                this.receiptRevenuesInput.value         = data.revenues;
                 this.receiptValueInput.value            = data.value;
                 this.receiptUser1Input.value            = data.user1; 
                 this.receiptUser2Input.value            = data.user2; 
@@ -125,13 +143,12 @@ export class Vendas{
                 this.receiptUser4Input.value            = data.user4; 
                 this.receiptUser5Input.value            = data.user5; 
                 this.receiptUser6Input.value            = data.user6;
-                this.receiptShareUser1Input.value       = ((data.share_user1/100) * data.value);
-                this.receiptShareUser2Input.value       = ((data.share_user2/100) * data.value);
-                this.receiptShareUser3Input.value       = ((data.share_user3/100) * data.value);
-                this.receiptShareUser4Input.value       = ((data.share_user4/100) * data.value);
-                this.receiptShareUser5Input.value       = ((data.share_user5/100) * data.value);
-                this.receiptShareUser6Input.value       = ((data.share_user6/100) * data.value);
-                this.receiptCommentsInput.textContent   = data.comments;
+                this.receiptShareUser1Input.value       = ((data.share_user1/100) * this.valorDebito);
+                this.receiptShareUser2Input.value       = ((data.share_user2/100) * this.valorDebito);
+                this.receiptShareUser3Input.value       = ((data.share_user3/100) * this.valorDebito);
+                this.receiptShareUser4Input.value       = ((data.share_user4/100) * this.valorDebito);
+                this.receiptShareUser5Input.value       = ((data.share_user5/100) * this.valorDebito);
+                this.receiptShareUser6Input.value       = ((data.share_user6/100) * this.valorDebito);
                 this.receiptReconciledInput.checked     = verifiedChecked;
             } else {
                 console.log('Erro ao receber dados do AJAX');
