@@ -1,9 +1,11 @@
 import { siteUrl } from "./url.js";
-import { calcularJuros } from "./util.js";
+import { calcularJuros, calcularMulta } from "./util.js";
 
 export class Vendas{
     constructor() {
 
+        //seta variavel Global valor do débito
+        this.valorDebito;
         //setando as urls e o modal
         this.form               = document.getElementById('form_revenue');
         this.modal              = document.getElementById('modal_revenue');
@@ -66,6 +68,10 @@ export class Vendas{
         this.receiptShareUser6Input     = document.querySelector('[name="receipt_share_user6"');
     }
 
+    setValordebito(valor){
+        this.valorDebito = valor;
+    }
+
     edit(id) {
         this.form.reset(); //limpando os dados do formulário
 
@@ -125,16 +131,20 @@ export class Vendas{
             if (xhr.status === 200) {
                 const data = JSON.parse(xhr.responseText);
                 const verifiedChecked = ((data.reconciled==="1") ? true : false);
-
+                console.log(data);
                 // Dispara a função quando a data de pagamento for preenchida
                 this.receiptDateInput.addEventListener('change', () => {
-                const valorJuros = calcularJuros(this.receiptDateInput.value, data.due_dt, data.interest);
-                const valorMulta = 0;
-                this.valorDebito = data.value + valorJuros + valorMulta;
-                });
-
+                this.receiptInterestInput.value = calcularJuros(this.receiptDateInput.value, data.due_dt, data.interest);
+                this.receiptLatefeeInput.value = calcularMulta(this.receiptDateInput.value, data.due_dt, data.late_fee)*data.value;
+                this.valorDebito = (parseInt(this.receiptValueInput.value*100) + parseInt(this.receiptLatefeeInput.value*100) + parseInt(this.receiptInterestInput.value*100))/100;
+                this.receiptShareUser1Input.value       = ((data.share_user1/100) * this.valorDebito).toFixed(2);
+                this.receiptShareUser2Input.value       = ((data.share_user2/100) * this.valorDebito).toFixed(2);
+                this.receiptShareUser3Input.value       = ((data.share_user3/100) * this.valorDebito).toFixed(2);
+                this.receiptShareUser4Input.value       = ((data.share_user4/100) * this.valorDebito).toFixed(2);
+                this.receiptShareUser5Input.value       = ((data.share_user5/100) * this.valorDebito).toFixed(2);
+                this.receiptShareUser6Input.value       = ((data.share_user6/100) * this.valorDebito).toFixed(2);
+            });
                 // fill form with fetched data
-                console.log(data);
                 this.receiptRevenuesInput.value         = data.revenues;
                 this.receiptValueInput.value            = data.value;
                 this.receiptUser1Input.value            = data.user1; 
@@ -142,13 +152,7 @@ export class Vendas{
                 this.receiptUser3Input.value            = data.user3; 
                 this.receiptUser4Input.value            = data.user4; 
                 this.receiptUser5Input.value            = data.user5; 
-                this.receiptUser6Input.value            = data.user6;
-                this.receiptShareUser1Input.value       = ((data.share_user1/100) * this.valorDebito);
-                this.receiptShareUser2Input.value       = ((data.share_user2/100) * this.valorDebito);
-                this.receiptShareUser3Input.value       = ((data.share_user3/100) * this.valorDebito);
-                this.receiptShareUser4Input.value       = ((data.share_user4/100) * this.valorDebito);
-                this.receiptShareUser5Input.value       = ((data.share_user5/100) * this.valorDebito);
-                this.receiptShareUser6Input.value       = ((data.share_user6/100) * this.valorDebito);
+                this.receiptUser6Input.value            = data.user6;                
                 this.receiptReconciledInput.checked     = verifiedChecked;
             } else {
                 console.log('Erro ao receber dados do AJAX');

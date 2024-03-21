@@ -64,6 +64,7 @@ export function dateFormat(date) {
 */
 export function calcularJuros(dataPagamento, dataVencimento, taxaJuros) {
     // Converte as datas para objetos Date
+
     const dataPagamentoObj = new Date(dataPagamento);
     const dataVencimentoObj = new Date(dataVencimento);
   
@@ -74,6 +75,24 @@ export function calcularJuros(dataPagamento, dataVencimento, taxaJuros) {
     if (diferencaDias > 0) {
       const valorJuros = (diferencaDias * taxaJuros) / 100;
       return valorJuros.toFixed(2);
+    }
+  
+    // Se a data de pagamento for igual ou anterior à data de vencimento, não há juros
+    return 0;
+  }
+
+  export function calcularMulta(dataPagamento, dataVencimento, taxaMulta) {
+    // Converte as datas para objetos Date
+    const dataPagamentoObj = new Date(dataPagamento);
+    const dataVencimentoObj = new Date(dataVencimento);
+  
+    // Calcula a diferença em dias entre as datas
+    const diferencaDias = Math.floor((dataPagamentoObj - dataVencimentoObj) / (1000 * 60 * 60 * 24));
+  
+    // Se a data de pagamento for posterior à data de vencimento, calcula os juros
+    if (diferencaDias > 0) {
+      const valorMulta = (taxaMulta) / 100;
+      return valorMulta.toFixed(2);
     }
   
     // Se a data de pagamento for igual ou anterior à data de vencimento, não há juros
