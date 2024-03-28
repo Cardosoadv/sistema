@@ -3,18 +3,18 @@ import { siteUrl } from "./url.js";
 export class Clientes {
     constructor() {
         //setando as urls e o modal
-        this.form = document.getElementById('form_cliente');
-        this.modal = document.getElementById('modal_cliente');
-        this.urlGetCliente = "clients/get_client";
-        this.urlEditar = "clients/atualizar";
-        this.urlAdicionar = "clients/adicionar";
+        this.form               = document.getElementById('form_cliente');
+        this.modal              = document.getElementById('modal_cliente');
+        this.urlGetCliente      = "clients/get_client";
+        this.urlEditar          = "clients/atualizar";
+        this.urlAdicionar       = "clients/adicionar";
 
         //pegar as variáveis do formulário
-        this.nameInput = document.querySelector('[name="name"]');
-        this.idInput = document.querySelector('[name="id"]');
-        this.telefoneInput = document.querySelector('[name="celular"]');
+        this.nameInput          = document.querySelector('[name="name"]');
+        this.idInput            = document.querySelector('[name="id"]');
+        this.telefoneInput      = document.querySelector('[name="celular"]');
         this.dataAquisicaoInput = document.querySelector('[name="landed_at"]');
-        this.emailInput = document.querySelector('[name="email"]');
+        this.emailInput         = document.querySelector('[name="email"]');
     }
 
     edit(id) {
@@ -28,11 +28,11 @@ export class Clientes {
                 const data = JSON.parse(xhr.responseText);
 
                 // fill form with fetched data
-                this.nameInput.value = data.name;
-                this.idInput.value = data.id;
-                this.telefoneInput.value = data.celular;
-                this.dataAquisicaoInput.value = data.landed_at;
-                this.emailInput.value = data.email;
+                this.nameInput.value            = data.name;
+                this.idInput.value              = data.id;
+                this.telefoneInput.value        = data.celular;
+                this.dataAquisicaoInput.value   = data.landed_at;
+                this.emailInput.value           = data.email;
             } else {
                 console.log('Erro ao receber dados do AJAX');
             }

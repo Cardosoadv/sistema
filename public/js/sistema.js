@@ -8,4 +8,4 @@ const contas = new Contas();
 const vendas = new Vendas();
 const testes = new Testes();
 
-window._sistema = {clientes, contas, vendas, testes}
+window._sistema = {clientes, contas, vendas, testes};
