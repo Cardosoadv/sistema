@@ -9,7 +9,7 @@ class PaymentandRceipts extends Migration
     public function up()
     {
         // Create receipt_revenues table
-        $this->forge->addField([
+/*        $this->forge->addField([
             'id'             => ['type' => 'int', 'constraint' => 11, 'unsigned' => true, 'auto_increment' => true],
             'revenues_id'    => ['type' => 'int', 'constraint' => 11, 'null' => true],
             'receipt_dt'     => ['type' => 'date', 'null' => true],
@@ -38,7 +38,7 @@ class PaymentandRceipts extends Migration
         ]);
         $this->forge->addPrimaryKey('id');
         $this->forge->createTable('receipts_revenues');
-
+*/
         // Create payments_expenses table
         $this->forge->addField([
             'id'             => ['type' => 'int', 'constraint' => 11, 'unsigned' => true, 'auto_increment' => true],

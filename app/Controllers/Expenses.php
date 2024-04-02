@@ -3,11 +3,11 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
-use App\Models\RevenuesModel;
-use App\Models\ReceiptsRevenuesModel;
+use App\Models\ExpensesModel;
+use App\Models\PaymentsExpensesModel;
 use DateTime;
 
-class Revenues extends BaseController
+class Expenses extends BaseController
 {
     //função para formatar a data. Ainda não foi testada.
     protected function novaData($data)
@@ -25,17 +25,17 @@ class Revenues extends BaseController
     public function index()
     {
         $data = $this->img();
-        $RevenuesModel = new RevenuesModel();
+        $ExpensesModel = new ExpensesModel();
         $s = $this->request->getVar('s');
         if($s==null)
         {
-        $data['revenues'] = $RevenuesModel
+        $data['expenses'] = $ExpensesModel
             ->orderBy('due_dt', 'asc')
             ->get()
             ->getResultArray();
         }else{
-            $data['revenues'] = $RevenuesModel
-            ->like('revenues',$s)
+            $data['expenses'] = $ExpensesModel
+            ->like('expenses',$s)
             ->get()
             ->getResultArray();
         }
@@ -49,32 +49,32 @@ class Revenues extends BaseController
         $data['UserOption4'] = $comboUsuarios[3];
         $data['UserOption5'] = $comboUsuarios[4];
         $data['UserOption6'] = $comboUsuarios[5];
-        $data['ReceiptUserOption1'] = $comboUsuarios[6];
-        $data['ReceiptUserOption2'] = $comboUsuarios[7];
-        $data['ReceiptUserOption3'] = $comboUsuarios[8];
-        $data['ReceiptUserOption4'] = $comboUsuarios[9];
-        $data['ReceiptUserOption5'] = $comboUsuarios[10];
-        $data['ReceiptUserOption6'] = $comboUsuarios[11];
+        $data['PaymentUserOption1'] = $comboUsuarios[6];
+        $data['PaymentUserOption2'] = $comboUsuarios[7];
+        $data['PaymentUserOption3'] = $comboUsuarios[8];
+        $data['PaymentUserOption4'] = $comboUsuarios[9];
+        $data['PaymentUserOption5'] = $comboUsuarios[10];
+        $data['PaymentUserOption6'] = $comboUsuarios[11];
         $data['AccountOption'] = $elementosPagina->comboAccount('account_id');
 
-    return  view('revenues', $data);
+    return  view('expenses', $data);
     }
 
-    public function get_revenue($id)
+    public function get_expense($id)
     {
-        $RevenuesModel = new RevenuesModel();
-        $data = $RevenuesModel->where('id', $id)->first();
+        $ExpensesModel = new ExpensesModel();
+        $data = $ExpensesModel->where('id', $id)->first();
                return $this->response->setJSON($data);
     }
 
-    public function get_receipts($id)
+    public function get_payments($id)
     {
-        $ReceiptsRevenuesModel = new ReceiptsRevenuesModel();
-        $data = $ReceiptsRevenuesModel->where('id', $id)->first();
+        $PaymentsExpensesModel = new PaymentsExpensesModel();
+        $data = $PaymentsExpensesModel->where('id', $id)->first();
                return $this->response->setJSON($data);
     }
 
-    public function receber($id)
+    public function pagar($id)
     {
         //TODO função par receber a venda
         return $id; 
@@ -83,10 +83,10 @@ class Revenues extends BaseController
 
     public function adicionar()
     {
-        $RevenuesModel = new RevenuesModel();
+        $ExpensesModel = new ExpensesModel();
         $reconciled = ((($this->request->getPost('reconciled'))=="on")?1:0);
         $data = [
-            'revenues'            =>     $this->request->getPost('revenues'),
+            'expenses'            =>     $this->request->getPost('expenses'),
             'due_dt'              =>     $this->novaData($this->request->getPost('due_dt')) ,
             'value'               =>     $this->request->getPost('value'),
             'category'            =>     $this->request->getPost('category_id'),
@@ -109,19 +109,19 @@ class Revenues extends BaseController
             'share_user5'         =>     $this->request->getPost('share_user5'),
             'share_user6'         =>     $this->request->getPost('share_user6'),
         ];           
-        $RevenuesModel->insert($data);
-        $msg = "Dados inseridos com sucesso!";
+        $ExpensesModel->insert($data);
+        $msg = "Dados salvos com sucesso!";
         $session = \Config\Services::session();
         $session->set('msg',$msg);
-        return $this->response->redirect(site_url('Revenues'));
+        return $this->response->redirect(site_url('expenses'));
     }
 
     public function atualizar($id)
     {
-        $RevenuesModel = new RevenuesModel();
+        $ExpensesModel = new ExpensesModel();
         $reconciled = ((($this->request->getPost('reconciled'))=="on")?1:0);        
         $data = [
-            'revenues'            =>     $this->request->getPost('revenues'),
+            'expenses'            =>     $this->request->getPost('expenses'),
             'due_dt'              =>     $this->novaData($this->request->getPost('due_dt')) ,
             'value'               =>     $this->request->getPost('value'),
             'category'            =>     $this->request->getPost('category_id'),
@@ -144,17 +144,17 @@ class Revenues extends BaseController
             'share_user5'         =>     $this->request->getPost('share_user5'),
             'share_user6'         =>     $this->request->getPost('share_user6'),
         ];
-        $RevenuesModel->update($id,$data);
-        $msg = "Dados atualizados com sucesso!";
+        $ExpensesModel->update($id,$data);
+        $msg = 'Dados atualizados com sucesso!';
         $session = \Config\Services::session();
         $session->set('msg',$msg);
-        return $this->response->redirect(site_url('Revenues'));
+        return $this->response->redirect(site_url('expenses'));
     }
 
     public function delete($id)
     {
-        $RevenuesModel = new RevenuesModel();
-        $RevenuesModel->delete($id);
+        $ExpensesModel = new ExpensesModel();
+        $ExpensesModel->delete($id);
         return redirect()->to(previous_url());
 
     }

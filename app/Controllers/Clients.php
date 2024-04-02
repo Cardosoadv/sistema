@@ -52,6 +52,9 @@ class Clients extends BaseController
         $data['landed_at']    = $this->novaData($this->request->getPost('landed_at'));
 
         $ClientsModel->insert($data);
+        $msg = "Dados salvos com sucesso!";
+        $session = \Config\Services::session();
+        $session->set($msg);
         return $this->response->redirect(site_url('clients'));
 
     }

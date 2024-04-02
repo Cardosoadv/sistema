@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-BR"><!--begin::Head-->
 <head>
-<title>Sistema | Vendas</title><!--begin::Primary Meta Tags-->    
+<title>Sistema | Despesas</title><!--begin::Primary Meta Tags-->    
 <?= $this->include('template/header') ?>
 </head><!--end::Head-->
 <!--begin::Body-->
@@ -17,13 +17,13 @@
         <div class="container-fluid"><!--begin::Row-->
             <div class="row">
                 <div class="col-sm-6">
-                    <h3 class="mb-0">Vendas</h3>
+                    <h3 class="mb-0">Despesas</h3>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-end">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
                         <li class="breadcrumb-item active" aria-current="page">
-                            Vendas
+                            Despesas
                         </li>
                     </ol>
                 </div>
