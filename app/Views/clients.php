@@ -44,11 +44,11 @@
           <div class="d-flex justify-content-end">
             <a data-bs-toggle="modal" data-bs-target="#modal_cliente" class="btn btn-success mb-2" onclick="window._sistema.clientes.novoCliente()">Novo Cliente</a>
           </div>
-
- 
           <?php
           if (isset($_SESSION['msg'])) {
+            echo '<div class="callout callout-info">';
             echo $_SESSION['msg'];
+            echo '</div>';
           }
           ?>
           <div class="mt-3">

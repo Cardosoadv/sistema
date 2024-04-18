@@ -13,7 +13,7 @@ class ExpensesModel extends Model
     protected $useSoftDeletes   = true;
     protected $protectFields    = true;
     protected $allowedFields    = [
-        'expense', 'due_dt', 'value', 'category', 'client_id',
+        'expenses', 'due_dt', 'value', 'category', 'client_id',
         'late_fee', 'interest', 'charges',
         'user1', 'user2', 'user3', 'user4', 'user5', 'user6', 'share_user1', 'share_user2', 'share_user3', 'share_user4', 'share_user5', 'share_user6', 'reconciled', 'comments'
     ];

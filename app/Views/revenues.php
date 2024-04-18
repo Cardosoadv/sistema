@@ -45,12 +45,13 @@
           <div class="d-flex justify-content-end">
             <a data-bs-toggle="modal" data-bs-target="#modal_revenue" class="btn btn-success mb-2" onclick="window._sistema.vendas.novaVenda()">Nova Venda</a>
           </div>
-          <div class="callout callout-info">
           <?php
           if (isset($_SESSION['msg'])) {
+            echo '<div class="callout callout-info">';
             echo $_SESSION['msg'];
+            echo '</div>';
           }
-          ?></div>
+          ?>
           <div class="mt-3">
             <table class="table table-bordered" id="accounts-list">
               <thead>

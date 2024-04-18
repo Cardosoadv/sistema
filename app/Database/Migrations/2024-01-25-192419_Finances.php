@@ -25,7 +25,7 @@ class Finances extends Migration
         // Create expenses table
         $this->forge->addField([
             'id'             => ['type' => 'int', 'constraint' => 11, 'unsigned' => true, 'auto_increment' => true],
-            'expense'        => ['type' => 'varchar', 'constraint' => 150],
+            'expenses'        => ['type' => 'varchar', 'constraint' => 150],
             'due_dt'         => ['type' => 'date', 'null' => true],
             'value'          => ['type' => 'double', 'null' => true],
             'category'       => ['type' => 'int', 'constraint' => 11, 'null' => true],

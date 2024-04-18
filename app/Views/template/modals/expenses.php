@@ -1,22 +1,22 @@
 <!-- Inicio do Modal -->
-<div class="modal fade" id="modal_revenue" name="modal_revenue">
+<div class="modal fade" id="modal_expense" name="modal_expense">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Cadastrar Venda</h4>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" onclick="window._sistema.vendas.close()" aria-label="Close">
+                <h4 class="modal-title">Cadastrar Despesa</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" onclick="window._sistema.despesas.close()" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form method="post" id="form_revenue" name="form_revenue" action="<?= site_url('/revenues/adicionar') ?>" enctype="multipart/form-data">
+                <form method="post" id="form_expense" name="form_expense" action="<?= site_url('/expenses/adicionar') ?>" enctype="multipart/form-data">
                     <input type="hidden" name="id" class="form-control" value="">
 
                     <!-- Inicio primeira linha formulário -->
                     <div class="row">
                         <div class="form-group">
-                            <label>Venda</label>
-                            <input type="text" name="revenues" class="form-control">
+                            <label>Despesa</label>
+                            <input type="text" name="expenses" class="form-control">
                         </div>
 
                     </div><!-- fim da primeira linha formulário -->
@@ -109,7 +109,7 @@
 
             </div>
             <div class="modal-footer justify-content-between">
-                <button type="button" class="btn btn-secondary" name="close" onclick="window._sistema.vendas.close()" data-bs-dismiss="modal">Fechar</button>
+                <button type="button" class="btn btn-secondary" name="close" onclick="window._sistema.despesas.close()" data-bs-dismiss="modal">Fechar</button>
                 <div class="form-check form-switch">
                 <input class="form-check-input" type="checkbox" id="reconciled" name="reconciled">
                 <label class="form-check-label" for="reconciled">Conciliado?</label>

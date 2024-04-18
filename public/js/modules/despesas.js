@@ -1,24 +1,25 @@
 import { siteUrl } from "./url.js";
 import { calcularJuros, calcularMulta } from "./util.js";
 
-export class Vendas{
+/**
+ * Metódos relacionados às despesas e pagamentos
+ */
+export class Despesas{
     constructor() {
 
-        //seta variavel Global valor do débito
-        this.valorDebito;
         //setando as urls e o modal
-        this.form               = document.getElementById('form_revenue');
-        this.modal              = document.getElementById('modal_revenue');
-        this.receiptForm        = document.getElementById('form_receipts');
-        this.receiptModal       = document.getElementById('modal_receipts');
-        this.urlGetRevenue      = "revenues/get_revenue";
-        this.urlEditar          = "revenues/atualizar";
-        this.urlAdicionar       = "revenues/adicionar";
-        this.urlReceber         = "revenues/receber";
-        this.urlGetReceipts     = "revenues/get_receipts";       
+        this.form               = document.getElementById('form_expense');
+        this.modal              = document.getElementById('modal_expense');
+        this.paymentForm        = document.getElementById('form_payments');
+        this.paymentModal       = document.getElementById('modal_payments');
+        this.urlGetExpense      = "expenses/get_expense";
+        this.urlEditar          = "expenses/atualizar";
+        this.urlAdicionar       = "expenses/adicionar";
+        this.urlReceber         = "expenses/receber";
+        this.urlGetPayments     = "expenses/get_payments";       
 
-        //pegar as variáveis do formulário de Vendas
-        this.revenuesInput      = document.querySelector('[name="revenues"]');
+        //pegar as variáveis do formulário de Despesas
+        this.expensesInput      = document.querySelector('[name="expenses"]');
         this.dueDateInput       = document.querySelector('[name="due_dt"]');
         this.valueInput         = document.querySelector('[name="value"]');
         this.latefeeInput       = document.querySelector('[name="late_fee"]');
@@ -43,47 +44,47 @@ export class Vendas{
         this.shareUser5Input    = document.querySelector('[name="share_user5"');
         this.shareUser6Input    = document.querySelector('[name="share_user6"');
 
-         //pegar as variáveis do formulário de Recebimento
-         this.receiptRevenuesInput      = document.querySelector('[name="receipt_revenue"]');
-         this.receiptDateInput          = document.querySelector('[name="receipt_dt"]');
-         this.receiptValueInput         = document.querySelector('[name="receipt_value"]');
-         this.receiptLatefeeInput       = document.querySelector('[name="receipt_late_fee"]');
-         this.receiptInterestInput      = document.querySelector('[name="receipt_interest"]');
-         this.receiptChargesInput       = document.querySelector('[name="receipt_charges"]');
-         this.receiptReconciledInput    = document.querySelector('[name="receipt_reconciled"]');
-         this.receiptCommentsInput      = document.querySelector('[name="receipt_comments"]');
+         //pegar as variáveis do formulário de Pagamento
+         this.paymentRevenuesInput      = document.querySelector('[name="payment_expense"]');
+         this.paymentDateInput          = document.querySelector('[name="payment_dt"]');
+         this.paymentValueInput         = document.querySelector('[name="payment_value"]');
+         this.paymentLatefeeInput       = document.querySelector('[name="payment_late_fee"]');
+         this.paymentInterestInput      = document.querySelector('[name="payment_interest"]');
+         this.paymentChargesInput       = document.querySelector('[name="payment_charges"]');
+         this.paymentReconciledInput    = document.querySelector('[name="payment_reconciled"]');
+         this.paymentCommentsInput      = document.querySelector('[name="payment_comments"]');
         
         //pegar as variáveis do formulário share:
-        this.receiptUser1Input          = document.querySelector('[name="receipt_user1"');
-        this.receiptUser2Input          = document.querySelector('[name="receipt_user2"');
-        this.receiptUser3Input          = document.querySelector('[name="receipt_user3"');
-        this.receiptUser4Input          = document.querySelector('[name="receipt_user4"');
-        this.receiptUser5Input          = document.querySelector('[name="receipt_user5"');
-        this.receiptUser6Input          = document.querySelector('[name="receipt_user6"');
-        this.receiptShareUser1Input     = document.querySelector('[name="receipt_share_user1"');
-        this.receiptShareUser2Input     = document.querySelector('[name="receipt_share_user2"');
-        this.receiptShareUser3Input     = document.querySelector('[name="receipt_share_user3"');
-        this.receiptShareUser4Input     = document.querySelector('[name="receipt_share_user4"');
-        this.receiptShareUser5Input     = document.querySelector('[name="receipt_share_user5"');
-        this.receiptShareUser6Input     = document.querySelector('[name="receipt_share_user6"');
+        this.paymentUser1Input          = document.querySelector('[name="payment_user1"');
+        this.paymentUser2Input          = document.querySelector('[name="payment_user2"');
+        this.paymentUser3Input          = document.querySelector('[name="payment_user3"');
+        this.paymentUser4Input          = document.querySelector('[name="payment_user4"');
+        this.paymentUser5Input          = document.querySelector('[name="payment_user5"');
+        this.paymentUser6Input          = document.querySelector('[name="payment_user6"');
+        this.paymentShareUser1Input     = document.querySelector('[name="payment_share_user1"');
+        this.paymentShareUser2Input     = document.querySelector('[name="payment_share_user2"');
+        this.paymentShareUser3Input     = document.querySelector('[name="payment_share_user3"');
+        this.paymentShareUser4Input     = document.querySelector('[name="payment_share_user4"');
+        this.paymentShareUser5Input     = document.querySelector('[name="payment_share_user5"');
+        this.paymentShareUser6Input     = document.querySelector('[name="payment_share_user6"');
     }
 
-    setValordebito(valor){
-        this.valorDebito = valor;
-    }
-
+    /**
+     * Metódo para editar a despesa
+     * @param {*} id Id da despesa a ser editada
+     */
     edit(id) {
         this.form.reset(); //limpando os dados do formulário
 
         // fetch client data
         const xhr = new XMLHttpRequest();
-        xhr.open('GET', `${siteUrl}/${this.urlGetRevenue}/${id}`);
+        xhr.open('GET', `${siteUrl}/${this.urlGetExpense}/${id}`);
         xhr.onload = () => {
             if (xhr.status === 200) {
                 const data = JSON.parse(xhr.responseText);
                 const verifiedChecked = ((data.reconciled==="1") ? true : false)
                 // fill form with fetched data
-                this.revenuesInput.value        = data.revenues;
+                this.expensesInput.value        = data.expeses;
                 this.dueDateInput.value         = data.due_dt;
                 this.valueInput.value           = data.value;
                 this.chargesInput.value         = data.charges;
@@ -121,39 +122,39 @@ export class Vendas{
         this.form.action = `${siteUrl}/${this.urlEditar}/${id}`;
     }
 
-    receipt(id) {
-        this.receiptForm.reset(); //limpando os dados do formulário
+    payment(id) {
+        this.paymentForm.reset(); //limpando os dados do formulário
 
         // fetch revenues data
         const xhr = new XMLHttpRequest();
-        xhr.open('GET', `${siteUrl}/${this.urlGetRevenue}/${id}`);
+        xhr.open('GET', `${siteUrl}/${this.urlGetPayments}/${id}`);
         xhr.onload = () => {
             if (xhr.status === 200) {
                 const data = JSON.parse(xhr.responseText);
                 const verifiedChecked = ((data.reconciled==="1") ? true : false);
                 console.log(data);
                 // Dispara a função quando a data de pagamento for preenchida
-                this.receiptDateInput.addEventListener('change', () => {
-                this.receiptInterestInput.value = calcularJuros(this.receiptDateInput.value, data.due_dt, data.interest);
-                this.receiptLatefeeInput.value = calcularMulta(this.receiptDateInput.value, data.due_dt, data.late_fee)*data.value;
-                this.valorDebito = (parseInt(this.receiptValueInput.value*100) + parseInt(this.receiptLatefeeInput.value*100) + parseInt(this.receiptInterestInput.value*100))/100;
-                this.receiptShareUser1Input.value       = ((data.share_user1/100) * this.valorDebito).toFixed(2);
-                this.receiptShareUser2Input.value       = ((data.share_user2/100) * this.valorDebito).toFixed(2);
-                this.receiptShareUser3Input.value       = ((data.share_user3/100) * this.valorDebito).toFixed(2);
-                this.receiptShareUser4Input.value       = ((data.share_user4/100) * this.valorDebito).toFixed(2);
-                this.receiptShareUser5Input.value       = ((data.share_user5/100) * this.valorDebito).toFixed(2);
-                this.receiptShareUser6Input.value       = ((data.share_user6/100) * this.valorDebito).toFixed(2);
+                this.paymentDateInput.addEventListener('change', () => {
+                this.paymentInterestInput.value = calcularJuros(this.paymentDateInput.value, data.due_dt, data.interest);
+                this.paymentLatefeeInput.value = calcularMulta(this.paymentDateInput.value, data.due_dt, data.late_fee)*data.value;
+                this.valorDebito = (parseInt(this.paymentValueInput.value*100) + parseInt(this.paymentLatefeeInput.value*100) + parseInt(this.paymentInterestInput.value*100))/100;
+                this.paymentShareUser1Input.value       = ((data.share_user1/100) * this.valorDebito).toFixed(2);
+                this.paymentShareUser2Input.value       = ((data.share_user2/100) * this.valorDebito).toFixed(2);
+                this.paymentShareUser3Input.value       = ((data.share_user3/100) * this.valorDebito).toFixed(2);
+                this.paymentShareUser4Input.value       = ((data.share_user4/100) * this.valorDebito).toFixed(2);
+                this.paymentShareUser5Input.value       = ((data.share_user5/100) * this.valorDebito).toFixed(2);
+                this.paymentShareUser6Input.value       = ((data.share_user6/100) * this.valorDebito).toFixed(2);
             });
                 // fill form with fetched data
-                this.receiptRevenuesInput.value         = data.revenues;
-                this.receiptValueInput.value            = data.value;
-                this.receiptUser1Input.value            = data.user1; 
-                this.receiptUser2Input.value            = data.user2; 
-                this.receiptUser3Input.value            = data.user3; 
-                this.receiptUser4Input.value            = data.user4; 
-                this.receiptUser5Input.value            = data.user5; 
-                this.receiptUser6Input.value            = data.user6;                
-                this.receiptReconciledInput.checked     = verifiedChecked;
+                this.paymentRevenuesInput.value         = data.revenues;
+                this.paymentValueInput.value            = data.value;
+                this.paymentUser1Input.value            = data.user1; 
+                this.paymentUser2Input.value            = data.user2; 
+                this.paymentUser3Input.value            = data.user3; 
+                this.paymentUser4Input.value            = data.user4; 
+                this.paymentUser5Input.value            = data.user5; 
+                this.paymentUser6Input.value            = data.user6;                
+                this.paymentReconciledInput.checked     = verifiedChecked;
             } else {
                 console.log('Erro ao receber dados do AJAX');
             }
@@ -161,25 +162,26 @@ export class Vendas{
         xhr.send();
 
         // show modal
-        this.receiptModal.classList.add('show');
-        this.receiptModal.style.display = 'block';
-        this.receiptModal.querySelector('.modal-title').textContent = 'Receber';
+        this.paymentModal.classList.add('show');
+        this.paymentModal.style.display = 'block';
+        this.paymentModal.querySelector('.modal-title').textContent = 'Pagar';
 
         // set form action
-        this.form.action = `${siteUrl}/${this.urlReceber}/${id}`;
+        this.form.action = `${siteUrl}/${this.urlPagar}/${id}`;
     }
-
-    novaVenda() {
+ 
+    novaDespesa() {
         // Reset the form
         this.form.reset();
 
         // Set the modal title
         const modalTitle = document.querySelector('.modal-title');
-        modalTitle.textContent = 'Nova Venda';
+        modalTitle.textContent = 'Nova Despesa';
 
         // Set the form action
         this.form.action = `${siteUrl}/${this.urlAdicionar}`;
     }
+
     close() {
         this.modal.style.display = 'none';
         this.receiptModal.style.display = 'none';

@@ -41,7 +41,9 @@
           </div>
           <?php
           if (isset($_SESSION['msg'])) {
+            echo '<div class="callout callout-info">';
             echo $_SESSION['msg'];
+            echo '</div>';
           }
           ?>
           <div class="mt-3">
