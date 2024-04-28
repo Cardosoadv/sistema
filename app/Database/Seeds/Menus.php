@@ -30,7 +30,7 @@ class Menus extends Seeder
         $vendas = [
             'submenu'=>'Vendas',
             'icone' => 'bi-box-arrow-in-down',
-            'link'=> 'revenues',
+            'link'=> 'vendas',
             'menu_pai'=> $financeiro_id,
         ];
         $this->db->table('sys_submenu')->insert($vendas);
@@ -39,7 +39,7 @@ class Menus extends Seeder
         $despesas = [
             'submenu'=>'Despesas',
             'icone' => 'bi-box-arrow-up',
-            'link'=> 'expenses',
+            'link'=> 'despesas',
             'menu_pai'=> $financeiro_id,
         ];
         $this->db->table('sys_submenu')->insert($despesas);
@@ -48,7 +48,7 @@ class Menus extends Seeder
         $clientes = [
             'submenu'=>'Clientes',
             'icone' => 'bi-people',
-            'link'=> 'clients',
+            'link'=> 'clientes',
             'menu_pai'=> $pessoas_id,
         ];
         $this->db->table('sys_submenu')->insert($clientes);

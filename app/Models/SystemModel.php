@@ -8,14 +8,14 @@ class SystemModel extends Model
 {
 	protected $DBGroup              = 'default';
 	protected $table                = 'sys_menu';
-	protected $primaryKey           = 'id';
+	protected $primaryKey           = 'id_menu';
 	protected $useAutoIncrement     = true;
 	protected $insertID             = 0;
 	protected $returnType           = 'array';
 	protected $useSoftDelete        = false;
 	protected $protectFields        = true;
 	protected $allowedFields        = [
-		"id", "menu", "link", "icone"
+		"id_menu", "menu", "link", "icone"
 	];
         
         

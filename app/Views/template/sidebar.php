@@ -23,7 +23,7 @@ $menu = $systemModel->findAll();
                                 <i class="nav-arrow bi bi-chevron-right"></i>
                                 </p>
                             </a>
-                            <?php $submenu = $systemModel->submenu($item['id'])?>
+                            <?php $submenu = $systemModel->submenu($item['id_menu'])?>
                             <?php if (isset($submenu)) : ?>                            
                                 <ul class="nav nav-treeview" style="box-sizing: border-box; display: block;"><!-- inicio submenu -->
                             <?php foreach ($submenu as $subitem) : ?>
