@@ -6,9 +6,9 @@ use App\Controllers\BaseController;
 use App\Models\ClientesModel;
 use DateTime;
 
-class Clientes extends BaseController
+class Vendas extends BaseController
 {
-    private array $cliente = [
+    private array $venda = [
         'nome', 'email', 'celular', 'cpf_cnpj',
         'logradouro', 'numero','complemento', 'bairro', 'cidade', 'estado', 'cep',
         'aquisicao_dt'

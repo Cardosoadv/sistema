@@ -122,14 +122,14 @@ class Start extends Migration
             'valor'          => ['type' => 'double', 'null' => true],
             'categoria'      => ['type' => 'int', 'constraint' => 11, 'null' => true],
             'conciliado'     => ['type' => 'boolean', 'default' => FALSE],
-            'pessoa_id'      => ['type' => 'int', 'constraint' => 11, 'null' => true],     
+            'fornecedor'     => ['type' => 'int', 'constraint' => 11, 'null' => true],     
             'comentario'     => ['type' => 'text','null' => true],
             'created_at'     => ['type' => 'datetime', 'null' => true],
             'updated_at'     => ['type' => 'datetime', 'null' => true],
             'deleted_at'     => ['type' => 'datetime', 'null' => true],
         ]);
         $this->forge->addPrimaryKey('id_despesa');
-        $this->forge->addForeignKey('pessoa_id', 'pessoas', 'id_pessoa', '', 'CASCADE');
+        $this->forge->addForeignKey('fornecedor', 'pessoas', 'id_pessoa', '', 'CASCADE');
         $this->forge->addForeignKey('categoria', 'categorias', 'id_categoria', '', 'CASCADE');
         $this->forge->createTable('despesas');
 
@@ -143,14 +143,14 @@ class Start extends Migration
             'valor'          => ['type' => 'double', 'null' => true],
             'categoria'      => ['type' => 'int', 'constraint' => 11, 'null' => true],
             'conciliado'     => ['type' => 'boolean', 'default' => FALSE],
-            'pessoa_id'      => ['type' => 'int', 'constraint' => 11, 'null' => true],     
+            'cliente'        => ['type' => 'int', 'constraint' => 11, 'null' => true],     
             'comentario'     => ['type' => 'text','null' => true],
             'created_at'     => ['type' => 'datetime', 'null' => true],
             'updated_at'     => ['type' => 'datetime', 'null' => true],
             'deleted_at'     => ['type' => 'datetime', 'null' => true],
         ]);
         $this->forge->addPrimaryKey('id_venda');
-        $this->forge->addForeignKey('pessoa_id', 'pessoas', 'id_pessoa', '', 'CASCADE');
+        $this->forge->addForeignKey('cliente', 'pessoas', 'id_pessoa', '', 'CASCADE');
         $this->forge->addForeignKey('categoria', 'categorias', 'id_categoria', '', 'CASCADE');
         $this->forge->createTable('vendas');
 

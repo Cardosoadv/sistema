@@ -4,16 +4,16 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class AccountsModel extends Model
+class ContasModel extends Model
 {
-    protected $table            = 'accounts';
-    protected $primaryKey       = 'id';
+    protected $table            = 'contas';
+    protected $primaryKey       = 'id_conta';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = true;
     protected $protectFields    = true;
     protected $allowedFields    = [
-        'account', 'comments'
+        'conta', 'comentario'
     ];
 
     // Dates

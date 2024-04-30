@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-BR"><!--begin::Head-->
 <head>
-<title>Conselhos | Clientes</title><!--begin::Primary Meta Tags-->    
+<title>Conselhos | Vendas</title><!--begin::Primary Meta Tags-->    
 <?= $this->include('template/header') ?>
 </head><!--end::Head-->
 <!--begin::Body-->
@@ -17,13 +17,13 @@
         <div class="container-fluid"><!--begin::Row-->
             <div class="row">
                 <div class="col-sm-6">
-                    <h3 class="mb-0">Clientes</h3>
+                    <h3 class="mb-0">Vendas</h3>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-end">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
                         <li class="breadcrumb-item active" aria-current="page">
-                            Clientes
+                            Vendas
                         </li>
                     </ol>
                 </div>
@@ -42,7 +42,7 @@
 
         <div class="container mt-4">
           <div class="d-flex justify-content-end">
-            <a class="btn btn-success mb-2" href="<?php echo base_url('clientes/novo/'); ?>">Novo Cliente</a>
+            <a class="btn btn-success mb-2" href="<?php echo base_url('vendas/novo/'); ?>">Nova Venda</a>
           </div>
           <?php
           if (isset($_SESSION['msg'])) {
@@ -55,20 +55,20 @@
             <table class="table table-bordered" id="clientes-list">
               <thead>
                 <tr>
-                  <th>Nome</th>
-                  <th>E-mail</th>
+                  <th>Venda</th>
+                  <th>Data de Vencimento</th>
                   <th>Ação</th>
                 </tr>
               </thead>
               <tbody>
-                <?php if ($clientes) : ?>
-                  <?php foreach ($clientes as $cliente) : ?>
+                <?php if ($vendas) : ?>
+                  <?php foreach ($vendas as $venda) : ?>
                     <tr>
-                      <td><?php echo $cliente['nome']; ?></td>
-                      <td><?php echo $cliente['email']; ?></td>
+                      <td><?php echo $venda['venda']; ?></td>
+                      <td><?php echo date_format(new DateTime($venda['vencimento_dt']),"d/m/Y"); ?></td>
                       <td>
-                        <a class="btn btn-primary btn-sm" href="<?php echo base_url('clientes/consultar/' . $cliente['id_pessoa']); ?>">Editar</a>
-                        <a href="<?php echo base_url('clientes/delete/' . $cliente['id_pessoa']); ?>" class="btn btn-danger btn-sm">Deletar</a>
+                        <a class="btn btn-primary btn-sm" href="<?php echo base_url('vendas/consultar/' . $venda['id_venda']); ?>">Editar</a>
+                        <a href="<?php echo base_url('vendas/delete/' . $venda['id_venda']); ?>" class="btn btn-danger btn-sm">Deletar</a>
                       </td>
                     </tr>
                   <?php endforeach; ?>
