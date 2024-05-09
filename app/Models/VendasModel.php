@@ -4,19 +4,19 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class RevenuesModel extends Model
+class VendasModel extends Model
 {
-    protected $table            = 'revenues';
-    protected $primaryKey       = 'id';
+    protected $table            = 'vendas';
+    protected $primaryKey       = 'id_venda';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = true;
     protected $protectFields    = true;
     protected $allowedFields    = [
-        'revenues', 'due_dt', 'value', 'category', 'client_id',
-        'late_fee', 'interest', 'charges',
-        'user1', 'user2', 'user3', 'user4', 'user5', 'user6', 'share_user1', 'share_user2', 'share_user3', 'share_user4', 'share_user5', 'share_user6', 'reconciled', 'comments'
-    ];
+        'nome', 'email', 'celular', 'cpf_cnpj',
+        'logradouro', 'numero','complemento', 'bairro', 'cidade', 'estado', 'cep',
+        'aquisicao_dt'
+        ];
 
     // Dates
     protected $useTimestamps = true;

@@ -145,6 +145,7 @@ class Start extends Migration
             'conciliado'     => ['type' => 'boolean', 'default' => FALSE],
             'cliente'        => ['type' => 'int', 'constraint' => 11, 'null' => true],     
             'comentario'     => ['type' => 'text','null' => true],
+            'rateio'         => ['type' => 'int', 'constraint' => 11],
             'created_at'     => ['type' => 'datetime', 'null' => true],
             'updated_at'     => ['type' => 'datetime', 'null' => true],
             'deleted_at'     => ['type' => 'datetime', 'null' => true],
@@ -168,6 +169,7 @@ class Start extends Migration
             'conta_id'            => ['type' => 'int', 'constraint' => 11, 'null' => true],
             'conciliado'          => ['type' => 'boolean', 'default' => FALSE],
             'comentario'          => ['type' => 'text','null' => true],
+            'rateio'              => ['type' => 'int', 'constraint' => 11],
             'created_at'          => ['type' => 'datetime', 'null' => true],
             'updated_at'          => ['type' => 'datetime', 'null' => true],
             'deleted_at'          => ['type' => 'datetime', 'null' => true],
@@ -191,6 +193,7 @@ class Start extends Migration
             'conta_id'            => ['type' => 'int', 'constraint' => 11, 'null' => true],
             'conciliado'          => ['type' => 'boolean', 'default' => FALSE],
             'comentario'          => ['type' => 'text','null' => true],
+            'rateio'              => ['type' => 'int', 'constraint' => 11],
             'created_at'          => ['type' => 'datetime', 'null' => true],
             'updated_at'          => ['type' => 'datetime', 'null' => true],
             'deleted_at'          => ['type' => 'datetime', 'null' => true],
@@ -199,8 +202,6 @@ class Start extends Migration
         $this->forge->addForeignKey('venda_id', 'vendas', 'id_venda', '', 'CASCADE');
         $this->forge->addForeignKey('conta_id', 'contas', 'id_conta', '', 'CASCADE');
         $this->forge->createTable('receitas');
-
-
     }
 
     public function down()

@@ -3,17 +3,22 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
-use App\Models\ClientesModel;
+use App\Models\VendasModel;
 use DateTime;
 
 class Vendas extends BaseController
-{
+{   
     private array $venda = [
-        'nome', 'email', 'celular', 'cpf_cnpj',
-        'logradouro', 'numero','complemento', 'bairro', 'cidade', 'estado', 'cep',
-        'aquisicao_dt'
-    ]; 
-  
+        'id_venda',
+        'venda',
+        'vencimento_dt',
+        'valor',
+        'categoria',
+        'conciliado',
+        'cliente',
+        'comentario',
+        'rateio',
+    ];
     
     //função para formatar a data. Ainda não foi testada.
     protected function novaData($data)
@@ -21,29 +26,29 @@ class Vendas extends BaseController
     $novaData = date_format(new DateTime($data), 'Y-m-d');
     return $novaData;
     }
- 
+
     public function index()
     {
         $data = $this->img();
-        $ClientesModel = new ClientesModel();
+        $VendasModels = new VendasModel();
         $s = $this->request->getVar('s');
         if($s==null)
         {
-            $data['clientes'] = $ClientesModel
+            $data['vendas'] = $VendasModels
             ->findAll();
         } else {
-            $data['clientes'] = $ClientesModel
-            ->like('nome',$s)
+            $data['vendas'] = $VendasModels
+            ->like('venda',$s)
             ->findAll();
         }
-        return  view('cliente/clientes', $data);
+        return  view('venda/vendas', $data);
     }
     /**
      * Metodo para exibir o formulário de inserção de cliente
      */
     public function novo(){
         $data = $this->img();
-        return  view('cliente/novoCliente', $data);
+        return  view('venda/novaVenda', $data);
     }
 
     /**
@@ -52,27 +57,22 @@ class Vendas extends BaseController
      */
     public function adicionar()
     {
-        $ClientesModel = new ClientesModel();
-        $this->cliente = [
-            'nome'            =>$this->request->getPost('nome'),
-            'email'           =>$this->request->getPost('email'),
-            'celular'         =>$this->request->getPost('celular'),
-            'cpf_cnpj'        =>$this->request->getPost('cpf_cnpj'),
-            'logradouro'      =>$this->request->getPost('logradouro'),
-            'numero'          =>$this->request->getPost('numero'),
-            'complemento'     =>$this->request->getPost('complemento'),
-            'bairro'          =>$this->request->getPost('bairro'),
-            'cidade'          =>$this->request->getPost('cidade'),
-            'estado'          =>$this->request->getPost('estado'),
-            'cep'             =>$this->request->getPost('cep'),
-            'aquisicao_dt'    =>$this->request->getPost('aquisicao_dt'),
+        $this->venda = [
+        'venda'             =>$this->request->getPost('venda'),
+        'vencimento_dt'     =>$this->request->getPost('vencimento_dt'),
+        'valor'             =>$this->request->getPost('valor'),
+        'categoria'         =>$this->request->getPost('categoria'),
+        'conciliado'        =>$this->request->getPost('conciliado'),
+        'cliente'           =>$this->request->getPost('cliente'),
+        'comentario'        =>$this->request->getPost('comentario'),
+        'rateio'            =>$this->request->getPost('rateio'),
         ];
-        
-        $ClientesModel->insert($this->cliente);
+        $VendasModels = new VendasModel();
+        $VendasModels->insert($this->venda);
         $msg = "Dados salvos com sucesso!";
         $session = \Config\Services::session();
         $session->set($msg);
-        return $this->response->redirect(site_url('clientes'));
+        return $this->response->redirect(site_url('vendas'));
     }
 
     /**
@@ -80,8 +80,8 @@ class Vendas extends BaseController
      */
     public function delete($id)
     {
-        $ClientesModel = new ClientesModel();
-        $ClientesModel->delete($id);
+        $VendasModels = new VendasModel();
+        $VendasModels->delete($id);
         return redirect()->to(previous_url());
     }
 
@@ -91,9 +91,9 @@ class Vendas extends BaseController
     public function consultar($id)
     {
         $data = $this->img();
-        $ClientesModel = new ClientesModel();
-        $data['cliente'] = $ClientesModel->find($id);
-        return  view('cliente/consultarCliente', $data);
+        $VendasModels = new VendasModel();
+        $data['venda'] = $VendasModels->find($id);
+        return  view('venda/consultarVenda', $data);
     }
 
     /**
@@ -102,27 +102,22 @@ class Vendas extends BaseController
      */
     public function atualizar($id)
     {
-        $ClientesModel = new ClientesModel();
-        $this->cliente = [
-            'nome'            =>$this->request->getPost('nome'),
-            'email'           =>$this->request->getPost('email'),
-            'celular'         =>$this->request->getPost('celular'),
-            'cpf_cnpj'        =>$this->request->getPost('cpf_cnpj'),
-            'logradouro'      =>$this->request->getPost('logradouro'),
-            'numero'          =>$this->request->getPost('numero'),
-            'complemento'     =>$this->request->getPost('complemento'),
-            'bairro'          =>$this->request->getPost('bairro'),
-            'cidade'          =>$this->request->getPost('cidade'),
-            'estado'          =>$this->request->getPost('estado'),
-            'cep'             =>$this->request->getPost('cep'),
-            'aquisicao_dt'    =>$this->request->getPost('aquisicao_dt'),
-        ];
+        $VendasModels = new VendasModel();
+        $this->venda = [
+        'venda'             =>$this->request->getPost('venda'),
+        'vencimento_dt'     =>$this->request->getPost('vencimento_dt'),
+        'valor'             =>$this->request->getPost('valor'),
+        'categoria'         =>$this->request->getPost('categoria'),
+        'conciliado'        =>$this->request->getPost('conciliado'),
+        'cliente'           =>$this->request->getPost('cliente'),
+        'comentario'        =>$this->request->getPost('comentario'),
+        'rateio'            =>$this->request->getPost('rateio'),        ];
         
-        $ClientesModel->update($id,$this->cliente);
+        $VendasModels->update($id,$this->venda);
         $msg = "Dados atualizados com sucesso!";
         $session = \Config\Services::session();
         $session->set($msg);
-        return $this->response->redirect(site_url('clientes'));
+        return $this->response->redirect(site_url('vendas'));
     }
 
     /**
@@ -131,8 +126,8 @@ class Vendas extends BaseController
      */
     public function get_cliente($id)
     {
-        $ClientesModel = new ClientesModel();
-        $data = $ClientesModel->where('id', $id)->first();
+        $VendasModels = new VendasModel();
+        $data = $VendasModels->where('id', $id)->first();
         return $this->response->setJSON($data);
     }
 }
