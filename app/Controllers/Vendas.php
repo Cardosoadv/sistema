@@ -9,13 +9,11 @@ use DateTime;
 class Vendas extends BaseController
 {   
     private array $venda = [
-        'id_venda',
         'venda',
         'vencimento_dt',
         'valor',
         'categoria',
-        'conciliado',
-        'cliente',
+        'fornecedor',
         'comentario',
         'rateio',
     ];
@@ -72,7 +70,7 @@ class Vendas extends BaseController
         $msg = "Dados salvos com sucesso!";
         $session = \Config\Services::session();
         $session->set($msg);
-        return $this->response->redirect(site_url('vendas'));
+        return $this->response->redirect(site_url('vendas')); 
     }
 
     /**
@@ -108,10 +106,10 @@ class Vendas extends BaseController
         'vencimento_dt'     =>$this->request->getPost('vencimento_dt'),
         'valor'             =>$this->request->getPost('valor'),
         'categoria'         =>$this->request->getPost('categoria'),
-        'conciliado'        =>$this->request->getPost('conciliado'),
-        'cliente'           =>$this->request->getPost('cliente'),
+        'fornecedor'        =>$this->request->getPost('fornecedor'),
         'comentario'        =>$this->request->getPost('comentario'),
-        'rateio'            =>$this->request->getPost('rateio'),        ];
+        'rateio'            =>$this->request->getPost('rateio'),
+        ];
         
         $VendasModels->update($id,$this->venda);
         $msg = "Dados atualizados com sucesso!";

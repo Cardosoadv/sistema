@@ -50,71 +50,43 @@
               <form method="post" id="form_venda" name="form_venda" action="<?= site_url('/vendas/adicionar') ?>" enctype="multipart/form-data">
                 <input type="hidden" name="id_venda" class="form-control" value="">
 
-                <div class="row">
+
                   <div class="form-group">
                     <label>Venda</label>
                     <input type="text" name="venda" class="form-control">
                   </div>
-
-                  <div class="form-group col-4">
+                <div class="row mt-3">
+                  <div class="form-group col-3">
                     <label>Data de Vencimento</label>
                     <input type="date" name="vencimento_dt" class="form-control">
                   </div>
 
-                  <div class="form-group col-4">
+                  <div class="form-group col-3">
                     <label>Valor</label>
                     <input type="number"  step="0.01" name="valor" class="form-control">
                   </div>
 
-                  <div class="form-group col-4">
-                    <label>Celular</label>
-                    <input type="text" name="celular" class="form-control">
+                  <div class="form-group col-3">
+                    <label>Categoria</label>
+                    <input type="text" name="categoria" class="form-control">
+                  </div>
+
+                  <div class="form-group col-3">
+                    <label>Fornecedor</label>
+                    <input type="text" name="fornecedor" class="form-control">
                   </div>
 
                 </div>
-                <div class="row">
+                <div class="row mt-3">
                   
-                  <div class="form-group col-6">
-                    <label>Logradouro</label>
-                    <input type="text" name="logradouro" class="form-control">
+                  <div class="form-group">
+                    <label>Comentários</label>
+                    <textarea class="form-control" name="comentario" aria-label="Comentários"></textarea>
                   </div>
 
-                  <div class="form-group col-3">
-                    <label>Número</label>
-                    <input type="text" name="numero" class="form-control">
-                  </div>
-
-                  <div class="form-group col-3">
-                    <label>Complemento</label>
-                    <input type="text" name="complemento" class="form-control">
-                  </div>
-
-                </div>
-                <div class="row">
-
-                  <div class="form-group col-4">
-                    <label>Bairro</label>
-                    <input type="text" name="bairro" class="form-control">
-                  </div>
-
-                  <div class="form-group col-4">
-                    <label>Cidade</label>
-                    <input type="text" name="cidade" class="form-control">
-                  </div>
-
-                  <div class="form-group col-2">
-                    <label>Estado</label>
-                    <input type="text" name="estado" class="form-control">
-                  </div>
-
-                  <div class="form-group col-2">
-                    <label>CEP</label>
-                    <input type="text" name="cep" class="form-control">
-                  </div>
-
-                  <div class="form-group col-4">
-                    <label>Data de Aquisição</label>
-                    <input type="date" name="aquisicao_dt" class="form-control">
+                  <div class="form-group col-3 mt-3">
+                    <label>Rateio</label>
+                    <input type="text" name="rateio" class="form-control">
                   </div>
 
                 </div>

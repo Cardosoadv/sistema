@@ -13,9 +13,13 @@ class VendasModel extends Model
     protected $useSoftDeletes   = true;
     protected $protectFields    = true;
     protected $allowedFields    = [
-        'nome', 'email', 'celular', 'cpf_cnpj',
-        'logradouro', 'numero','complemento', 'bairro', 'cidade', 'estado', 'cep',
-        'aquisicao_dt'
+        'venda',
+        'vencimento_dt',
+        'valor',
+        'categoria',
+        'fornecedor',
+        'comentario',
+        'rateio',
         ];
 
     // Dates
