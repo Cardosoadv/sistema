@@ -88,6 +88,9 @@
                     <label>Rateio</label>
                     <input type="text" name="rateio" class="form-control">
                   </div>
+                  <div id="rateio"></div>
+
+                  <a class="btn btn-success mb-2" onclick="adicionarLinha()">Adicionar Rateio</a>
 
                 </div>
             </div>
@@ -109,5 +112,40 @@
     <?= $this->include('template/modals/change_user_img.php') ?>
     <?= $this->include('template/footer') ?>
 </body><!--end::Body-->
+
+<script>
+  function adicionarLinha() {
+  // Obter o formulário
+  const formulario = document.getElementById("form_venda");
+  const local = document.getElementById("rateio");
+
+  const divElement = document.createElement("div");
+  divElement.classList.add('form-group'); // Adicionar classe 'form-group'
+  divElement.classList.add('col-8'); // Adicionar classe 'col-3'
+  divElement.classList.add('mt-3'); // Adicionar classe 'mt-3'
+
+  // Criar o primeiro input (texto)
+  const inputAdvogado = document.createElement("input");
+  inputAdvogado.type = "number";
+  inputAdvogado.name = "advogado"; // Definir o nome do input
+  inputAdvogado.classList.add('form-control');
+  inputAdvogado.classList.add('col-3');
+
+  // Criar o segundo input (número)
+  const inputRateio = document.createElement("input");
+  inputRateio.type = "number";
+  inputRateio.name = "rateio"; // Definir o nome do input
+  inputRateio.classList.add('form-control');
+  inputRateio.classList.add('col-3');
+
+  // Adicionar os inputs à nova linha
+  divElement.appendChild(inputAdvogado);
+  divElement.appendChild(inputRateio);
+
+  local.appendChild(divElement);
+
+}
+</script>
+
 
 </html>
