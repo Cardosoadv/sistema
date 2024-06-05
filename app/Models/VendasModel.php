@@ -17,7 +17,7 @@ class VendasModel extends Model
         'vencimento_dt',
         'valor',
         'categoria',
-        'fornecedor',
+        'cliente',
         'comentario',
         'rateio',
         ];

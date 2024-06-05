@@ -51,10 +51,10 @@
                 <input type="hidden" name="id_venda" class="form-control" value="">
 
 
-                  <div class="form-group">
-                    <label>Venda</label>
-                    <input type="text" name="venda" class="form-control">
-                  </div>
+                <div class="form-group">
+                  <label>Venda</label>
+                  <input type="text" name="venda" class="form-control">
+                </div>
                 <div class="row mt-3">
                   <div class="form-group col-3">
                     <label>Data de Vencimento</label>
@@ -63,34 +63,44 @@
 
                   <div class="form-group col-3">
                     <label>Valor</label>
-                    <input type="number"  step="0.01" name="valor" class="form-control">
+                    <input type="number" step="0.01" name="valor" class="form-control">
                   </div>
 
                   <div class="form-group col-3">
                     <label>Categoria</label>
-                    <input type="text" name="categoria" class="form-control">
+                    <?= $categoria ?>
                   </div>
 
                   <div class="form-group col-3">
-                    <label>Fornecedor</label>
-                    <input type="text" name="fornecedor" class="form-control">
+                    <label>Cliente</label>
+                    <?= $cliente ?>
                   </div>
 
                 </div>
                 <div class="row mt-3">
-                  
+
                   <div class="form-group">
                     <label>Comentários</label>
                     <textarea class="form-control" name="comentario" aria-label="Comentários"></textarea>
                   </div>
-
-                  <div class="form-group col-3 mt-3">
+                </div>
+                
+                  <div class="form-group mt-3">
                     <label>Rateio</label>
-                    <input type="text" name="rateio" class="form-control">
-                  </div>
-                  <div id="rateio"></div>
+                    <div class="row mt-3">
+                      <div class="form-group col-6">
+                        <label>Advogado</label>
+                        <?= $advogado ?><div id="advogados"></div>
+                      </div>
+                      <div class="form-group col-6">
+                        <label>Rateio</label>
+                        <input type="text" name="rateio[0]" class="form-control">
+                        <div id="rateio"></div>
+                      </div>
+                    </div>
+                  
 
-                  <a class="btn btn-success mb-2" onclick="adicionarLinha()">Adicionar Rateio</a>
+                  <a class="btn btn-success mt-2" onclick="adicionarLinha()">Adicionar Rateio</a>
 
                 </div>
             </div>
@@ -106,45 +116,73 @@
       </div><!--end::App Content-->
     </main><!--end::App Main-->
 
-
-
-
     <?= $this->include('template/modals/change_user_img.php') ?>
     <?= $this->include('template/footer') ?>
 </body><!--end::Body-->
 
 <script>
-  function adicionarLinha() {
-  // Obter o formulário
-  const formulario = document.getElementById("form_venda");
-  const local = document.getElementById("rateio");
+  var i = 0;
 
-  const divElement = document.createElement("div");
-  divElement.classList.add('form-group'); // Adicionar classe 'form-group'
-  divElement.classList.add('col-8'); // Adicionar classe 'col-3'
-  divElement.classList.add('mt-3'); // Adicionar classe 'mt-3'
+function adicionarLinha() {
+  i++;
+  /**
+   * Inclui um novo input no HTML para lançamento de novo Advogado
+   */
+  const local = document.getElementById("advogados");
+  const advogadoSelect = document.querySelector('[name="advogado[0]"]');
+    const newAdvogadoSelect = advogadoSelect.outerHTML;
+    const newSelect = document.createElement('select');
+    newSelect.innerHTML = newAdvogadoSelect;
+    newSelect.classList.add('form-control');
+    newSelect.classList.add('mt-1');
+    newSelect.setAttribute('name', 'advogado['+i+']');
+    local.appendChild(newSelect);
 
-  // Criar o primeiro input (texto)
-  const inputAdvogado = document.createElement("input");
-  inputAdvogado.type = "number";
-  inputAdvogado.name = "advogado"; // Definir o nome do input
-  inputAdvogado.classList.add('form-control');
-  inputAdvogado.classList.add('col-3');
+   /**
+   * Inclui um novo input no HTML para lançamento do rateio do novo Advogado
+   */
+  const localRateio = document.getElementById("rateio");
+    const newRateioInput = '<input type="text" name="rateio['+i+']" class="form-control mt-1">';
+    localRateio.innerHTML += newRateioInput;
 
-  // Criar o segundo input (número)
-  const inputRateio = document.createElement("input");
-  inputRateio.type = "number";
-  inputRateio.name = "rateio"; // Definir o nome do input
-  inputRateio.classList.add('form-control');
-  inputRateio.classList.add('col-3');
 
-  // Adicionar os inputs à nova linha
-  divElement.appendChild(inputAdvogado);
-  divElement.appendChild(inputRateio);
 
-  local.appendChild(divElement);
 
-}
+
+
+
+
+    /**
+    const divElement = document.createElement("div");
+    divElement.classList.add('form-group'); // Adicionar classe 'form-group'
+    divElement.classList.add('col-8'); // Adicionar classe 'col-3'
+    divElement.classList.add('mt-3'); // Adicionar classe 'mt-3'
+
+    // Criar o primeiro input (texto)
+    const inputAdvogado = document.createElement("input");
+    inputAdvogado.type = "number";
+    inputAdvogado.name = "advogado"; // Definir o nome do input
+    inputAdvogado.classList.add('form-control');
+    inputAdvogado.classList.add('col-3');
+
+    // Criar o segundo input (número)
+    const inputRateio = document.createElement("input");
+    inputRateio.type = "number";
+    inputRateio.name = "rateio"; // Definir o nome do input
+    inputRateio.classList.add('form-control');
+    inputRateio.classList.add('col-3');
+
+    // Adicionar os inputs à nova linha
+    divElement.appendChild(inputAdvogado);
+    divElement.appendChild(inputRateio);
+    local.appendChild(divElement);
+ */
+  }
+
+
+
+
+
 </script>
 
 

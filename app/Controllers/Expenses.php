@@ -76,7 +76,7 @@ class Expenses extends BaseController
 
     public function pagar($id)
     {
-        //TODO função par receber a venda
+
         return $id; 
     }
 

@@ -38,6 +38,9 @@
           <div class="container mt-4">
 
             <?php
+
+    use App\Controllers\Vendas;
+
             if (isset($_SESSION['msg'])) {
               echo '<div class="callout callout-info">';
               echo $_SESSION['msg'];
@@ -68,12 +71,12 @@
 
                   <div class="form-group col-3">
                     <label>Categoria</label>
-                    <input type="text" name="categoria" class="form-control"  value="<?= $venda['categoria']?>">
+                    <?= $categoria?>
                   </div>
 
                   <div class="form-group col-3">
-                    <label>Fornecedor</label>
-                    <input type="text" name="fornecedor" class="form-control"  value="<?= $venda['fornecedor']?>">
+                    <label>Cliente</label>
+                    <?= $cliente?>
                   </div>
 
                 </div>
@@ -84,10 +87,32 @@
                     <textarea class="form-control" name="comentario" aria-label="Comentários"> <?= $venda['comentario']?></textarea>
                   </div>
 
-                  <div class="form-group col-3 mt-3">
+                  <div class="form-group mt-3">
                     <label>Rateio</label>
-                    <input type="text" name="rateio" class="form-control"  value="<?= $venda['rateio']?>">
-                  </div>
+                    <div class="row mt-3">
+                      <div class="form-group col-6">
+                        <label>Advogado</label>
+                        <?php
+                        for ($g=0;$g<$i; $g++) {
+                          echo $advogado[$g].PHP_EOL;
+                        }
+                        ?>
+                        <div id="advogados"></div>
+                      </div>
+                      <div class="form-group col-6">
+                        <label>Rateio</label>
+                        <?php
+                        for ($g=0;$g<$i; $g++) {
+                          echo '<input type="text" name="rateio['.$g.']" class="form-control mt-1" value="'. $rateio[$g] .'">'.PHP_EOL;
+                        }
+                        ?>
+                        <div id="rateio"></div>
+                      </div>
+                    </div>
+                  
+
+                  <a class="btn btn-success mt-2" onclick="adicionarLinha()">Adicionar Rateio</a>
+
 
                 </div>
             </div>
@@ -111,5 +136,35 @@
     <?= $this->include('template/modals/change_user_img.php') ?>
     <?= $this->include('template/footer') ?>
 </body><!--end::Body-->
+
+<script>
+
+var i = <?= $i-1 ?>;
+
+function adicionarLinha() {
+  i++;
+  /**
+   * Inclui um novo input no HTML para lançamento de novo Advogado
+   */
+  const local = document.getElementById("advogados");
+  const advogadoSelect = document.querySelector('[name="advogado[0]"]');
+    const newAdvogadoSelect = advogadoSelect.outerHTML;
+    const newSelect = document.createElement('select');
+    newSelect.innerHTML = newAdvogadoSelect;
+    newSelect.classList.add('form-control');
+    newSelect.classList.add('mt-1');
+    newSelect.setAttribute('name', 'advogado['+i+']');
+    newSelect.selectedOptions="0";
+    local.appendChild(newSelect);
+
+   /**
+   * Inclui um novo input no HTML para lançamento do rateio do novo Advogado
+   */
+  const localRateio = document.getElementById("rateio");
+    const newRateioInput = '<input type="text" name="rateio['+i+']" class="form-control mt-1">';
+    localRateio.innerHTML += newRateioInput;
+}
+</script>
+
 
 </html>

@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Models\VendasModel;
 use DateTime;
+use PhpParser\Node\UseItem;
 
 class Vendas extends BaseController
 {   
@@ -13,7 +14,7 @@ class Vendas extends BaseController
         'vencimento_dt',
         'valor',
         'categoria',
-        'fornecedor',
+        'cliente',
         'comentario',
         'rateio',
     ];
@@ -39,6 +40,7 @@ class Vendas extends BaseController
             ->like('venda',$s)
             ->findAll();
         }
+        
         return  view('venda/vendas', $data);
     }
     /**
@@ -46,6 +48,10 @@ class Vendas extends BaseController
      */
     public function novo(){
         $data = $this->img();
+        $Combo = new Combos();
+        $data['cliente']= $Combo->comboClientes('cliente');
+        $data['advogado']= $Combo->comboAdvogados('advogado[0]');
+        $data['categoria']= $Combo->comboCategoria('categoria');
         return  view('venda/novaVenda', $data);
     }
 
@@ -55,6 +61,17 @@ class Vendas extends BaseController
      */
     public function adicionar()
     {
+        $advogado = $this->request->getPost('advogado[]');
+        $rateio = $this->request->getPost('rateio[]');
+        $num = count($advogado);
+        $rateioFormatado=[];
+        for ($i=0; $i < $num;$i++){
+            $rateioFormatado[$i] = [
+                'advogado' => $advogado[$i],
+                'rateio' => $rateio[$i]
+            ];
+        }
+        
         $this->venda = [
         'venda'             =>$this->request->getPost('venda'),
         'vencimento_dt'     =>$this->request->getPost('vencimento_dt'),
@@ -63,7 +80,7 @@ class Vendas extends BaseController
         'conciliado'        =>$this->request->getPost('conciliado'),
         'cliente'           =>$this->request->getPost('cliente'),
         'comentario'        =>$this->request->getPost('comentario'),
-        'rateio'            =>$this->request->getPost('rateio'),
+        'rateio'            =>json_encode($rateioFormatado),
         ];
         $VendasModels = new VendasModel();
         $VendasModels->insert($this->venda);
@@ -91,6 +108,17 @@ class Vendas extends BaseController
         $data = $this->img();
         $VendasModels = new VendasModel();
         $data['venda'] = $VendasModels->find($id);
+        $rateio = json_decode($data['venda']['rateio'], true);
+        $data['i'] = count($rateio);
+        $Combo = new Combos();
+        $i=0;
+        foreach ($rateio as  $item) {
+            $data['advogado'][$i] = $Combo->comboAdvogados('advogado['.$i.']', $item['advogado']);
+            $data['rateio'][ $i] = $item['rateio'];
+            $i++;
+        }
+        $data['cliente']= $Combo->comboClientes('cliente', $data['venda']['cliente']);
+        $data['categoria']= $Combo->comboCategoria('categoria', $data['venda']['categoria']);
         return  view('venda/consultarVenda', $data);
     }
 
@@ -101,14 +129,24 @@ class Vendas extends BaseController
     public function atualizar($id)
     {
         $VendasModels = new VendasModel();
+        $advogado = $this->request->getPost('advogado[]');
+        $rateio = $this->request->getPost('rateio[]');
+        $num = count($advogado);
+        $rateioFormatado=[];
+        for ($i=0; $i < $num;$i++){
+            $rateioFormatado[$i] = [
+                'advogado' => $advogado[$i],
+                'rateio' => $rateio[$i]
+            ];
+        }
         $this->venda = [
         'venda'             =>$this->request->getPost('venda'),
         'vencimento_dt'     =>$this->request->getPost('vencimento_dt'),
         'valor'             =>$this->request->getPost('valor'),
         'categoria'         =>$this->request->getPost('categoria'),
-        'fornecedor'        =>$this->request->getPost('fornecedor'),
+        'cliente'            =>$this->request->getPost('cliente'),
         'comentario'        =>$this->request->getPost('comentario'),
-        'rateio'            =>$this->request->getPost('rateio'),
+        'rateio'            =>json_encode($rateioFormatado),
         ];
         
         $VendasModels->update($id,$this->venda);
@@ -118,14 +156,4 @@ class Vendas extends BaseController
         return $this->response->redirect(site_url('vendas'));
     }
 
-    /**
-     * Metodo para receber por ajax em json
-     * @return JSON
-     */
-    public function get_cliente($id)
-    {
-        $VendasModels = new VendasModel();
-        $data = $VendasModels->where('id', $id)->first();
-        return $this->response->setJSON($data);
-    }
 }

@@ -76,7 +76,7 @@ class Revenues extends BaseController
 
     public function receber($id)
     {
-        //TODO função par receber a venda
+  
         return $id; 
     }
 
