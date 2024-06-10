@@ -42,7 +42,7 @@
 
         <div class="container mt-4">
           <div class="d-flex justify-content-end">
-            <a class="btn btn-success mb-2" href="<?php echo base_url('processo/novo/'); ?>">Novo Pocesso</a>
+            <a class="btn btn-success mb-2" href="<?php echo base_url('processos/novo/'); ?>">Novo Pocesso</a>
           </div>
           <?php
           if (isset($_SESSION['msg'])) {
@@ -67,8 +67,8 @@
                       <td><?php echo $processo['nome']; ?></td>
                       <td><?php echo $processo['cliente']; ?></td>
                       <td>
-                        <a class="btn btn-primary btn-sm" href="<?php echo base_url('processo/consultar/' . $processo['id_processo']); ?>">Editar</a>
-                        <a href="<?php echo base_url('processo/delete/' . $processo['id_processo']); ?>" class="btn btn-danger btn-sm">Deletar</a>
+                        <a class="btn btn-primary btn-sm" href="<?php echo base_url('processos/consultar/' . $processo['id_processo']); ?>">Editar</a>
+                        <a href="<?php echo base_url('processos/delete/' . $processo['id_processo']); ?>" class="btn btn-danger btn-sm">Deletar</a>
                       </td>
                     </tr>
                   <?php endforeach; ?>
