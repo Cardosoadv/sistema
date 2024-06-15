@@ -3,8 +3,9 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use App\Models\AnotacaoProcessosModel;
 use App\Models\ProcessosModel;
-use CodeIgniter\HTTP\ResponseInterface;
+
 
 class Processos extends BaseController
 {
@@ -12,6 +13,12 @@ class Processos extends BaseController
     private array $processos = [
         'id_processo', 'nome', 'acao', 'numero', 'juizo', 'vlr_causa', 'dt_distribuicao', 'vlr_condenacao'
     ];
+
+    private function getAnotacao($id){
+        $AnotacaoProcessosModel = new AnotacaoProcessosModel();
+        $data['anotacoes'] = $AnotacaoProcessosModel->where('processo_id', $id)->findAll();
+        return $data;
+    }
     
     public function index()
     {
@@ -38,8 +45,58 @@ class Processos extends BaseController
         return  view('processo/novoProcesso', $data);
     }
 
+    public function adicionar(){
+        $this->processos = [
+            'nome'                  =>$this->request->getPost('nome'), 
+            'acao'                  =>$this->request->getPost('acao'), 
+            'numero'                =>$this->request->getPost('numero'), 
+            'juizo'                 =>$this->request->getPost('juizo'), 
+            'vlr_causa'             =>$this->request->getPost('vlr_causa'), 
+            'dt_distribuicao'       =>$this->request->getPost('dt_distribuicao'), 
+            'vlr_condenacao'        =>$this->request->getPost('vlr_condenacao'),
+        ];
+        $ProcessosModels = new ProcessosModel();
+        $ProcessosModels->insert($this->processos);
+        $msg = "Dados salvos com sucesso!";
+        $session = \Config\Services::session();
+        $session->set($msg);
+        return $this->response->redirect(site_url('processos')); 
+    }
+
+    public function consultar($id)
+    {
+        $data = $this->img();
+        $ProcessosModels = new ProcessosModel();
+        $data['processo'] = $ProcessosModels->find($id);
+        $data['anotacoes'] = $this->getAnotacao($id);
+        return  view('processo/consultarProcesso', $data);
+    }
+
+    /**
+     * Metodo para deletar um cliente
+     */
+    public function delete($id)
+    {
+        $ProcessosModels = new ProcessosModel();
+        $ProcessosModels->delete($id);
+        return redirect()->to(previous_url());
+    }
+
+    /**
+     * Metodo para adicionar uma anotação ao processo
+     */
+    public function adicionarAnotacao($id)
+    {
+        $data = [
+            'processo_id' => $id,
+            'titulo' => $this->request->getPost('titulo'),
+            'anotacao' => $this->request->getPost('anotacao'),
+            'privacidade' => $this->request->getPost('privacidade')
+        ];
+        $anotacaoProcessosModels = new AnotacaoProcessosModel();
+        $anotacaoProcessosModels->insert($data);
+        return redirect()->to(previous_url());
+    }
 
 
-
-    
 }
