@@ -55,11 +55,33 @@ class Processos extends BaseController
             'dt_distribuicao'       =>$this->request->getPost('dt_distribuicao'), 
             'vlr_condenacao'        =>$this->request->getPost('vlr_condenacao'),
         ];
-        $ProcessosModels = new ProcessosModel();
-        $ProcessosModels->insert($this->processos);
+        $ProcessosModel = new ProcessosModel();
+        $ProcessosModel->insert($this->processos);
+        
+        //Adicionar Partes
+        $clientePrincipal = $this->request->getPost('cliente_principal');
+        $cliente = [
+            'pessoa_id' => $clientePrincipal,
+            'processo_id' => $ProcessosModel->getInsertID(),
+            'qualificacao' => $this->request->getPost('cliente_qualificacao'),
+            'e_cliente' => '1',
+        ];
+        $ProcessosModel->adicionarPartes($cliente);
+        $outraParte = $this->request->getPost('outra_parte');
+        $contraParte = [
+            'pessoa_id'         => $outraParte,
+            'processo_id'       => $ProcessosModel->getInsertID(),
+            'qualificacao'      => $this->request->getPost('outraParte_qualificacao'),
+            'e_cliente'         => '0',
+        ];
+        $ProcessosModel->adicionarPartes($contraParte);
+
+        //Mensagem de Sucesso
         $msg = "Dados salvos com sucesso!";
         $session = \Config\Services::session();
         $session->set($msg);
+
+        //Redirecionar para a página de Processos
         return $this->response->redirect(site_url('processos')); 
     }
 

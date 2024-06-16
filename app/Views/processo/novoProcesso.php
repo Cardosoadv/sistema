@@ -50,14 +50,35 @@
               <form method="post" id="form_processo" name="form_processo" action="<?= site_url('/processos/adicionar') ?>" enctype="multipart/form-data">
                 <input type="hidden" name="id_processo" class="form-control" value="">
 
-
-                <div class="form-group col-5">
-                  <label>Nome do Processo</label>
-                  <input type="text" name="nome" class="form-control">
+                <div class="row">
+                  <div class="form-group col-6">
+                    <label>Nome do Processo</label>
+                    <input type="text" name="nome" class="form-control">
+                  </div>
+                  <div class="form-group col-6">
+                    <label>Ação</label>
+                    <input type="text" name="acao" class="form-control">
+                  </div>
                 </div>
-                <div class="form-group col-5">
-                  <label>Ação</label>
-                  <input type="text" name="acao" class="form-control">
+                <div class="row mt-3">
+                  <div class="form-group col-8">
+                      <label>Cliente Principal</label>
+                      <input type="text" name="cliente_principal" class="form-control">
+                    </div>
+                    <div class="form-group col-4">
+                      <label>Qualificacao do Cliente</label>
+                      <input type="text" name="cliente_qualificacao" class="form-control">
+                    </div>
+                </div>
+                <div class="row mt-3">
+                  <div class="form-group col-8">
+                      <label>Outra Parte</label>
+                      <input type="text" name="outra_parte" class="form-control">
+                    </div>
+                    <div class="form-group col-4">
+                      <label>Qualificacao do Cliente</label>
+                      <input type="text" name="outraParte_qualificacao" class="form-control">
+                    </div>
                 </div>
                 <div class="form-group">
                   <label>Numero do Processo</label>
