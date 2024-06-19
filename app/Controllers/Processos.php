@@ -9,11 +9,16 @@ use App\Models\ProcessosModel;
 
 class Processos extends BaseController
 {
-    
+    /**
+     * Define o objeto processos
+     */
     private array $processos = [
         'id_processo', 'nome', 'acao', 'numero', 'juizo', 'vlr_causa', 'dt_distribuicao', 'vlr_condenacao'
     ];
 
+    /**
+     * Metodo para reeber anotações dos Processos
+     */
     private function getAnotacao($id){
         $AnotacaoProcessosModel = new AnotacaoProcessosModel();
         $data['anotacoes'] = $AnotacaoProcessosModel->where('processo_id', $id)->findAll();
@@ -45,6 +50,9 @@ class Processos extends BaseController
         return  view('processo/novoProcesso', $data);
     }
 
+    /**
+     * Metodo para salvar Processos no Banco de Dados
+     */
     public function adicionar(){
         $this->processos = [
             'nome'                  =>$this->request->getPost('nome'), 
@@ -85,6 +93,9 @@ class Processos extends BaseController
         return $this->response->redirect(site_url('processos')); 
     }
 
+    /**
+     * Metodo para exibir tela de Consulta 
+     */
     public function consultar($id)
     {
         $data = $this->img();
