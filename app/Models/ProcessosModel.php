@@ -51,7 +51,7 @@ class ProcessosModel extends Model
      * Metodo para listar partes do Processo
      */
     public function getPartes(int $processo_id){
-        $this->db->table('processos_partes')->where('processo_id = $processo_id');
+        $this->db->table('processos_partes')->where('processo_id', $processo_id);
     }
 
 
