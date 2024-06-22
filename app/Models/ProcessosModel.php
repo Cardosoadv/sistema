@@ -40,6 +40,9 @@ class ProcessosModel extends Model
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
 
+    /**
+     * Metodo para adicionar parte ao Processo
+     */
     public function adicionarPartes(array $parte){
         $this->db->table('processos_partes')->insert($parte);
     }
