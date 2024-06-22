@@ -63,7 +63,7 @@
                 <div class="row mt-3">
                   <div class="form-group col-8">
                       <label>Cliente Principal</label>
-                      <input type="text" name="cliente_principal" class="form-control">
+                      <?= $cliente_principal ?>
                     </div>
                     <div class="form-group col-4">
                       <label>Qualificacao do Cliente</label>
@@ -73,7 +73,7 @@
                 <div class="row mt-3">
                   <div class="form-group col-8">
                       <label>Outra Parte</label>
-                      <input type="text" name="outra_parte" class="form-control">
+                      <?= $outra_parte?>
                     </div>
                     <div class="form-group col-4">
                       <label>Qualificacao do Cliente</label>
@@ -120,8 +120,8 @@
             <div class="mt-3">
               <button type="submit" class="btn btn-primary">Salvar</button>
               </form>
+              <a href="<?= site_url('/processos/') ?>" class="btn btn-outline-secondary right">Cancelar</a>
             </div><!-- fim formulário -->
-
           </div>
           <!-- Fim -->
 

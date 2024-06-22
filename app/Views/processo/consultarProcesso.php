@@ -48,14 +48,37 @@
                 <div class="mt-3"><!-- inicio formulário -->
                   <form method="post" id="form_processo" name="form_processo" action="<?= site_url('/processos/atualizar/') . $processo['id_processo'] ?>" enctype="multipart/form-data">
                     <input type="hidden" name="id_processo" class="form-control" value="<?= $processo['id_processo'] ?>">
-                    <div class="form-group col-5">
-                      <label>Nome do Processo</label>
-                      <input type="text" name="nome" class="form-control" value="<?= $processo['nome'] ?>">
+                    <div class="row mt-3">
+                      <div class="form-group col-6">
+                        <label>Nome do Processo</label>
+                        <input type="text" name="nome" class="form-control" value="<?= $processo['nome'] ?>">
+                      </div>
+                      <div class="form-group col-6">
+                        <label>Ação</label>
+                        <input type="text" name="acao" class="form-control" value="<?= $processo['acao'] ?>">
+                      </div>
                     </div>
-                    <div class="form-group col-5">
-                      <label>Ação</label>
-                      <input type="text" name="acao" class="form-control" value="<?= $processo['acao'] ?>">
+                    <div class="row mt-3">
+                  <div class="form-group col-8">
+                      <label>Cliente Principal</label>
+                      <?= $cliente_principal ?>
                     </div>
+                    <div class="form-group col-4">
+                      <label>Qualificacao do Cliente</label>
+                      <input type="text" name="cliente_qualificacao" class="form-control">
+                    </div>
+                </div>
+                <div class="row mt-3">
+                  <div class="form-group col-8">
+                      <label>Outra Parte</label>
+                      <?= $outra_parte ?>
+                    </div>
+                    <div class="form-group col-4">
+                      <label>Qualificacao Outra Parte</label>
+                      <input type="text" name="outraParte_qualificacao" class="form-control">
+                    </div>
+                </div>
+
                     <div class="form-group">
                       <label>Numero do Processo</label>
                       <input type="text" id="numeroProcesso" name="numero" class="form-control" value="<?= $processo['numero'] ?>" onchange="mask(this)">

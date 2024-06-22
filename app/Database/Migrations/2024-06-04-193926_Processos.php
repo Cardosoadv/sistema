@@ -42,7 +42,7 @@ class Processos extends Migration
         ]);
         $this->forge->addPrimaryKey('id_anotacao');
         $this->forge->addForeignKey('processo_id', 'processos', 'id_processo', '', 'CASCADE', 'anotacao_processos');
-        $this->forge->createTable('anotacao');
+        $this->forge->createTable('processos_anotacao');
 
     }
 
@@ -50,6 +50,6 @@ class Processos extends Migration
     {
         $this->forge->dropForeignKey('anotacao', 'anotacao_processos');
         $this->forge->dropTable('processos');
-        $this->forge->dropTable('anotacao');
+        $this->forge->dropTable('processos_anotacao');
     }
 }

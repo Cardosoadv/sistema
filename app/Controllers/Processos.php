@@ -42,6 +42,11 @@ class Processos extends BaseController
      */
     public function novo(){
         $data = $this->img();
+        $combo = new Combos();
+        $dataArrayCombo = $combo->ArrayComboUsuarios([['nome'=>'cliente_principal','selected'=>''],['nome'=>'outra_parte','selected'=>'']]);
+        $data['cliente_principal'] = $dataArrayCombo[0];
+        $data['outra_parte'] = $dataArrayCombo[1];
+        
         return  view('processo/novoProcesso', $data);
     }
 
@@ -91,7 +96,25 @@ class Processos extends BaseController
         $ProcessosModels = new ProcessosModel();
         $data['processo'] = $ProcessosModels->find($id);
         $data['anotacoes'] = $this->getAnotacao($id);
+        $cliente = $ProcessosModels->getCliente($id)->getResultArray();
+        $outraParte = $ProcessosModels->getOutraParte($id)->getResultArray();
+        $combo = new Combos();
+        $dataArrayCombo = $combo->ArrayComboUsuarios([['nome'=>'cliente_principal','selected'=>$cliente[0]['pessoa_id']],['nome'=>'outra_parte','selected'=>$outraParte[0]['pessoa_id']]]);
+        $data['cliente_principal'] = $dataArrayCombo[0];
+        $data['outra_parte'] = $dataArrayCombo[1];
+        $data['clientes'] = $ProcessosModels->getCliente($id);
+        $data['outrasPessoas'] = $ProcessosModels->getOutraParte($id);
         return  view('processo/consultarProcesso', $data);
+    }
+
+    public function testar($id)
+    {
+        $ProcessosModels = new ProcessosModel();
+        $cliente = $ProcessosModels->getCliente($id)
+        ->getResultArray();
+        echo '<pre>';
+        print_r($cliente[0]['pessoa_id']);
+        echo '</pre>';
     }
 
     /**

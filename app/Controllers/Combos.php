@@ -50,6 +50,23 @@ public function comboClientes($nome = 'cliente', $selected='')
         return $data['comboCategorias'] = form_dropdown($nome, $arrayCategorias, $selected, 'class="form-control" style="width: 100%;"');
     }
 
+    public function ArrayComboUsuarios($itens = ['nome'=>'user_id', 'selected'=>'']) //TODO Ajustar combo
+    {
+        $UserModel = new UserModel();
+        $usuarios = $UserModel->findAll();
+        helper('form');
+        $newArray = ["Selecione"];
+        foreach ($usuarios as $usuario) {
+            $newArray[$usuario['id']] = $usuario['username'];
+        }
+        $data = [];
+        foreach ($itens as $item){
+            array_push($data, form_dropdown($item['nome'], $newArray, $item['selected'], 'class="form-control mt-1" style="width: 100%;"'));
+        };
+        return $data;
+    }
+
+
     public function comboAccount($nome = 'account_id') //TODO Ajustar combo
     {
         $AccountsModel = new AccountsModel();
@@ -74,19 +91,5 @@ public function comboClientes($nome = 'cliente', $selected='')
         return $data['comboUsuarios'] = form_dropdown($nome, $newArray, '', 'class="form-control mt-1" style="width: 100%;"');
     }
 
-    public function ArrayComboUsuarios($nomes = ['user_id']) //TODO Ajustar combo
-    {
-        $UserModel = new UserModel();
-        $usuarios = $UserModel->findAll();
-        helper('form');
-        $newArray = ["Selecione o usuario"];
-        foreach ($usuarios as $usuario) {
-            $newArray[$usuario['id']] = $usuario['username'];
-        }
-        $data = [];
-        foreach ($nomes as $nome){
-            array_push($data, form_dropdown($nome, $newArray, '', 'class="form-control mt-1" style="width: 100%;"'));
-        };
-        return $data;
-    }
+
 }

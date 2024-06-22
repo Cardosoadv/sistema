@@ -44,6 +44,25 @@ class ProcessosModel extends Model
         $this->db->table('processos_partes')->insert($parte);
     }
 
+    public function getCliente($processo_id){
+        $query = $this->db->table('processos_partes')
+        ->select('pessoa_id')
+        ->where('processo_id', $processo_id)
+        ->where('e_cliente', 1)
+        ->get();
+        return $query;
+    }
+
+    public function getOutraParte($processo_id){
+        $query = $this->db->table('processos_partes as pp')
+        ->join('pessoas as c', 'pp.pessoa_id = c.id_pessoa')
+        ->select('*')
+        ->where('processo_id', $processo_id)
+        ->where('e_cliente', 0)
+        ->get();
+        return $query;
+    }
+
 
 
 }

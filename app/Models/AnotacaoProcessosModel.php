@@ -6,8 +6,8 @@ use CodeIgniter\Model;
 
 class AnotacaoProcessosModel extends Model
 {
-    protected $table            = 'anotacao_processo';
-    protected $primaryKey       = 'id';
+    protected $table            = 'processos_anotacao';
+    protected $primaryKey       = 'id_anotacao';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
