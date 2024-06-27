@@ -13,7 +13,7 @@ class Processos extends BaseController
      * Define o objeto processos
      */
     private array $processos = [
-        'id_processo', 'nome', 'acao', 'numero', 'juizo', 'vlr_causa', 'dt_distribuicao', 'vlr_condenacao'
+        'id_processo', 'processo', 'acao', 'numero', 'juizo', 'vlr_causa', 'dt_distribuicao', 'vlr_condenacao'
     ];
 
     /**
@@ -25,6 +25,9 @@ class Processos extends BaseController
         return $data;
     }
     
+    /**
+     * Pesquisa para exibir a lista de Processos
+     */
     public function index()
     {
         $data = $this->img();
@@ -33,11 +36,11 @@ class Processos extends BaseController
         if($s==null)
         {
             $data['processos'] = $ProcessosModel
-            ->findAll();
+            ->joinClientes();
         } else {
             $data['processos'] = $ProcessosModel
             ->like('nome',$s | 'acao', $s)
-            ->findAll();
+            ->joinClientes();
         }
         return  view('processo/processos', $data);
     }
@@ -48,7 +51,7 @@ class Processos extends BaseController
     public function novo(){
         $data = $this->img();
         $combo = new Combos();
-        $dataArrayCombo = $combo->ArrayComboUsuarios([['nome'=>'cliente_principal','selected'=>''],['nome'=>'outra_parte','selected'=>'']]);
+        $dataArrayCombo = $combo->ArrayComboPessoas([['nome'=>'cliente_principal','selected'=>''],['nome'=>'outra_parte','selected'=>'']]);
         $data['cliente_principal'] = $dataArrayCombo[0];
         $data['outra_parte'] = $dataArrayCombo[1];
         
@@ -60,7 +63,7 @@ class Processos extends BaseController
      */
     public function adicionar(){
         $this->processos = [
-            'nome'                  =>$this->request->getPost('nome'), 
+            'processo'              =>$this->request->getPost('processo'), 
             'acao'                  =>$this->request->getPost('acao'), 
             'numero'                =>$this->request->getPost('numero'), 
             'juizo'                 =>$this->request->getPost('juizo'), 
@@ -107,10 +110,10 @@ class Processos extends BaseController
         $ProcessosModels = new ProcessosModel();
         $data['processo'] = $ProcessosModels->find($id);
         $data['anotacoes'] = $this->getAnotacao($id);
-        $cliente = $ProcessosModels->getCliente($id)->getResultArray();
-        $outraParte = $ProcessosModels->getOutraParte($id)->getResultArray();
+        $cliente = $ProcessosModels->getCliente($id);
+        $outraParte = $ProcessosModels->getOutraParte($id);
         $combo = new Combos();
-        $dataArrayCombo = $combo->ArrayComboUsuarios([['nome'=>'cliente_principal','selected'=>$cliente[0]['pessoa_id']],['nome'=>'outra_parte','selected'=>$outraParte[0]['pessoa_id']]]);
+        $dataArrayCombo = $combo->ArrayComboPessoas([['nome'=>'cliente_principal','selected'=>$cliente[0]['pessoa_id']],['nome'=>'outra_parte','selected'=>$outraParte[0]['pessoa_id']]]);
         $data['cliente_principal'] = $dataArrayCombo[0];
         $data['outra_parte'] = $dataArrayCombo[1];
         $data['clientes'] = $ProcessosModels->getCliente($id);
@@ -118,14 +121,55 @@ class Processos extends BaseController
         return  view('processo/consultarProcesso', $data);
     }
 
-    public function testar($id)
+    public function testar()
     {
         $ProcessosModels = new ProcessosModel();
-        $cliente = $ProcessosModels->getCliente($id)
-        ->getResultArray();
+        $data['cliente'] = $ProcessosModels->getCliente(5);
+        $data['outraParte'] = $ProcessosModels->getOutraParte(5);
         echo '<pre>';
-        print_r($cliente[0]['pessoa_id']);
+        print_r($data);
         echo '</pre>';
+    }
+
+    public function atualizar($id){
+        $processo_id = $id;
+        $this->processos = [
+            'processo'              =>$this->request->getPost('processo'), 
+            'acao'                  =>$this->request->getPost('acao'), 
+            'numero'                =>$this->request->getPost('numero'), 
+            'juizo'                 =>$this->request->getPost('juizo'), 
+            'vlr_causa'             =>$this->request->getPost('vlr_causa'), 
+            'dt_distribuicao'       =>$this->request->getPost('dt_distribuicao'), 
+            'vlr_condenacao'        =>$this->request->getPost('vlr_condenacao'),
+        ];
+        $ProcessosModel = new ProcessosModel();
+        $ProcessosModel->update($processo_id, $this->processos);
+        
+        //Atualizar Partes
+        $id_cliente = $this->request->getPost('id_cliente');
+        $cliente = [
+
+            'pessoa_id' => $this->request->getPost('cliente_principal'),
+            'qualificacao' => $this->request->getPost('cliente_qualificacao'),
+            'e_cliente' => '1',
+        ];
+        $ProcessosModel->atualizarPartes($cliente, $id_cliente);
+
+        $id_outraParte = $this->request->getPost('id_outraParte');
+        $contraParte = [
+            'pessoa_id'         => $this->request->getPost('outra_parte'),
+            'qualificacao'      => $this->request->getPost('outraParte_qualificacao'),
+            'e_cliente'         => '0',
+        ];
+        $ProcessosModel->atualizarPartes($contraParte, $id_outraParte);
+
+        //Mensagem de Sucesso
+        $msg = "Dados salvos com sucesso!";
+        $session = \Config\Services::session();
+        $session->set($msg);
+
+        //Redirecionar para a página de Processos
+        return $this->response->redirect(site_url('processos')); 
     }
 
     /**
@@ -135,7 +179,7 @@ class Processos extends BaseController
     {
         $ProcessosModels = new ProcessosModel();
         $ProcessosModels->delete($id);
-        return redirect()->to(previous_url());
+        return $this->response->redirect(site_url('processos'));
     }
 
     /**

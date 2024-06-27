@@ -13,7 +13,7 @@ class Processos extends Migration
          */
         $this->forge->addField([
             'id_processo'      => ['type' => 'int', 'constraint' => 11, 'auto_increment' => true],
-            'nome'             => ['type' => 'varchar', 'constraint' => 150],
+            'processo'         => ['type' => 'varchar', 'constraint' => 150],
             'acao'             => ['type' => 'text','null' => true],
             'numero'           => ['type' => 'varchar', 'constraint' => 15],
             'juizo'            => ['type' => 'varchar', 'constraint' => 150],

@@ -53,7 +53,7 @@
                 <div class="row">
                   <div class="form-group col-6">
                     <label>Nome do Processo</label>
-                    <input type="text" name="nome" class="form-control">
+                    <input type="text" name="processo" class="form-control">
                   </div>
                   <div class="form-group col-6">
                     <label>Ação</label>

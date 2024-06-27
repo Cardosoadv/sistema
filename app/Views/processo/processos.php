@@ -65,8 +65,8 @@
                       <?php if ($processos) : ?>
                         <?php foreach ($processos as $processo) : ?>
                           <tr>
+                            <td><?php echo $processo['processo']; ?></td>
                             <td><?php echo $processo['nome']; ?></td>
-                            <td><?php echo $processo['acao']; ?></td>
                             <td>
                               <a class="btn btn-primary btn-sm" href="<?php echo base_url('processos/consultar/' . $processo['id_processo']); ?>">Editar</a>
                               <a href="<?php echo base_url('processos/delete/' . $processo['id_processo']); ?>" class="btn btn-danger btn-sm">Deletar</a>

@@ -5,7 +5,7 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Models\AccountsModel;
 use App\Models\CategoriasModel;
-use App\Models\ClientesModel;
+use App\Models\PessoasModel;
 use App\Models\UserModel;
 /**
  * Fornece combos para serem reutilizados em todo sistema
@@ -15,7 +15,7 @@ class Combos extends BaseController
 
 public function comboClientes($nome = 'cliente', $selected='')
     {
-        $ClientesModel = new ClientesModel();
+        $ClientesModel = new PessoasModel();
         $clientes = $ClientesModel->findAll();
         helper('form');
         $arrayClientes = ["Selecione o Cliente"];
@@ -27,8 +27,8 @@ public function comboClientes($nome = 'cliente', $selected='')
 
     public function comboAdvogados($nome = 'advogados', $selected='')
     {
-        $ClientesModel = new ClientesModel();
-        $clientes = $ClientesModel->findAll();
+        $PessoasModel = new PessoasModel();
+        $clientes = $PessoasModel->findAll();
         helper('form');
         $arrayClientes = ["Selecione o Advogado"];
         foreach ($clientes as $cliente) {
@@ -50,14 +50,14 @@ public function comboClientes($nome = 'cliente', $selected='')
         return $data['comboCategorias'] = form_dropdown($nome, $arrayCategorias, $selected, 'class="form-control" style="width: 100%;"');
     }
 
-    public function ArrayComboUsuarios($itens = ['nome'=>'user_id', 'selected'=>'']) //TODO Ajustar combo
+    public function ArrayComboPessoas($itens = ['nome'=>'pessoa_id', 'selected'=>'']) 
     {
-        $UserModel = new UserModel();
-        $usuarios = $UserModel->findAll();
+        $PessoasModel = new PessoasModel();
+        $pessoas = $PessoasModel->findAll();
         helper('form');
         $newArray = ["Selecione"];
-        foreach ($usuarios as $usuario) {
-            $newArray[$usuario['id']] = $usuario['username'];
+        foreach ($pessoas as $pessoa) {
+            $newArray[$pessoa['id_pessoa']] = $pessoa['nome'];
         }
         $data = [];
         foreach ($itens as $item){

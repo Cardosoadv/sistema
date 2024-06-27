@@ -51,7 +51,7 @@
                     <div class="row mt-3">
                       <div class="form-group col-6">
                         <label>Nome do Processo</label>
-                        <input type="text" name="nome" class="form-control" value="<?= $processo['nome'] ?>">
+                        <input type="text" name="processo" class="form-control" value="<?= $processo['processo'] ?>">
                       </div>
                       <div class="form-group col-6">
                         <label>Ação</label>
@@ -61,21 +61,23 @@
                     <div class="row mt-3">
                   <div class="form-group col-8">
                       <label>Cliente Principal</label>
+                      <input type="hidden" name="id_cliente" value="<?= $clientes[0]['id_parte'] ?>">
                       <?= $cliente_principal ?>
                     </div>
                     <div class="form-group col-4">
                       <label>Qualificacao do Cliente</label>
-                      <input type="text" name="cliente_qualificacao" class="form-control">
+                      <input type="text" name="cliente_qualificacao" class="form-control" value="<?= $clientes[0]['qualificacao'] ?>">
                     </div>
                 </div>
                 <div class="row mt-3">
                   <div class="form-group col-8">
                       <label>Outra Parte</label>
+                      <input type="hidden" name="id_outraParte" value="<?= $outrasPessoas[0]['id_parte'] ?>">
                       <?= $outra_parte ?>
                     </div>
                     <div class="form-group col-4">
                       <label>Qualificacao Outra Parte</label>
-                      <input type="text" name="outraParte_qualificacao" class="form-control">
+                      <input type="text" name="outraParte_qualificacao" class="form-control" value="<?= $outrasPessoas[0]['qualificacao'] ?>">
                     </div>
                 </div>
 
