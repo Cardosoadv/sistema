@@ -13,7 +13,9 @@ class Processos extends BaseController
      * Define o objeto processos
      */
     private array $processos = [
-        'id_processo', 'processo', 'acao', 'numero', 'juizo', 'vlr_causa', 'dt_distribuicao', 'vlr_condenacao'
+        'id_processo', 'processo', 'acao', 'numero',
+        'juizo', 'vlr_causa', 'dt_distribuicao',
+        'vlr_condenacao', 'comentarios'
     ];
 
     /**
@@ -70,7 +72,8 @@ class Processos extends BaseController
             'vlr_causa'             =>$this->request->getPost('vlr_causa'), 
             'dt_distribuicao'       =>$this->request->getPost('dt_distribuicao'), 
             'vlr_condenacao'        =>$this->request->getPost('vlr_condenacao'),
-        ];
+            'comentarios'           =>$this->request->getPost('comentarios'),
+            ];
         $ProcessosModel = new ProcessosModel();
         $ProcessosModel->insert($this->processos);
         
@@ -131,6 +134,10 @@ class Processos extends BaseController
         echo '</pre>';
     }
 
+    /**
+     * Metódo para atualizar os processos
+     * 
+     */
     public function atualizar($id){
         $processo_id = $id;
         $this->processos = [
@@ -141,6 +148,7 @@ class Processos extends BaseController
             'vlr_causa'             =>$this->request->getPost('vlr_causa'), 
             'dt_distribuicao'       =>$this->request->getPost('dt_distribuicao'), 
             'vlr_condenacao'        =>$this->request->getPost('vlr_condenacao'),
+            'comentarios'           =>$this->request->getPost('comentarios'),
         ];
         $ProcessosModel = new ProcessosModel();
         $ProcessosModel->update($processo_id, $this->processos);

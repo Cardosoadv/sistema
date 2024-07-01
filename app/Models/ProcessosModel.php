@@ -5,6 +5,9 @@ namespace App\Models;
 use CodeIgniter\Database\RawSql;
 use CodeIgniter\Model;
 
+/**
+ * Model para CRUD dos processos no Banco de Dados
+ */
 class ProcessosModel extends Model
 {
     protected $table            = 'processos';
@@ -14,11 +17,11 @@ class ProcessosModel extends Model
     protected $useSoftDeletes   = true;
     protected $protectFields    = true;
     protected $allowedFields    = [
-        'id_processo', 'nome', 'acao', 'numero', 'juizo', 'vlr_causa', 'dt_distribuicao', 'vlr_condenacao'
+        'id_processo', 'processo', 'acao', 'numero', 'juizo', 'vlr_causa', 'dt_distribuicao', 'vlr_condenacao', 'comentarios'
     ];
 
     // Dates
-    protected $useTimestamps = false;
+    protected $useTimestamps = true;
     protected $dateFormat    = 'datetime';
     protected $createdField  = 'created_at';
     protected $updatedField  = 'updated_at';
@@ -41,12 +44,17 @@ class ProcessosModel extends Model
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
 
+    /**
+     * Metodo para realizar o join das tabelas de processos e pessoas
+     */
     public function joinClientes()
     {
         $query = $this->db->table('processos as p')
+        ->select('p.id_processo, p.processo, p.numero, c.nome')
         ->where('p.deleted_at', null)
         ->join('processos_partes as pp', 'p.id_processo = pp.processo_id', 'left')
             ->where('pp.deleted_at', null)
+            ->where('pp.e_cliente=1')
             ->join('pessoas as c', 'pp.pessoa_id = c.id_pessoa')
             ->where('c.deleted_at', null)
             ->get();
@@ -73,6 +81,9 @@ class ProcessosModel extends Model
         $builder->update($data);
     }
 
+    /**
+     * Metódo para receber o cliente vinculado ao processo
+     */
     public function getCliente($processo_id){
         $query = $this->db->table('processos_partes')
         ->where('processo_id', $processo_id)
@@ -81,6 +92,9 @@ class ProcessosModel extends Model
         return $query->getResultArray();
     }
 
+    /**
+     * Metódo para receber a outra parte vinculada ao processo
+     */
     public function getOutraParte($processo_id){
         $query = $this->db->table('processos_partes')
         ->where('processo_id', $processo_id)
@@ -88,7 +102,4 @@ class ProcessosModel extends Model
         ->get();
         return $query->getResultArray();
     }
-
-
-
 }

@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\ClientesModel;
+use App\Models\PessoasModel;
 use DateTime;
 
 class Clientes extends BaseController
@@ -25,7 +26,7 @@ class Clientes extends BaseController
     public function index()
     {
         $data = $this->img();
-        $ClientesModel = new ClientesModel();
+        $ClientesModel = new PessoasModel();
         $s = $this->request->getVar('s');
         if($s==null)
         {
@@ -52,7 +53,7 @@ class Clientes extends BaseController
      */
     public function adicionar()
     {
-        $ClientesModel = new ClientesModel();
+        $ClientesModel = new  PessoasModel();
         $this->cliente = [
             'nome'            =>$this->request->getPost('nome'),
             'email'           =>$this->request->getPost('email'),
@@ -80,7 +81,7 @@ class Clientes extends BaseController
      */
     public function delete($id)
     {
-        $ClientesModel = new ClientesModel();
+        $ClientesModel = new  PessoasModel();
         $ClientesModel->delete($id);
         return redirect()->to(previous_url());
     }
@@ -91,7 +92,7 @@ class Clientes extends BaseController
     public function consultar($id)
     {
         $data = $this->img();
-        $ClientesModel = new ClientesModel();
+        $ClientesModel = new  PessoasModel();
         $data['cliente'] = $ClientesModel->find($id);
         return  view('cliente/consultarCliente', $data);
     }
@@ -102,7 +103,7 @@ class Clientes extends BaseController
      */
     public function atualizar($id)
     {
-        $ClientesModel = new ClientesModel();
+        $ClientesModel = new  PessoasModel();
         $this->cliente = [
             'nome'            =>$this->request->getPost('nome'),
             'email'           =>$this->request->getPost('email'),
@@ -131,7 +132,7 @@ class Clientes extends BaseController
      */
     public function get_cliente($id)
     {
-        $ClientesModel = new ClientesModel();
+        $ClientesModel = new  PessoasModel();
         $data = $ClientesModel->where('id', $id)->first();
         return $this->response->setJSON($data);
     }

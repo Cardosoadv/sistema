@@ -57,6 +57,7 @@
                     <thead>
                       <tr>
                         <th>Processo</th>
+                        <th>Nº Processo</th>
                         <th>Cliente</th>
                         <th>Ação</th>
                       </tr>
@@ -66,6 +67,7 @@
                         <?php foreach ($processos as $processo) : ?>
                           <tr>
                             <td><?php echo $processo['processo']; ?></td>
+                            <td><?php echo $processo['numero']; ?></td>
                             <td><?php echo $processo['nome']; ?></td>
                             <td>
                               <a class="btn btn-primary btn-sm" href="<?php echo base_url('processos/consultar/' . $processo['id_processo']); ?>">Editar</a>

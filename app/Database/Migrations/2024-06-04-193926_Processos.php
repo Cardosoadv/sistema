@@ -20,6 +20,7 @@ class Processos extends Migration
             'vlr_causa'        => ['type' => 'double', 'null' => true],
             'dt_distribuicao'  => ['type' => 'date', 'null' => true],
             'vlr_condenacao'   => ['type' => 'double', 'null' => true],
+            'comentarios'      => ['type' => 'text','null' => true],
             'created_at'       => ['type' => 'datetime', 'null' => true],
             'updated_at'       => ['type' => 'datetime', 'null' => true],
             'deleted_at'       => ['type' => 'datetime', 'null' => true],

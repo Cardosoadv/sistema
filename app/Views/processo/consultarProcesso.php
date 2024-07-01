@@ -92,7 +92,7 @@
                       </div>
                       <div class="form-group col-3">
                         <label>Valor da Causa</label>
-                        <input type="number" step="0.01" name="vlr_causa" class="form-control" value="<?= $processo['vlr_causa'] ?>">
+                        <input type="text" name="vlr_causa" class="form-control" value="<?php echo number_format($processo['vlr_causa'],2,',','.') ?>"  >
                       </div>
                       <div class="form-group col-3">
                         <label>Data Distribuição</label>
@@ -166,6 +166,8 @@
 
 </body><!--end::Body-->
 <script>
+
+
 function mask(input) {
   var value = input.value.replace(/\D/g, '').substring(0, 20);
   const regex = /^(\d{7})(\d{2})(\d{4})(\d{1})(\d{2})(\d{4})$/;

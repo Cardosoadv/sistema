@@ -50,7 +50,12 @@ public function comboClientes($nome = 'cliente', $selected='')
         return $data['comboCategorias'] = form_dropdown($nome, $arrayCategorias, $selected, 'class="form-control" style="width: 100%;"');
     }
 
-    public function ArrayComboPessoas($itens = ['nome'=>'pessoa_id', 'selected'=>'']) 
+    /**
+     * Retorna vários combos fazendo apenas uma consulta no banco de dados
+     * @param array $combos contendo, o nome do campo no formulário e o item selecionado, 
+     * para cada um dos campos
+     */
+    public function ArrayComboPessoas($combos = ['nome'=>'pessoa_id', 'selected'=>'']) 
     {
         $PessoasModel = new PessoasModel();
         $pessoas = $PessoasModel->findAll();
@@ -60,7 +65,7 @@ public function comboClientes($nome = 'cliente', $selected='')
             $newArray[$pessoa['id_pessoa']] = $pessoa['nome'];
         }
         $data = [];
-        foreach ($itens as $item){
+        foreach ($combos as $item){
             array_push($data, form_dropdown($item['nome'], $newArray, $item['selected'], 'class="form-control mt-1" style="width: 100%;"'));
         };
         return $data;
