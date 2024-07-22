@@ -82,7 +82,7 @@ class Start extends Migration
             'tipo_pessoa'        => ['type' => 'varchar', 'constraint' => 100],
         ]);
         $this->forge->addForeignKey('pessoa_id', 'pessoas', 'id_pessoa', '', 'CASCADE');
-        $this->forge->createTable('tipo_pessoa');
+        $this->forge->createTable('pessoas_tipo');
 
         /**
          * Cria tabela de contas bancárias
@@ -177,7 +177,7 @@ class Start extends Migration
         $this->forge->addPrimaryKey('id_pagamento');
         $this->forge->addForeignKey('despesa_id', 'despesas', 'id_despesa', '', 'CASCADE');
         $this->forge->addForeignKey('conta_id', 'contas', 'id_conta', '', 'CASCADE');
-        $this->forge->createTable('pagamentos');
+        $this->forge->createTable('despesas_pagamentos');
 
         /**
          * Cria a Tabela de Receitas

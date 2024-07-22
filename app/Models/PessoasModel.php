@@ -45,6 +45,35 @@ class PessoasModel extends Model
     protected function setTipoPessoa(array $data){
         $pessoa['pessoa_id'] = $data['id'];
         $pessoa['tipo_pessoa'] = "Cliente";
-        $this->db->table('tipo_pessoa')->insert($pessoa);
+        $this->db->table('pessoas_tipo')->insert($pessoa);
     }
+
+    /**
+     * Verifica se o cliente existe e registra caso não exista.
+     *
+     * @param string $nomeCliente Nome do cliente a ser verificado.
+     * @return int ID do cliente registrado ou existente.
+     */
+    public function verificarERegistrarCliente($nomeCliente) {
+        // Verifica se o cliente já existe no banco de dados.
+        $clienteExistente = $this->where('nome', $nomeCliente)->first();
+
+        if ($clienteExistente) {
+            // Retorna o ID do cliente existente.
+            echo $clienteExistente['id_pessoa'];
+            return $clienteExistente['id_pessoa'];
+        } else {
+            // Registra o novo cliente.
+            $data = [
+                'nome' => $nomeCliente,
+            ];
+            $this->insert($data);
+            $id = $this->insertID();
+            echo $id;
+            // Retorna o ID do cliente recém-registrado.
+            return $id;
+        }
+    }
+
+
 }
