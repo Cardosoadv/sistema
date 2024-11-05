@@ -5,7 +5,6 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Models\VendasModel;
 use DateTime;
-use PhpParser\Node\UseItem;
 
 class Vendas extends BaseController
 {   
