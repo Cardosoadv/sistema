@@ -22,6 +22,7 @@ $active = $uri->getSegment(1);
                         </p>
                     </a>
                 </li>
+                <?php if($permission['processos']):?>
                 <li class="nav-item <?php echo (($active === "processos") ? "menu-open" : "");?>"><a href="#" class="nav-link <?php echo (($active === "processos") ? "active" : "");?>">
                     <i class="nav-icon bi bi-box-seam-fill"></i>
                         <p>
@@ -41,6 +42,7 @@ $active = $uri->getSegment(1);
                             </a></li>
                     </ul>
                 </li>
+                <?php endif; ?>
                 <li class="nav-item"><a href="#" class="nav-link"><i class="nav-icon bi bi-clipboard-fill"></i>
                         <p>
                             Layout Options
