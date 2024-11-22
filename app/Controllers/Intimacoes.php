@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use App\CodeIgniter\BaseModel;
 use App\Models\IntimacoesModel;
 use App\Models\IntimacoesDestinatariosModel;
 use App\Models\IntimacoesAdvogadosModel;
@@ -10,6 +11,8 @@ use Exception;
 
 class Intimacoes extends BaseController
 {
+
+
     public function index(){
 
         $this->getIntimacoes("164136","mg");
@@ -18,8 +21,13 @@ class Intimacoes extends BaseController
 
     public function parseIntimacao(array $data){
 
-        foreach($data['items'] as $items){
+        $resultadoIntimacoes = [];
+        $intimacoesModel = new IntimacoesModel();
+        $intimacoesDestinatariosModel = new IntimacoesDestinatariosModel();
+        $intimacoesAdvogadosModel = new IntimacoesAdvogadosModel();
 
+        foreach($data['items'] as $items){
+            //Binding capos da intimação
             $intimacao = [
                 'id_intimacao'              => $items['id'],
                 'data_disponibilizacao'     => $items['data_disponibilizacao'],
@@ -44,27 +52,60 @@ class Intimacoes extends BaseController
                 'numeroprocessocommascara'  => $items['numeroprocessocommascara'],
             ];
 
-            $destinatarios = $items['destinatarios'];
-            $advogados     = $items['destinatarioadvogados'];
-
-            $intimacoesModel = new IntimacoesModel();
-            $intimacoesDestinatariosModel = new IntimacoesDestinatariosModel();
-            $intimacoesAdvogadosModel = new IntimacoesAdvogadosModel();
 
             if($intimacoesModel->exitingIntimacao($items['id'])){
-
-                echo "id ".$items['id']." Já Registrado \n.";
-
-            }else{
-
-                $intimacoesDestinatariosModel->insert($destinatarios);
-                    $intimacoesAdvogadosModel->insert($advogados);
-                    $intimacoesModel->insert($intimacao);    
                 
+                echo "id ".$items['id']." Já Registrado \n.";
+                
+            }else{
+                try {
 
-            }
+                    //Registra as intimações no db
+                    $intimacoesModel->insert($intimacao);
+                    
+                    array_push($resultadoIntimacoes, $intimacoesModel->getInsertID());
+
+                    //Percorre a lista de destinários salvando cada uma no db
+                    foreach($items['destinatarios'] as $itemsDestinatario){
+                        $destinatarios = [
+                            'comunicacao_id' => $itemsDestinatario['id_intimacao'],
+                            'nome'           => $itemsDestinatario['id_intimacao'],
+                            'polo'           => $itemsDestinatario['id_intimacao'],
+                        ];
+                        $intimacoesDestinatariosModel->insert($destinatarios);
+                    }
+
+                    //Percorre a lista de advogados salvando cada uma no db
+                    foreach($items['advogados'] as $itemsAdvogados){
+                        $advogados = [
+                            'id'                => $itemsAdvogados['id'],
+                            'comunicacao_id'    => $itemsAdvogados['comunicacao_id'],
+                            'advogado_id'       => $itemsAdvogados['advogado_id'],    
+                            'advogado_nome'     => $itemsAdvogados['advogado_nome'],
+                            'advogado_oab'      => $itemsAdvogados['advogado_oab'],
+                            'advogado_oab_uf'   => $itemsAdvogados['advogado_oab_uf'],
+                            'created_at'        => $itemsAdvogados['created_at'],
+                            'updated_at'        => $itemsAdvogados['updated_at']
+                        ];
+                        $intimacoesAdvogadosModel->insert($advogados);
+
+                        }
+                    } catch (Exception $e) {
+                        //Desfaz operações em caso de erro.
+
+                        // Registrar erro em um log
+                        error_log("Erro ao salvar intimação: " . $e->getMessage());
+                    }
+
+                }
         }
-        return view('testes');
+
+        echo '<pre>';
+        print_r($resultadoIntimacoes);
+        echo '</pre>';
+        
+        //return view('testes');
+
     }
 
     public function getIntimacoes($oab, $ufOab){
@@ -95,13 +136,14 @@ class Intimacoes extends BaseController
         } else {
             // Processa a resposta da API
             $data = json_decode($response, true);
-            $this->parseIntimacao($data);
+            if ($data['status']=="success"){
+                $this->parseIntimacao($data);
+            }else{
+                $s = $data;
+                return view('testes',$s); 
+            }
         }
-        
         // Fecha a sessão cURL
         curl_close($ch);
     }
-    
- 
-
 }

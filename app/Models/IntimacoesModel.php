@@ -1,8 +1,6 @@
 <?php
 
 namespace App\Models;
-
-use CodeIgniter\Database\RawSql;
 use CodeIgniter\Model;
 
 /**
@@ -12,7 +10,7 @@ class IntimacoesModel extends Model
 {
     protected $table            = 'intimacoes';
     protected $primaryKey       = 'id_intimacao';
-    protected $useAutoIncrement = true;
+    protected $useAutoIncrement = false;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = true;
     protected $protectFields    = true;

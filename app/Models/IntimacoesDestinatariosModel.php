@@ -6,16 +6,16 @@ use CodeIgniter\Database\RawSql;
 use CodeIgniter\Model;
 
 /**
- * Model para CRUD dos processos no Banco de Dados
+ * Model para CRUD das intimações no Banco de Dados
  */
 
 class IntimacoesDestinatariosModel extends Model
 {
     protected $table            = 'intimacoes_destinatario';
     //protected $primaryKey       = 'id_intimacao';
-    protected $useAutoIncrement = true;
+    protected $useAutoIncrement = false;
     protected $returnType       = 'array';
-    protected $useSoftDeletes   = true;
+    protected $useSoftDeletes   = false;
     protected $protectFields    = true;
     protected $allowedFields    = [
         'nome',
