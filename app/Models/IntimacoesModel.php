@@ -63,4 +63,48 @@ class IntimacoesModel extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
+
+    public function exitingIntimacao(string $id){
+        $existingIntimacao = $this->db->table('intimacoes')
+        ->where('id_intimacao', $id)
+        ->get()
+        ->getResultArray();
+        return isset($existingIntimacao['id_intimacao']);
+        //return $existingIntimacao;
+    }
+
+    public function bindingIntimacoes($items){
+        $intimacao = [
+            'id_intimacao'              => $items['id'],
+            'data_disponibilizacao'     => $items['data_disponibilizacao'],
+            'siglaTribunal'             => $items['siglaTribunal'],
+            'tipoComunicacao'           => $items['tipoComunicacao'],
+            'nomeOrgao'                 => $items['nomeOrgao'],
+            'texto'                     => $items['texto'],
+            'numero_processo'           => $items['numero_processo'],
+            'meio'                      => $items['meio'],
+            'link'                      => $items['link'],
+            'tipoDocumento'             => $items['tipoDocumento'],
+            'codigoClasse'              => $items['codigoClasse'],
+            'numeroComunicacao'         => $items['numeroComunicacao'],
+            'ativo'                     => ($items['ativo'])?1:0,
+            'hash'                      => $items['hash'],
+            'status'                    => $items['status'],
+            'motivo_cancelamento'       => $items['motivo_cancelamento'],
+            'data_cancelamento'         => $items['data_cancelamento'],
+            'datadisponibilizacao'      => $items['datadisponibilizacao'],
+            'dataenvio'                 => $items['dataenvio'],
+            'meiocompleto'              => $items['meiocompleto'],
+            'numeroprocessocommascara'  => $items['numeroprocessocommascara'],
+        ];
+    }
+    
+
+
+
+
+
+
+
+
 }

@@ -11,58 +11,58 @@ use Exception;
 class Intimacoes extends BaseController
 {
     public function index(){
+
         $this->getIntimacoes("164136","mg");
+    
     }
 
-    public function parseIntimacao($data){
+    public function parseIntimacao(array $data){
+
         foreach($data['items'] as $items){
+
             $intimacao = [
-            'id_intimacao'              => $items['id'],
-            'data_disponibilizacao'     => $items['data_disponibilizacao'],
-            'siglaTribunal'             => $items['siglaTribunal'],
-            'tipoComunicacao'           => $items['tipoComunicacao'],
-            'nomeOrgao'                 => $items['nomeOrgao'],
-            'texto'                     => $items['texto'],
-            'numero_processo'           => $items['numero_processo'],
-            'meio'                      => $items['meio'],
-            'link'                      => $items['link'],
-            'tipoDocumento'             => $items['tipoDocumento'],
-            'codigoClasse'              => $items['codigoClasse'],
-            'numeroComunicacao'         => $items['numeroComunicacao'],
-            'ativo'                     => ($items['ativo'])?1:0,
-            'hash'                      => $items['hash'],
-            'status'                    => $items['status'],
-            'motivo_cancelamento'       => $items['motivo_cancelamento'],
-            'data_cancelamento'         => $items['data_cancelamento'],
-            'datadisponibilizacao'      => $items['datadisponibilizacao'],
-            'dataenvio'                 => $items['dataenvio'],
-            'meiocompleto'              => $items['meiocompleto'],
-            'numeroprocessocommascara'  => $items['numeroprocessocommascara'],
-        ];
+                'id_intimacao'              => $items['id'],
+                'data_disponibilizacao'     => $items['data_disponibilizacao'],
+                'siglaTribunal'             => $items['siglaTribunal'],
+                'tipoComunicacao'           => $items['tipoComunicacao'],
+                'nomeOrgao'                 => $items['nomeOrgao'],
+                'texto'                     => $items['texto'],
+                'numero_processo'           => $items['numero_processo'],
+                'meio'                      => $items['meio'],
+                'link'                      => $items['link'],
+                'tipoDocumento'             => $items['tipoDocumento'],
+                'codigoClasse'              => $items['codigoClasse'],
+                'numeroComunicacao'         => $items['numeroComunicacao'],
+                'ativo'                     => ($items['ativo'])?1:0,
+                'hash'                      => $items['hash'],
+                'status'                    => $items['status'],
+                'motivo_cancelamento'       => $items['motivo_cancelamento'],
+                'data_cancelamento'         => $items['data_cancelamento'],
+                'datadisponibilizacao'      => $items['datadisponibilizacao'],
+                'dataenvio'                 => $items['dataenvio'],
+                'meiocompleto'              => $items['meiocompleto'],
+                'numeroprocessocommascara'  => $items['numeroprocessocommascara'],
+            ];
 
-        $destinatarios = $items['destinatarios'];
-        $advogados     = $items['destinatarioadvogados'];
+            $destinatarios = $items['destinatarios'];
+            $advogados     = $items['destinatarioadvogados'];
 
-        //TODO A inserção de dados não esta funcionando.
-        try{
             $intimacoesModel = new IntimacoesModel();
-            $intimacaoJaRegistrada = $intimacoesModel->Where('id_intimacao', $items['id'])->first();
-            if(!$intimacaoJaRegistrada){
-                $intimacoesDestinatariosModel = new IntimacoesDestinatariosModel();
-                $intimacoesAdvogadosModel = new IntimacoesAdvogadosModel();
-                $intimacoesDestinatariosModel->insert($destinatarios);
-                $intimacoesAdvogadosModel->insert($advogados);
-                $intimacoesModel->insert($intimacao);
-                echo "Registrado com Sucesso \n.";
-            }else{
+            $intimacoesDestinatariosModel = new IntimacoesDestinatariosModel();
+            $intimacoesAdvogadosModel = new IntimacoesAdvogadosModel();
+
+            if($intimacoesModel->exitingIntimacao($items['id'])){
+
                 echo "id ".$items['id']." Já Registrado \n.";
+
+            }else{
+
+                $intimacoesDestinatariosModel->insert($destinatarios);
+                    $intimacoesAdvogadosModel->insert($advogados);
+                    $intimacoesModel->insert($intimacao);    
+                
+
             }
-
-
-
-        }catch(Exception $e){
-            return view('testes',$e);
-        }
         }
         return view('testes');
     }
