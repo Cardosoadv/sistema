@@ -14,7 +14,9 @@ class Contas extends BaseController
     
     public function index()
     {
+        
         $data = $this->img();
+        $data['permission'] = $this->permission();
         $ContasModel = new ContasModel();
 
         $s = $this->request->getVar('s');
@@ -34,7 +36,9 @@ class Contas extends BaseController
      * Metodo para exibir o formulário de inserção de conta
      */
     public function novo(){
+        
         $data = $this->img();
+        $data['permission'] = $this->permission();
         return  view('conta/novaConta', $data);
     }
 
@@ -74,7 +78,9 @@ class Contas extends BaseController
      */
     public function consultar($id)
     {
+        
         $data = $this->img();
+        $data['permission'] = $this->permission();
         $ContasModel = new ContasModel();
         $data['conta'] = $ContasModel->find($id);
         return  view('conta/consultarConta', $data);
