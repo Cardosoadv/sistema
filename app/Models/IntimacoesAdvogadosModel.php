@@ -6,13 +6,13 @@ use CodeIgniter\Database\RawSql;
 use CodeIgniter\Model;
 
 /**
- * Model para CRUD dos processos no Banco de Dados
+ * Model para CRUD dos advogados das Intimações no Banco de Dados
  */
 
 class IntimacoesAdvogadosModel extends Model
 {
     protected $table            = 'intimacoes_advogados';
-    //protected $primaryKey       = 'id_intimacao';
+    protected $primaryKey       = 'id_pk';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = true;
@@ -53,61 +53,22 @@ class IntimacoesAdvogadosModel extends Model
     protected $afterDelete    = [];
 
     /**
-     * Metodo para realizar o join das tabelas de processos e pessoas
+     * Função salvar os advogados vinculados às intimações
+     * @param array $itemsAdvogados
      */
-    public function joinClientes()
-    {
-        $query = $this->db->table('processos as p')
-        ->select('p.id_processo, p.processo, p.numero, c.nome')
-        ->where('p.deleted_at', null)
-        ->join('processos_partes as pp', 'p.id_processo = pp.processo_id', 'left')
-            ->where('pp.deleted_at', null)
-            ->where('pp.e_cliente=1')
-            ->join('pessoas as c', 'pp.pessoa_id = c.id_pessoa')
-            ->where('c.deleted_at', null)
-            ->get();
-            return $query->getResultArray();
-    }
-    
-    /**
-     * Metodo para adicionar parte ao Processo
-     */
-    public function adicionarPartes(array $parte){
-        $this->db->table('processos_partes')->insert($parte);
-    }
+    public function salvarAdvogados($itemsAdvogados){
 
-        /**
-     * Metodo para atualizar parte do Processo
-     * @param $parte array de dados da parte
-     * @param $id_parte id da parte a ser atualizada 
-     */
-    public function atualizarPartes(array $parte, $id_parte){
-        $builder = $this->db->table('processos_partes');
-        $data = $parte;
-        $data['updated_at'] = new RawSql('CURRENT_TIMESTAMP()');
-        $builder->where('id_parte', $id_parte);
-        $builder->update($data);
-    }
+        $advogados = [
 
-    /**
-     * Metódo para receber o cliente vinculado ao processo
-     */
-    public function getCliente($processo_id){
-        $query = $this->db->table('processos_partes')
-        ->where('processo_id', $processo_id)
-        ->where('e_cliente', 1)
-        ->get();
-        return $query->getResultArray();
-    }
-
-    /**
-     * Metódo para receber a outra parte vinculada ao processo
-     */
-    public function getOutraParte($processo_id){
-        $query = $this->db->table('processos_partes')
-        ->where('processo_id', $processo_id)
-        ->where('e_cliente', 0)
-        ->get();
-        return $query->getResultArray();
+            'id'                => $itemsAdvogados['id'],
+            'comunicacao_id'    => $itemsAdvogados['comunicacao_id'],
+            'advogado_id'       => $itemsAdvogados['advogado_id'],    
+            'created_at'        => $itemsAdvogados['created_at'],
+            'updated_at'        => $itemsAdvogados['updated_at'],
+            'advogado_nome'     => $itemsAdvogados['advogado']['nome'],
+            'advogado_oab'      => $itemsAdvogados['advogado']['numero_oab'],
+            'advogado_oab_uf'   => $itemsAdvogados['advogado']['uf_oab'],
+        ];
+        $this->insert($advogados);
     }
 }

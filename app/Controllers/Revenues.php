@@ -24,7 +24,9 @@ class Revenues extends BaseController
 
     public function index()
     {
+        
         $data = $this->img();
+        $data['permission'] = $this->permission();
         $RevenuesModel = new RevenuesModel();
         $s = $this->request->getVar('s');
         if($s==null)

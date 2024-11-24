@@ -7,16 +7,16 @@ use CodeIgniter\Database\Migration;
 class Intimacoes extends Migration
 {
     public function up()
-    {
+    { 
         $this->forge->addField([
-            'id_intimacao'              => ['type' => 'int', 'constraint' => 11, 'auto_increment' => true],
+            'id_intimacao'              => ['type' => 'int', 'constraint' => 11],
             'data_disponibilizacao'     => ['type' => 'date', 'null' => true],
             'siglaTribunal'             => ['type' => 'varchar', 'constraint' => 10, 'null' => true],
             'tipoComunicacao'           => ['type' => 'varchar', 'constraint'=>50, 'null' => true],
             'nomeOrgao'                 => ['type' => 'varchar', 'constraint'=>150, 'null' => true],
             'texto'                     => ['type' => 'longtext', 'null' => true],
             'numero_processo'           => ['type' => 'varchar', 'constraint'=>50, 'null' => true],
-            'meio'                      =>['type' => 'varchar', 'constraint'=>50, 'null' => true],
+            'meio'                      => ['type' => 'varchar', 'constraint'=>50, 'null' => true],
             'link'                      => ['type' => 'varchar', 'constraint'=>150, 'null' => true],
             'tipoDocumento'             => ['type' => 'varchar', 'constraint'=>50, 'null' => true],
             'codigoClasse'              => ['type' => 'varchar', 'constraint'=>50, 'null' => true],
@@ -35,20 +35,22 @@ class Intimacoes extends Migration
             'deleted_at'                => ['type' => 'datetime', 'null' => true],
         ]);
         $this->forge->addPrimaryKey('id_intimacao');
-        //$this->forge->addForeignKey('pessoa_id', 'pessoas', 'id_pessoa', '', 'CASCADE', 'parteProcessos_Pessoas');
         $this->forge->createTable('intimacoes');
 
         $this->forge->addField([      
+            'id_pk'              => ['type' => 'int', 'constraint' => 11, 'auto_increment' => true],
             'nome'               => ['type' => 'varchar', 'constraint'=>150, 'null' => true],
             'polo'               => ['type' => 'varchar', 'constraint'=>150, 'null' => true],
-            'comunicacao'        => ['type' => 'varchar', 'constraint'=>150, 'null' => true],
-            'intimacao_id'      => ['type' => 'int', 'constraint' => 11],
+            'comunicacao_id'     => ['type' => 'int', 'constraint' => 11],
+
         ]);
-        $this->forge->addForeignKey('intimacao_id', 'intimacoes', 'id_intimacao', '', 'CASCADE', 'FK_intimacoes_destinatario');
+        $this->forge->addPrimaryKey('id_pk');
+        $this->forge->addForeignKey('comunicacao_id', 'intimacoes', 'id_intimacao', '', 'CASCADE', 'FK_intimacoes_destinatario');
         $this->forge->createTable('intimacoes_destinatario');
 
 
-        $this->forge->addField([      
+        $this->forge->addField([  
+            'id_pk'              => ['type' => 'int', 'constraint' => 11, 'auto_increment' => true],    
             'id'                => ['type' => 'int', 'constraint'=>11],
             'comunicacao_id'    => ['type' => 'int', 'constraint'=>11, 'null' => true],
             'advogado_id'       => ['type' => 'int', 'constraint'=>11, 'null' => true],    
@@ -59,6 +61,7 @@ class Intimacoes extends Migration
             'updated_at'        => ['type' => 'datetime', 'null' => true],
 
         ]);
+        $this->forge->addPrimaryKey('id_pk');
         $this->forge->addForeignKey('comunicacao_id', 'intimacoes', 'id_intimacao', '', 'CASCADE', 'FK_intimacoes_advogados');
         $this->forge->createTable('intimacoes_advogados');
 

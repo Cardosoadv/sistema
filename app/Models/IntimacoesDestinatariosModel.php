@@ -6,22 +6,21 @@ use CodeIgniter\Database\RawSql;
 use CodeIgniter\Model;
 
 /**
- * Model para CRUD das intimações no Banco de Dados
+ * Model para CRUD dos destinatários das intimações no Banco de Dados
  */
 
 class IntimacoesDestinatariosModel extends Model
 {
     protected $table            = 'intimacoes_destinatario';
-    //protected $primaryKey       = 'id_intimacao';
-    protected $useAutoIncrement = false;
+    protected $primaryKey       = 'id_pk';
+    protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
     protected $allowedFields    = [
         'nome',
         'polo',
-        'comunicacao',
-        'intimacao_id',
+        'comunicacao_id',
     ];
 
     // Dates
@@ -49,61 +48,15 @@ class IntimacoesDestinatariosModel extends Model
     protected $afterDelete    = [];
 
     /**
-     * Metodo para realizar o join das tabelas de processos e pessoas
+     * Função salvar os destinatários vinculados às intimações
+     * @param array $itemsDestinatario
      */
-    public function joinClientes()
-    {
-        $query = $this->db->table('processos as p')
-        ->select('p.id_processo, p.processo, p.numero, c.nome')
-        ->where('p.deleted_at', null)
-        ->join('processos_partes as pp', 'p.id_processo = pp.processo_id', 'left')
-            ->where('pp.deleted_at', null)
-            ->where('pp.e_cliente=1')
-            ->join('pessoas as c', 'pp.pessoa_id = c.id_pessoa')
-            ->where('c.deleted_at', null)
-            ->get();
-            return $query->getResultArray();
-    }
-    
-    /**
-     * Metodo para adicionar parte ao Processo
-     */
-    public function adicionarPartes(array $parte){
-        $this->db->table('processos_partes')->insert($parte);
-    }
-
-        /**
-     * Metodo para atualizar parte do Processo
-     * @param $parte array de dados da parte
-     * @param $id_parte id da parte a ser atualizada 
-     */
-    public function atualizarPartes(array $parte, $id_parte){
-        $builder = $this->db->table('processos_partes');
-        $data = $parte;
-        $data['updated_at'] = new RawSql('CURRENT_TIMESTAMP()');
-        $builder->where('id_parte', $id_parte);
-        $builder->update($data);
-    }
-
-    /**
-     * Metódo para receber o cliente vinculado ao processo
-     */
-    public function getCliente($processo_id){
-        $query = $this->db->table('processos_partes')
-        ->where('processo_id', $processo_id)
-        ->where('e_cliente', 1)
-        ->get();
-        return $query->getResultArray();
-    }
-
-    /**
-     * Metódo para receber a outra parte vinculada ao processo
-     */
-    public function getOutraParte($processo_id){
-        $query = $this->db->table('processos_partes')
-        ->where('processo_id', $processo_id)
-        ->where('e_cliente', 0)
-        ->get();
-        return $query->getResultArray();
+    public function salvarDestinatarios($itemsDestinatario){
+    $destinatarios = [
+        'comunicacao_id' => $itemsDestinatario['comunicacao_id'],
+        'nome'           => $itemsDestinatario['nome'],
+        'polo'           => $itemsDestinatario['polo'],
+    ];
+    $this->insert($destinatarios);
     }
 }

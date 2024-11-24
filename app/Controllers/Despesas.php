@@ -30,7 +30,9 @@ class Despesas extends BaseController
      */ 
     public function index()
     {
+        
         $data = $this->img();
+        $data['permission'] = $this->permission();
         $DespesasModels = new DespesasModel();
         $s = $this->request->getVar('s');
         if($s==null)
@@ -53,7 +55,9 @@ class Despesas extends BaseController
      * Metodo para exibir o formulário de inserção de despesa
      */
     public function novo(){
+        
         $data = $this->img();
+        $data['permission'] = $this->permission();
         $Combo = new Combos();
         $data['fornecedor']= $Combo->comboClientes('fornecedor');
         $data['advogado']= $Combo->comboAdvogados('advogado[0]');
@@ -110,7 +114,9 @@ class Despesas extends BaseController
      */
     public function consultar($id)
     {
+        
         $data = $this->img();
+        $data['permission'] = $this->permission();
         $DespesasModels = new DespesasModel();
         $data['despesas'] = $DespesasModels->find($id);
         $rateio = json_decode($data['venda']['rateio'], true);

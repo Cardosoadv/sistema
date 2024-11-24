@@ -25,7 +25,9 @@ class Clientes extends BaseController
  
     public function index()
     {
+        
         $data = $this->img();
+        $data['permission'] = $this->permission();
         $ClientesModel = new PessoasModel();
         $s = $this->request->getVar('s');
         if($s==null)
@@ -43,7 +45,9 @@ class Clientes extends BaseController
      * Metodo para exibir o formulário de inserção de cliente
      */
     public function novo(){
+        
         $data = $this->img();
+        $data['permission'] = $this->permission();
         return  view('cliente/novoCliente', $data);
     }
 
@@ -91,7 +95,9 @@ class Clientes extends BaseController
      */
     public function consultar($id)
     {
+        
         $data = $this->img();
+        $data['permission'] = $this->permission();
         $ClientesModel = new  PessoasModel();
         $data['cliente'] = $ClientesModel->find($id);
         return  view('cliente/consultarCliente', $data);

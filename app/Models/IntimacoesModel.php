@@ -4,7 +4,7 @@ namespace App\Models;
 use CodeIgniter\Model;
 
 /**
- * Model para CRUD dos processos no Banco de Dados
+ * Model para CRUD das intimações dos processos no Banco de Dados
  */
 class IntimacoesModel extends Model
 {
@@ -57,21 +57,29 @@ class IntimacoesModel extends Model
     protected $afterInsert    = [];
     protected $beforeUpdate   = [];
     protected $afterUpdate    = [];
-    protected $beforeFind     = [];
+    protected $beforeFind     = []; 
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
 
-    public function exitingIntimacao(string $id){
-        $existingIntimacao = $this->db->table('intimacoes')
-        ->where('id_intimacao', $id)
-        ->get()
-        ->getResultArray();
-        return isset($existingIntimacao['id_intimacao']);
-        //return $existingIntimacao;
+    /**
+     * Função para verificar se a intimação já consta do db
+     * @param string $id
+     * @return bool
+     */
+    public function exitingIntimacao(string $id): bool {
+        $query = $this->db->table('intimacoes')
+                          ->select('id_intimacao')
+                          ->where('id_intimacao', $id)
+                          ->get();
+        return $query->getRowArray() !== null;
     }
 
-    public function bindingIntimacoes($items){
+    /**
+     * Função salvar as intimações no db
+     * @param array $items
+     */
+    public function salvarIntimacoes($items){
         $intimacao = [
             'id_intimacao'              => $items['id'],
             'data_disponibilizacao'     => $items['data_disponibilizacao'],
@@ -95,14 +103,50 @@ class IntimacoesModel extends Model
             'meiocompleto'              => $items['meiocompleto'],
             'numeroprocessocommascara'  => $items['numeroprocessocommascara'],
         ];
+        $this->insert($intimacao);
     }
+
+    private function getAdvogados($id_intimacao){
+
+        $builder = $this->db->table('intimacoes_advogados')
+        ->where('comunicacao_id', $id_intimacao)
+        ->get()
+        ->getResultArray();
+        return $builder;
+    }
+
+    private function getDestinatarios($id_intimacao){
+
+        $intimacao = $this->db->table('intimacoes_destinatario')
+        ->where('comunicacao_id', $id_intimacao)
+        ->get()
+        ->getResultArray();
+        return $intimacao;
+    }
+
+    /**
+    * Função para agrupar dados de todas as tabelas de intimação
+    */
+    public function getIntimacoesNaoTratadas(){
+        $intimacoes = $this->db->table('intimacoes')
+        ->where('statusTratamento',0)
+        ->get()
+        ->getResultArray();
+        $data = [];
+        foreach($intimacoes as $intimacao){
+            $intimacaoAgrupada = $intimacao;
+            $intimacaoAgrupada['advogados'] = $this->getAdvogados($intimacao['id_intimacao']);
+            $intimacaoAgrupada['destinatarios'] = $this->getDestinatarios($intimacao['id_intimacao']);    
+            array_push($data, $intimacaoAgrupada);    
+        }
+        return $data;
+    }
+
     
-
-
-
-
-
-
-
+    private function debug($data) {
+        echo '<pre>';
+        print_r($data);
+        echo '</pre>';
+    }
 
 }

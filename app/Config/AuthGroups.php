@@ -83,6 +83,7 @@ class AuthGroups extends ShieldAuthGroups
         'module.tarefas'      => 'Pode gerenciar tarefas',
         'module.processos'    => 'Pode gerenciar processos',
         'module.financeiro'   => 'Pode gerenciar financeiro',
+        'module.intimacoes'   => 'Pode gerenciar intimações'
     ];
 
     /**

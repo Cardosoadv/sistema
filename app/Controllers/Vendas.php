@@ -27,7 +27,9 @@ class Vendas extends BaseController
 
     public function index()
     {
+        
         $data = $this->img();
+        $data['permission'] = $this->permission();
         $VendasModels = new VendasModel();
         $s = $this->request->getVar('s');
         if($s==null)
@@ -46,7 +48,9 @@ class Vendas extends BaseController
      * Metodo para exibir o formulário de inserção de cliente
      */
     public function novo(){
+        
         $data = $this->img();
+        $data['permission'] = $this->permission();
         $Combo = new Combos();
         $data['cliente']= $Combo->comboClientes('cliente');
         $data['advogado']= $Combo->comboAdvogados('advogado[0]');
@@ -104,7 +108,9 @@ class Vendas extends BaseController
      */
     public function consultar($id)
     {
+        
         $data = $this->img();
+        $data['permission'] = $this->permission();
         $VendasModels = new VendasModel();
         $data['venda'] = $VendasModels->find($id);
         $rateio = json_decode($data['venda']['rateio'], true);

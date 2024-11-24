@@ -7,9 +7,9 @@ class Home extends BaseController
 {
     public function index(): string
     {
+        
         $data = $this->img();
-        $permission['processos']=false;
-        $data['permission'] = $permission;
+        $data['permission'] = $this->permission();
         return view('dashboard', $data);
     }
 

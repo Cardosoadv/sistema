@@ -3,7 +3,6 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
-use App\CodeIgniter\BaseModel;
 use App\Models\IntimacoesModel;
 use App\Models\IntimacoesDestinatariosModel;
 use App\Models\IntimacoesAdvogadosModel;
@@ -11,103 +10,68 @@ use Exception;
 
 class Intimacoes extends BaseController
 {
+    // Injeta os Models via construtor.
+    private $intimacoesModel,$intimacoesDestinatariosModel,$intimacoesAdvogadosModel;
 
+    public function __construct(){
+
+    $this->intimacoesModel                  = new IntimacoesModel();
+    $this->intimacoesDestinatariosModel     = new IntimacoesDestinatariosModel();
+    $this->intimacoesAdvogadosModel         = new IntimacoesAdvogadosModel();
+        
+    }
 
     public function index(){
 
-        $this->getIntimacoes("164136","mg");
-    
+        $data = $this->img();
+        $data['permission'] = $this->permission();
+        $data['intimacoes'] = $this->intimacoesModel->getIntimacoesNaoTratadas();
+        return view('intimacoes', $data);
     }
 
+    public function tratarIntimacoes(){
+
+    }
+
+
+    /**
+     * Efetua o tratamento das intimações organizando os dados e salvandos nas tabelas corretas
+     */
     public function parseIntimacao(array $data){
 
-        $resultadoIntimacoes = [];
-        $intimacoesModel = new IntimacoesModel();
-        $intimacoesDestinatariosModel = new IntimacoesDestinatariosModel();
-        $intimacoesAdvogadosModel = new IntimacoesAdvogadosModel();
-
         foreach($data['items'] as $items){
-            //Binding capos da intimação
-            $intimacao = [
-                'id_intimacao'              => $items['id'],
-                'data_disponibilizacao'     => $items['data_disponibilizacao'],
-                'siglaTribunal'             => $items['siglaTribunal'],
-                'tipoComunicacao'           => $items['tipoComunicacao'],
-                'nomeOrgao'                 => $items['nomeOrgao'],
-                'texto'                     => $items['texto'],
-                'numero_processo'           => $items['numero_processo'],
-                'meio'                      => $items['meio'],
-                'link'                      => $items['link'],
-                'tipoDocumento'             => $items['tipoDocumento'],
-                'codigoClasse'              => $items['codigoClasse'],
-                'numeroComunicacao'         => $items['numeroComunicacao'],
-                'ativo'                     => ($items['ativo'])?1:0,
-                'hash'                      => $items['hash'],
-                'status'                    => $items['status'],
-                'motivo_cancelamento'       => $items['motivo_cancelamento'],
-                'data_cancelamento'         => $items['data_cancelamento'],
-                'datadisponibilizacao'      => $items['datadisponibilizacao'],
-                'dataenvio'                 => $items['dataenvio'],
-                'meiocompleto'              => $items['meiocompleto'],
-                'numeroprocessocommascara'  => $items['numeroprocessocommascara'],
-            ];
 
-
-            if($intimacoesModel->exitingIntimacao($items['id'])){
+            //Verifica se a intimaçã já foi registrada no db
+            if($this->intimacoesModel->exitingIntimacao($items['id'])){
                 
                 echo "id ".$items['id']." Já Registrado \n.";
                 
             }else{
-                try {
 
                     //Registra as intimações no db
-                    $intimacoesModel->insert($intimacao);
-                    
-                    array_push($resultadoIntimacoes, $intimacoesModel->getInsertID());
+                    $this->intimacoesModel->salvarIntimacoes($items);
 
                     //Percorre a lista de destinários salvando cada uma no db
                     foreach($items['destinatarios'] as $itemsDestinatario){
-                        $destinatarios = [
-                            'comunicacao_id' => $itemsDestinatario['id_intimacao'],
-                            'nome'           => $itemsDestinatario['id_intimacao'],
-                            'polo'           => $itemsDestinatario['id_intimacao'],
-                        ];
-                        $intimacoesDestinatariosModel->insert($destinatarios);
+                        $this->intimacoesDestinatariosModel->salvarDestinatarios($itemsDestinatario);
                     }
 
                     //Percorre a lista de advogados salvando cada uma no db
-                    foreach($items['advogados'] as $itemsAdvogados){
-                        $advogados = [
-                            'id'                => $itemsAdvogados['id'],
-                            'comunicacao_id'    => $itemsAdvogados['comunicacao_id'],
-                            'advogado_id'       => $itemsAdvogados['advogado_id'],    
-                            'advogado_nome'     => $itemsAdvogados['advogado_nome'],
-                            'advogado_oab'      => $itemsAdvogados['advogado_oab'],
-                            'advogado_oab_uf'   => $itemsAdvogados['advogado_oab_uf'],
-                            'created_at'        => $itemsAdvogados['created_at'],
-                            'updated_at'        => $itemsAdvogados['updated_at']
-                        ];
-                        $intimacoesAdvogadosModel->insert($advogados);
-
+                    foreach($items['destinatarioadvogados'] as $itemsAdvogados){
+                        $this->intimacoesAdvogadosModel->salvarAdvogados($itemsAdvogados);
                         }
-                    } catch (Exception $e) {
-                        //Desfaz operações em caso de erro.
-
-                        // Registrar erro em um log
-                        error_log("Erro ao salvar intimação: " . $e->getMessage());
-                    }
-
-                }
+            }            
+                
         }
-
-        echo '<pre>';
-        print_r($resultadoIntimacoes);
-        echo '</pre>';
-        
-        //return view('testes');
-
+        $msg['msg']= "Sucesso no salvamento das intimações";
+        return view('testes', $msg);
     }
 
+    /**
+     * Função para buscar as intimações no DJEN
+     * @param string $oab
+     * @param string $ufOab
+     */
     public function getIntimacoes($oab, $ufOab){
 
         $apiUrl = 'https://hcomunicaapi.cnj.jus.br/api/v1/comunicacao';
