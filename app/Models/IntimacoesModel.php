@@ -2,12 +2,19 @@
 
 namespace App\Models;
 use CodeIgniter\Model;
+use App\Libraries\ConverterData;
+use App\Libraries\ConveterData;
+
+
+
 
 /**
  * Model para CRUD das intimações dos processos no Banco de Dados
  */
 class IntimacoesModel extends Model
 {
+
+
     protected $table            = 'intimacoes';
     protected $primaryKey       = 'id_intimacao';
     protected $useAutoIncrement = false;
@@ -62,6 +69,9 @@ class IntimacoesModel extends Model
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
 
+    
+
+
     /**
      * Função para verificar se a intimação já consta do db
      * @param string $id
@@ -80,6 +90,9 @@ class IntimacoesModel extends Model
      * @param array $items
      */
     public function salvarIntimacoes($items){
+
+        $converter = new ConveterData();
+
         $intimacao = [
             'id_intimacao'              => $items['id'],
             'data_disponibilizacao'     => $items['data_disponibilizacao'],
@@ -98,12 +111,13 @@ class IntimacoesModel extends Model
             'status'                    => $items['status'],
             'motivo_cancelamento'       => $items['motivo_cancelamento'],
             'data_cancelamento'         => $items['data_cancelamento'],
-            'datadisponibilizacao'      => $items['datadisponibilizacao'],
-            'dataenvio'                 => $items['dataenvio'],
+            'datadisponibilizacao'      => $converter->novaData($items['datadisponibilizacao']),
+            'dataenvio'                 => $converter->novaData($items['dataenvio']),
             'meiocompleto'              => $items['meiocompleto'],
             'numeroprocessocommascara'  => $items['numeroprocessocommascara'],
         ];
         $this->insert($intimacao);
+        //$this->debug($intimacao);
     }
 
     private function getAdvogados($id_intimacao){

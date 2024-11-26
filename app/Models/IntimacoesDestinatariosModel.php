@@ -58,5 +58,13 @@ class IntimacoesDestinatariosModel extends Model
         'polo'           => $itemsDestinatario['polo'],
     ];
     $this->insert($destinatarios);
+    //$this->debug($destinatarios);
     }
+
+    private function debug($data) {
+        echo '<pre>';
+        print_r($data);
+        echo '</pre>';
+    }
+
 }

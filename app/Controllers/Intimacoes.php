@@ -25,9 +25,20 @@ class Intimacoes extends BaseController
 
         $data = $this->img();
         $data['permission'] = $this->permission();
+        $this->getIntimacoes("164136", "MG");
+        $this->getIntimacoes("61061", "MG");
+
         $data['intimacoes'] = $this->intimacoesModel->getIntimacoesNaoTratadas();
         return view('intimacoes', $data);
     }
+
+    public function buscarintimacoes($nomeParte){
+
+        $this->getIntimacoesPeloNomeParte($nomeParte);
+
+        return redirect()->to('intimacoes');
+    }
+
 
     public function tratarIntimacoes(){
 
@@ -110,4 +121,51 @@ class Intimacoes extends BaseController
         // Fecha a sessão cURL
         curl_close($ch);
     }
+
+        /**
+     * Função para buscar as intimações no DJEN
+     * @param string $nomeParte
+     */
+    public function getIntimacoesPeloNomeParte($nomeParte){
+
+        $nomeParteFormatado = str_replace($nomeParte, ' ', '%20');
+        $apiUrl = 'https://hcomunicaapi.cnj.jus.br/api/v1/comunicacao';
+        $params = [
+            'nomeParte' => $nomeParteFormatado,
+        ];
+        
+        // Construindo a URL com os parâmetros
+        $query = http_build_query($params);
+        $apiUrl .= '?' . $query;
+
+        // Iniciando a sessão cURL
+        $ch = curl_init();
+        
+        // Configurando as opções da requisição
+        curl_setopt($ch, CURLOPT_URL, $apiUrl);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        
+        // Executa a requisição e obtém a resposta
+        $response = curl_exec($ch);
+        
+        // Verifica se houve algum erro
+        if(curl_errno($ch)){
+            echo 'Erro na requisição: ' . curl_error($ch);
+        } else {
+            // Processa a resposta da API
+            $data = json_decode($response, true);
+            if ($data['status']=="success"){
+                $this->parseIntimacao($data);
+            }else{
+                $s = $data;
+                return view('testes',$s); 
+            }
+        }
+        // Fecha a sessão cURL
+        curl_close($ch);
+    }
+
+
+
+
 }
