@@ -5,13 +5,12 @@ namespace App\Libraries;
 use DateTime;
 
 
-class ConveterData{
+class ConverterData{
 
         //função para formatar a data. Ainda não foi testada.
         public function novaData($data)
         {
-        $novaData = date_format(new DateTime($data), 'Y-m-d');
+        $novaData = date('Y-m-d', strtotime($data));
         return $novaData;
         }
-    
 }

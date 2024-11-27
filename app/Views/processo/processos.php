@@ -2,7 +2,7 @@
 <html lang="pt-BR"><!--begin::Head-->
 
 <head>
-  <title>Conselhos | Processos</title><!--begin::Primary Meta Tags-->
+  <title>Sistema | Processos</title><!--begin::Primary Meta Tags-->
   <?= $this->include('template/header') ?>
 </head><!--end::Head-->
 <!--begin::Body-->

@@ -17,7 +17,10 @@ class ProcessosModel extends Model
     protected $useSoftDeletes   = true;
     protected $protectFields    = true;
     protected $allowedFields    = [
-        'id_processo', 'processo', 'acao', 'numero', 'juizo', 'vlr_causa', 'dt_distribuicao', 'vlr_condenacao', 'comentarios'
+        'id_processo', 'processo', 'acao', 'numero', 'juizo', 
+        'vlr_causa', 'dt_distribuicao', 'vlr_condenacao', 'comentarios',
+        'siglaTribunal', 'nomeOrgao', 'numero_processo', 'tipoDocumento',
+        'codigoClasse', 'ativo', 'numeroprocessocommascara',   
     ];
 
     // Dates

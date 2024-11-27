@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use App\Libraries\Debug;
 use App\Models\IntimacoesModel;
 use App\Models\IntimacoesDestinatariosModel;
 use App\Models\IntimacoesAdvogadosModel;
@@ -12,12 +13,14 @@ class Intimacoes extends BaseController
 {
     // Injeta os Models via construtor.
     private $intimacoesModel,$intimacoesDestinatariosModel,$intimacoesAdvogadosModel;
+    private $debug;
 
     public function __construct(){
 
     $this->intimacoesModel                  = new IntimacoesModel();
     $this->intimacoesDestinatariosModel     = new IntimacoesDestinatariosModel();
     $this->intimacoesAdvogadosModel         = new IntimacoesAdvogadosModel();
+    $this->debug                            = new Debug();
         
     }
 
@@ -41,8 +44,19 @@ class Intimacoes extends BaseController
 
 
     public function tratarIntimacoes(){
+        $ids = $this->request->getPost('intimacoes[]');
+        
+        foreach ($ids as $id){
+            $intimacao  = $this->intimacoesModel->where("id_intimacao", $id)->first();
+            $advogados  = $this->intimacoesAdvogadosModel->where("comunicacao_id", $id)->get()->getResultArray();
+            $partes     = $this->intimacoesDestinatariosModel->where("comunicacao_id", $id)->get()->getResultArray(); 
+            $this->debug->debug($intimacao);
+            $this->debug->debug($advogados);
+            $this->debug->debug($partes);
+        }
 
     }
+
 
 
     /**

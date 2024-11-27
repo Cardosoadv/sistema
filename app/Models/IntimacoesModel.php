@@ -3,7 +3,7 @@
 namespace App\Models;
 use CodeIgniter\Model;
 use App\Libraries\ConverterData;
-use App\Libraries\ConveterData;
+
 
 
 
@@ -91,7 +91,7 @@ class IntimacoesModel extends Model
      */
     public function salvarIntimacoes($items){
 
-        $converter = new ConveterData();
+        $converter = new ConverterData();
 
         $intimacao = [
             'id_intimacao'              => $items['id'],
