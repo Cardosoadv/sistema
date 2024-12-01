@@ -23,7 +23,7 @@ $active = $uri->getSegment(1);
                     </a>
                 </li>
                 <?php if($permission['processos']):?>
-                <li class="nav-item <?php echo (($active === "processos") ? "menu-open" : "");?>"><a href="#" class="nav-link <?php echo (($active === "processos") ? "active" : "");?>">
+                <li class="nav-item <?php echo (($active === "processos") ? "menu-open" : "");?>"><a href="<?php echo site_url('processos');?>" class="nav-link <?php echo (($active === "processos") ? "active" : "");?>">
                     <i class="nav-icon bi bi-box-seam-fill"></i>
                         <p>
                             Processos
@@ -45,7 +45,7 @@ $active = $uri->getSegment(1);
                 <?php endif; ?>
 
                 <?php if($permission['intimacoes']):?>
-                <li class="nav-item <?php echo (($active === "intimacoes") ? "menu-open" : "");?>"><a href="#" class="nav-link <?php echo (($active === "processos") ? "active" : "");?>">
+                <li class="nav-item <?php echo (($active === "intimacoes") ? "menu-open" : "");?>"><a href="<?php echo site_url('intimacoes');?>" class="nav-link <?php echo (($active === "intimacoes") ? "active" : "");?>">
                     <i class="nav-icon bi bi-box-seam-fill"></i>
                         <p>
                             Intimacoes

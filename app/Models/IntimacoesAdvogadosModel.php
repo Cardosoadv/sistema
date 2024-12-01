@@ -70,5 +70,12 @@ class IntimacoesAdvogadosModel extends Model
             'advogado_oab_uf'   => $itemsAdvogados['advogado']['uf_oab'],
         ];
         $this->insert($advogados);
+        //$this->debug($advogados);
+    }
+
+    private function debug($data) {
+        echo '<pre>';
+        print_r($data);
+        echo '</pre>';
     }
 }
