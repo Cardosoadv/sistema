@@ -7,12 +7,18 @@ use App\Libraries\Debug;
 use App\Models\IntimacoesModel;
 use App\Models\IntimacoesDestinatariosModel;
 use App\Models\IntimacoesAdvogadosModel;
+use App\Models\ProcessosModel;
+use App\Models\ProcessosMovimentoModel;
+use App\Models\ProcessosPartesModel;
 use Exception;
 
 class Intimacoes extends BaseController
 {
     // Injeta os Models via construtor.
     private $intimacoesModel,$intimacoesDestinatariosModel,$intimacoesAdvogadosModel;
+    private $processosModel;
+    private $processosMovimentoModel;
+    private $processosPartesModel;
     private $debug;
 
     public function __construct(){
@@ -20,6 +26,9 @@ class Intimacoes extends BaseController
     $this->intimacoesModel                  = new IntimacoesModel();
     $this->intimacoesDestinatariosModel     = new IntimacoesDestinatariosModel();
     $this->intimacoesAdvogadosModel         = new IntimacoesAdvogadosModel();
+    $this->processosModel                   = new ProcessosModel();
+    $this->processosMovimentoModel          = new ProcessosMovimentoModel();
+    $this->processosPartesModel             = new ProcessosPartesModel();
     $this->debug                            = new Debug();
         
     }
@@ -44,20 +53,52 @@ class Intimacoes extends BaseController
 
 
     public function tratarIntimacoes(){
+        
         $ids = $this->request->getPost('intimacoes[]');
         
         foreach ($ids as $id){
+           
             $intimacao  = $this->intimacoesModel->where("id_intimacao", $id)->first();
             $advogados  = $this->intimacoesAdvogadosModel->where("comunicacao_id", $id)->get()->getResultArray();
             $partes     = $this->intimacoesDestinatariosModel->where("comunicacao_id", $id)->get()->getResultArray(); 
             $this->debug->debug($intimacao);
             $this->debug->debug($advogados);
             $this->debug->debug($partes);
+            
+            if (! $this->processosModel->exitingProcesso($intimacao['numero_processo'])){
+                
+                $this->processosModel->salvarProcesso($intimacao);
+
+                $intimacao['processo_id'] = $this->processosModel->getInsertID();
+                echo $intimacao['processo_id'];
+
+                
+                $this->processosMovimentoModel->salvarMovimento($intimacao);
+)
+
+                    foreach ($advogados as $advogado){
+                        
+                        $this->processosAdvogadosModel->salvarAdvogados($advogado,$intimacao['processo_id']);
+                    }
+
+                    foreach ($partes as $parte){
+
+                            $this->processosPartesModel->salvarParte($parte,$intimacao['processo_id']);
+                    
+                    }
+                         
+
+                $this->intimacoesModel->update($intimacao['id_intimacao'], 'statusTratamento', 1);
+
+            }else{
+
+                echo "processo já salvo";  
+            
+            }
+            
         }
-
+ 
     }
-
-
 
     /**
      * Efetua o tratamento das intimações organizando os dados e salvandos nas tabelas corretas

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Libraries\Debug;
 use CodeIgniter\Database\RawSql;
 use CodeIgniter\Model;
 
@@ -46,6 +47,13 @@ class ProcessosModel extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
+
+    private $debug;
+
+    public function __construct()
+    {
+        $this->debug = new Debug();
+    }
 
     /**
      * Metodo para realizar o join das tabelas de processos e pessoas
@@ -105,4 +113,39 @@ class ProcessosModel extends Model
         ->get();
         return $query->getResultArray();
     }
+
+        /**
+     * Função para verificar se a intimação já consta do db
+     * @param string $id
+     * @return bool
+     */
+    public function exitingProcesso(string $numeroProcesso): bool {
+        $query = $this->db->table('processos')
+                          ->select('numero_processo')
+                          ->where('numero_processo', $numeroProcesso)
+                          ->get();
+        return $query->getRowArray() !== null;
+    }
+
+    public function salvarProcesso($intimacao){
+        
+        $processo = [
+            'siglaTribunal'                     => $intimacao['siglaTribunal'],
+            'nomeOrgao'                         => $intimacao['nomeOrgao'],
+            'numero_processo'                   => $intimacao['numero_processo'],
+            'tipoDocumento'                     => $intimacao['tipoDocumento'],
+            'codigoClasse'                      => $intimacao['codigoClasse'],
+            'ativo'                             => $intimacao['ativo'],
+            'numeroprocessocommascara'          => $intimacao['numeroprocessocommascara'],
+        ];
+
+        $this->debug->debug($processo);
+        //$this->processosModel->insert($processo);
+
+
+    }
+
+
+
+
 }
