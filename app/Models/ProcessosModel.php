@@ -120,10 +120,10 @@ class ProcessosModel extends Model
      * @return bool
      */
     public function exitingProcesso(string $numeroProcesso): bool {
-        $query = $this->db->table('processos')
-                          ->select('numero_processo')
-                          ->where('numero_processo', $numeroProcesso)
-                          ->get();
+        $query =        $this->db->table('processos')
+                        ->select('numero_processo')
+                        ->where('numero_processo', $numeroProcesso)
+                        ->get();
         return $query->getRowArray() !== null;
     }
 

@@ -3,7 +3,6 @@
 namespace App\Libraries;
 
 use App\Controllers\Intimacoes;
-use Config\Paths;
 use Exception;
 
 class ReceberIntimacoes{
@@ -50,7 +49,16 @@ class ReceberIntimacoes{
             // Processa a resposta da API
             $data = json_decode($response, true);
             if ($data['status']=="success"){
-                $this->intimacao->parseIntimacao($data);
+
+                
+            // Generate a unique filename
+            $filename = $this->generateFilename($oab, $ufOab);
+                
+            // Save JSON to file
+            $this->saveJsonToFile($filename, $response);
+
+            $this->intimacao->parseIntimacao($data);
+
             }else{
                 $s = $data;
                 return view('testes',$s); 
@@ -58,15 +66,6 @@ class ReceberIntimacoes{
         }
         // Fecha a sessão cURL
         curl_close($ch);
-    
-
-    // Generate a unique filename
-    $filename = $this->generateFilename($oab, $ufOab);
-        
-    // Save JSON to file
-    $this->saveJsonToFile($filename, $response);
-    
-    return $filename;
 }
 
 /**
@@ -79,25 +78,21 @@ class ReceberIntimacoes{
 private function generateFilename($oab, $ufOab) {
     // Create storage directory if it doesn't exist
 
-    // Obtendo o caminho para o diretório de sistema (WRITEPATH)
-    $systemPath = Paths::get('writableDirectory');
     
     // Construindo o caminho completo para o arquivo ou pasta dentro do diretório de armazenamento
-    $storagePath = $systemPath . '/seu_diretorio_de_armazenamento';
+    $storagePath = WRITEPATH . '/intimacao_json';
     
     // Salvando um arquivo
-    $filename = 'meu_arquivo.txt';
-    $filepath = $storagePath . '/' . $filename;
-    file_put_contents($filepath, 'Conteúdo do arquivo');
+    
+    //file_put_contents($filepath, 'Conteúdo do arquivo');
 
-    $storageDir = storage_path('app/intimacoes');
-    if (!is_dir($storageDir)) {
-        mkdir($storageDir, 0755, true);
+    if (!is_dir($storagePath)) {
+        mkdir($storagePath, 0755, true);
     }
     
     // Generate filename with timestamp and OAB details
     $timestamp = date('YmdHis');
-    $filename = "{$storageDir}/{$oab}_{$ufOab}_{$timestamp}.json";
+    $filename = "{$storagePath}/{$timestamp}.json";
     
     return $filename;
 }
